@@ -1,0 +1,1152 @@
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"tim.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.global	__aeabi_fdiv
+  16              		.global	__aeabi_f2uiz
+  17              		.global	__aeabi_i2f
+  18              		.global	__aeabi_fsub
+  19              		.global	__aeabi_fmul
+  20              		.section	.rodata.Data_Refresh_Task.str1.4,"aMS",%progbits,1
+  21              		.align	2
+  22              	.LC0:
+  23 0000 566F6C74 		.ascii	"Voltage:%d.%03dV \000"
+  23      6167653A 
+  23      25642E25 
+  23      30336456 
+  23      2000
+  24 0012 0000     		.align	2
+  25              	.LC1:
+  26 0014 43757272 		.ascii	"Current:%d.%03dA \000"
+  26      656E743A 
+  26      25642E25 
+  26      30336441 
+  26      2000
+  27 0026 0000     		.align	2
+  28              	.LC2:
+  29 0028 506F7765 		.ascii	"Power:  %d.%03dW \000"
+  29      723A2020 
+  29      25642E25 
+  29      30336457 
+  29      2000
+  30              		.section	.text.Data_Refresh_Task,"ax",%progbits
+  31              		.align	1
+  32              		.global	Data_Refresh_Task
+  33              		.arch armv7-m
+  34              		.syntax unified
+  35              		.thumb
+  36              		.thumb_func
+  37              		.fpu softvfp
+  39              	Data_Refresh_Task:
+  40              	.LFB69:
+  41              		.file 1 "Core/Src/tim.c"
+   1:Core/Src/tim.c **** /**
+   2:Core/Src/tim.c ****   ******************************************************************************
+   3:Core/Src/tim.c ****   * @file    tim.c
+   4:Core/Src/tim.c ****   * @brief   This file provides code for the configuration
+   5:Core/Src/tim.c ****   *          of the TIM instances.
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s 			page 2
+
+
+   6:Core/Src/tim.c ****   ******************************************************************************
+   7:Core/Src/tim.c ****   * @attention
+   8:Core/Src/tim.c ****   *
+   9:Core/Src/tim.c ****   * <h2><center>&copy; Copyright (c) 2021 STMicroelectronics.
+  10:Core/Src/tim.c ****   * All rights reserved.</center></h2>
+  11:Core/Src/tim.c ****   *
+  12:Core/Src/tim.c ****   * This software component is licensed by ST under BSD 3-Clause license,
+  13:Core/Src/tim.c ****   * the "License"; You may not use this file except in compliance with the
+  14:Core/Src/tim.c ****   * License. You may obtain a copy of the License at:
+  15:Core/Src/tim.c ****   *                        opensource.org/licenses/BSD-3-Clause
+  16:Core/Src/tim.c ****   *
+  17:Core/Src/tim.c ****   ******************************************************************************
+  18:Core/Src/tim.c ****   */
+  19:Core/Src/tim.c **** 
+  20:Core/Src/tim.c **** /* Includes ------------------------------------------------------------------*/
+  21:Core/Src/tim.c **** #include "tim.h"
+  22:Core/Src/tim.c **** 
+  23:Core/Src/tim.c **** /* USER CODE BEGIN 0 */
+  24:Core/Src/tim.c **** //TIM1定时器，任务在定时器中不断循环
+  25:Core/Src/tim.c **** #include <stdio.h>
+  26:Core/Src/tim.c **** #include <string.h>
+  27:Core/Src/tim.c **** #include "bmp.h"
+  28:Core/Src/tim.c **** #include "oled.h"
+  29:Core/Src/tim.c **** #include "ina226.h"
+  30:Core/Src/tim.c **** 
+  31:Core/Src/tim.c **** char char_V[20], char_I[20], char_W[20];
+  32:Core/Src/tim.c **** 
+  33:Core/Src/tim.c **** HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+  34:Core/Src/tim.c **** {
+  35:Core/Src/tim.c ****     if (htim == &htim1)
+  36:Core/Src/tim.c ****     {
+  37:Core/Src/tim.c ****         Data_Refresh_Task(); //每10ms更新一次数据
+  38:Core/Src/tim.c ****         Oled_Data_List();
+  39:Core/Src/tim.c ****     }
+  40:Core/Src/tim.c **** }
+  41:Core/Src/tim.c **** 
+  42:Core/Src/tim.c **** void Data_Refresh_Task()
+  43:Core/Src/tim.c **** {
+  42              		.loc 1 43 1 view -0
+  43              		.cfi_startproc
+  44              		@ args = 0, pretend = 0, frame = 0
+  45              		@ frame_needed = 0, uses_anonymous_args = 0
+  46 0000 2DE9F843 		push	{r3, r4, r5, r6, r7, r8, r9, lr}
+  47              	.LCFI0:
+  48              		.cfi_def_cfa_offset 32
+  49              		.cfi_offset 3, -32
+  50              		.cfi_offset 4, -28
+  51              		.cfi_offset 5, -24
+  52              		.cfi_offset 6, -20
+  53              		.cfi_offset 7, -16
+  54              		.cfi_offset 8, -12
+  55              		.cfi_offset 9, -8
+  56              		.cfi_offset 14, -4
+  44:Core/Src/tim.c ****     uint16_t V_int = 0, V_dec = 0, I_int = 0, I_dec = 0, W_int = 0, W_dec = 0;
+  57              		.loc 1 44 5 view .LVU1
+  58              	.LVL0:
+  45:Core/Src/tim.c **** 
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s 			page 3
+
+
+  46:Core/Src/tim.c ****     get_power(); //INA226读取电压(mv)，读取电�?(mA),功率(W)
+  59              		.loc 1 46 5 view .LVU2
+  60 0004 FFF7FEFF 		bl	get_power
+  61              	.LVL1:
+  47:Core/Src/tim.c ****     V_int = (uint16_t)(INA226_data.voltageVal / 1000);
+  62              		.loc 1 47 5 view .LVU3
+  63              		.loc 1 47 35 is_stmt 0 view .LVU4
+  64 0008 294C     		ldr	r4, .L3
+  65              		.loc 1 47 47 view .LVU5
+  66 000a 2A49     		ldr	r1, .L3+4
+  67 000c 2068     		ldr	r0, [r4]	@ float
+  68 000e FFF7FEFF 		bl	__aeabi_fdiv
+  69              	.LVL2:
+  70 0012 0546     		mov	r5, r0
+  71              		.loc 1 47 11 view .LVU6
+  72 0014 FFF7FEFF 		bl	__aeabi_f2uiz
+  73              	.LVL3:
+  74 0018 86B2     		uxth	r6, r0
+  75              	.LVL4:
+  48:Core/Src/tim.c ****     V_dec = (uint16_t)((INA226_data.voltageVal / 1000 - V_int) * 1000);
+  76              		.loc 1 48 5 is_stmt 1 view .LVU7
+  77              		.loc 1 48 55 is_stmt 0 view .LVU8
+  78 001a 3046     		mov	r0, r6
+  79 001c FFF7FEFF 		bl	__aeabi_i2f
+  80              	.LVL5:
+  81 0020 0146     		mov	r1, r0
+  82 0022 2846     		mov	r0, r5
+  83 0024 FFF7FEFF 		bl	__aeabi_fsub
+  84              	.LVL6:
+  85              		.loc 1 48 64 view .LVU9
+  86 0028 2249     		ldr	r1, .L3+4
+  87 002a FFF7FEFF 		bl	__aeabi_fmul
+  88              	.LVL7:
+  89              		.loc 1 48 11 view .LVU10
+  90 002e FFF7FEFF 		bl	__aeabi_f2uiz
+  91              	.LVL8:
+  92 0032 1FFA80F9 		uxth	r9, r0
+  93              	.LVL9:
+  49:Core/Src/tim.c ****     I_int = (uint16_t)(INA226_data.Shunt_Current / 1000);
+  94              		.loc 1 49 5 is_stmt 1 view .LVU11
+  95              		.loc 1 49 50 is_stmt 0 view .LVU12
+  96 0036 1F49     		ldr	r1, .L3+4
+  97 0038 A068     		ldr	r0, [r4, #8]	@ float
+  98 003a FFF7FEFF 		bl	__aeabi_fdiv
+  99              	.LVL10:
+ 100 003e 0746     		mov	r7, r0
+ 101              		.loc 1 49 11 view .LVU13
+ 102 0040 FFF7FEFF 		bl	__aeabi_f2uiz
+ 103              	.LVL11:
+ 104 0044 85B2     		uxth	r5, r0
+ 105              	.LVL12:
+  50:Core/Src/tim.c ****     I_dec = (uint16_t)((INA226_data.Shunt_Current / 1000 - I_int) * 1000);
+ 106              		.loc 1 50 5 is_stmt 1 view .LVU14
+ 107              		.loc 1 50 58 is_stmt 0 view .LVU15
+ 108 0046 2846     		mov	r0, r5
+ 109 0048 FFF7FEFF 		bl	__aeabi_i2f
+ 110              	.LVL13:
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s 			page 4
+
+
+ 111 004c 0146     		mov	r1, r0
+ 112 004e 3846     		mov	r0, r7
+ 113 0050 FFF7FEFF 		bl	__aeabi_fsub
+ 114              	.LVL14:
+ 115              		.loc 1 50 67 view .LVU16
+ 116 0054 1749     		ldr	r1, .L3+4
+ 117 0056 FFF7FEFF 		bl	__aeabi_fmul
+ 118              	.LVL15:
+ 119              		.loc 1 50 11 view .LVU17
+ 120 005a FFF7FEFF 		bl	__aeabi_f2uiz
+ 121              	.LVL16:
+ 122 005e 1FFA80F8 		uxth	r8, r0
+ 123              	.LVL17:
+  51:Core/Src/tim.c ****     W_int = (uint16_t)INA226_data.Power_Val;
+ 124              		.loc 1 51 5 is_stmt 1 view .LVU18
+ 125              		.loc 1 51 34 is_stmt 0 view .LVU19
+ 126 0062 E768     		ldr	r7, [r4, #12]	@ float
+ 127              		.loc 1 51 11 view .LVU20
+ 128 0064 3846     		mov	r0, r7
+ 129 0066 FFF7FEFF 		bl	__aeabi_f2uiz
+ 130              	.LVL18:
+ 131 006a 84B2     		uxth	r4, r0
+ 132              	.LVL19:
+  52:Core/Src/tim.c ****     W_dec = (uint16_t)((INA226_data.Power_Val - W_int) * 1000);
+ 133              		.loc 1 52 5 is_stmt 1 view .LVU21
+ 134              		.loc 1 52 47 is_stmt 0 view .LVU22
+ 135 006c 2046     		mov	r0, r4
+ 136 006e FFF7FEFF 		bl	__aeabi_i2f
+ 137              	.LVL20:
+ 138 0072 0146     		mov	r1, r0
+ 139 0074 3846     		mov	r0, r7
+ 140 0076 FFF7FEFF 		bl	__aeabi_fsub
+ 141              	.LVL21:
+ 142              		.loc 1 52 56 view .LVU23
+ 143 007a 0E49     		ldr	r1, .L3+4
+ 144 007c FFF7FEFF 		bl	__aeabi_fmul
+ 145              	.LVL22:
+ 146              		.loc 1 52 11 view .LVU24
+ 147 0080 FFF7FEFF 		bl	__aeabi_f2uiz
+ 148              	.LVL23:
+ 149 0084 87B2     		uxth	r7, r0
+ 150              	.LVL24:
+  53:Core/Src/tim.c ****     sprintf(char_V, "Voltage:%d.%03dV ", V_int, V_dec);
+ 151              		.loc 1 53 5 is_stmt 1 view .LVU25
+ 152 0086 4B46     		mov	r3, r9
+ 153 0088 3246     		mov	r2, r6
+ 154 008a 0B49     		ldr	r1, .L3+8
+ 155 008c 0B48     		ldr	r0, .L3+12
+ 156 008e FFF7FEFF 		bl	sprintf
+ 157              	.LVL25:
+  54:Core/Src/tim.c ****     sprintf(char_I, "Current:%d.%03dA ", I_int, I_dec);
+ 158              		.loc 1 54 5 view .LVU26
+ 159 0092 4346     		mov	r3, r8
+ 160 0094 2A46     		mov	r2, r5
+ 161 0096 0A49     		ldr	r1, .L3+16
+ 162 0098 0A48     		ldr	r0, .L3+20
+ 163 009a FFF7FEFF 		bl	sprintf
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s 			page 5
+
+
+ 164              	.LVL26:
+  55:Core/Src/tim.c ****     sprintf(char_W, "Power:  %d.%03dW ", W_int, W_dec);
+ 165              		.loc 1 55 5 view .LVU27
+ 166 009e 3B46     		mov	r3, r7
+ 167 00a0 2246     		mov	r2, r4
+ 168 00a2 0949     		ldr	r1, .L3+24
+ 169 00a4 0948     		ldr	r0, .L3+28
+ 170 00a6 FFF7FEFF 		bl	sprintf
+ 171              	.LVL27:
+  56:Core/Src/tim.c **** }
+ 172              		.loc 1 56 1 is_stmt 0 view .LVU28
+ 173 00aa BDE8F883 		pop	{r3, r4, r5, r6, r7, r8, r9, pc}
+ 174              	.LVL28:
+ 175              	.L4:
+ 176              		.loc 1 56 1 view .LVU29
+ 177 00ae 00BF     		.align	2
+ 178              	.L3:
+ 179 00b0 00000000 		.word	INA226_data
+ 180 00b4 00007A44 		.word	1148846080
+ 181 00b8 00000000 		.word	.LC0
+ 182 00bc 00000000 		.word	char_V
+ 183 00c0 14000000 		.word	.LC1
+ 184 00c4 00000000 		.word	char_I
+ 185 00c8 28000000 		.word	.LC2
+ 186 00cc 00000000 		.word	char_W
+ 187              		.cfi_endproc
+ 188              	.LFE69:
+ 190              		.section	.rodata.Oled_Data_List.str1.4,"aMS",%progbits,1
+ 191              		.align	2
+ 192              	.LC3:
+ 193 0000 506F7765 		.ascii	"Power_X\000"
+ 193      725F5800 
+ 194              		.section	.text.Oled_Data_List,"ax",%progbits
+ 195              		.align	1
+ 196              		.global	Oled_Data_List
+ 197              		.syntax unified
+ 198              		.thumb
+ 199              		.thumb_func
+ 200              		.fpu softvfp
+ 202              	Oled_Data_List:
+ 203              	.LFB70:
+  57:Core/Src/tim.c **** 
+  58:Core/Src/tim.c **** void Oled_Data_List()
+  59:Core/Src/tim.c **** {
+ 204              		.loc 1 59 1 is_stmt 1 view -0
+ 205              		.cfi_startproc
+ 206              		@ args = 0, pretend = 0, frame = 0
+ 207              		@ frame_needed = 0, uses_anonymous_args = 0
+ 208 0000 08B5     		push	{r3, lr}
+ 209              	.LCFI1:
+ 210              		.cfi_def_cfa_offset 8
+ 211              		.cfi_offset 3, -8
+ 212              		.cfi_offset 14, -4
+  60:Core/Src/tim.c ****     OLED_ShowString(40, 0, "Power_X", 16);
+ 213              		.loc 1 60 5 view .LVU31
+ 214 0002 1023     		movs	r3, #16
+ 215 0004 0B4A     		ldr	r2, .L7
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s 			page 6
+
+
+ 216 0006 0021     		movs	r1, #0
+ 217 0008 2820     		movs	r0, #40
+ 218 000a FFF7FEFF 		bl	OLED_ShowString
+ 219              	.LVL29:
+  61:Core/Src/tim.c ****     OLED_ShowString(0, 2, char_V, 16);
+ 220              		.loc 1 61 5 view .LVU32
+ 221 000e 1023     		movs	r3, #16
+ 222 0010 094A     		ldr	r2, .L7+4
+ 223 0012 0221     		movs	r1, #2
+ 224 0014 0020     		movs	r0, #0
+ 225 0016 FFF7FEFF 		bl	OLED_ShowString
+ 226              	.LVL30:
+  62:Core/Src/tim.c ****     OLED_ShowString(0, 4, char_I, 16);
+ 227              		.loc 1 62 5 view .LVU33
+ 228 001a 1023     		movs	r3, #16
+ 229 001c 074A     		ldr	r2, .L7+8
+ 230 001e 0421     		movs	r1, #4
+ 231 0020 0020     		movs	r0, #0
+ 232 0022 FFF7FEFF 		bl	OLED_ShowString
+ 233              	.LVL31:
+  63:Core/Src/tim.c ****     OLED_ShowString(0, 6, char_W, 16);
+ 234              		.loc 1 63 5 view .LVU34
+ 235 0026 1023     		movs	r3, #16
+ 236 0028 054A     		ldr	r2, .L7+12
+ 237 002a 0621     		movs	r1, #6
+ 238 002c 0020     		movs	r0, #0
+ 239 002e FFF7FEFF 		bl	OLED_ShowString
+ 240              	.LVL32:
+  64:Core/Src/tim.c **** }
+ 241              		.loc 1 64 1 is_stmt 0 view .LVU35
+ 242 0032 08BD     		pop	{r3, pc}
+ 243              	.L8:
+ 244              		.align	2
+ 245              	.L7:
+ 246 0034 00000000 		.word	.LC3
+ 247 0038 00000000 		.word	char_V
+ 248 003c 00000000 		.word	char_I
+ 249 0040 00000000 		.word	char_W
+ 250              		.cfi_endproc
+ 251              	.LFE70:
+ 253              		.section	.text.HAL_TIM_PeriodElapsedCallback,"ax",%progbits
+ 254              		.align	1
+ 255              		.global	HAL_TIM_PeriodElapsedCallback
+ 256              		.syntax unified
+ 257              		.thumb
+ 258              		.thumb_func
+ 259              		.fpu softvfp
+ 261              	HAL_TIM_PeriodElapsedCallback:
+ 262              	.LVL33:
+ 263              	.LFB68:
+  34:Core/Src/tim.c ****     if (htim == &htim1)
+ 264              		.loc 1 34 1 is_stmt 1 view -0
+ 265              		.cfi_startproc
+ 266              		@ args = 0, pretend = 0, frame = 0
+ 267              		@ frame_needed = 0, uses_anonymous_args = 0
+  34:Core/Src/tim.c ****     if (htim == &htim1)
+ 268              		.loc 1 34 1 is_stmt 0 view .LVU37
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s 			page 7
+
+
+ 269 0000 08B5     		push	{r3, lr}
+ 270              	.LCFI2:
+ 271              		.cfi_def_cfa_offset 8
+ 272              		.cfi_offset 3, -8
+ 273              		.cfi_offset 14, -4
+  35:Core/Src/tim.c ****     {
+ 274              		.loc 1 35 5 is_stmt 1 view .LVU38
+  35:Core/Src/tim.c ****     {
+ 275              		.loc 1 35 8 is_stmt 0 view .LVU39
+ 276 0002 044B     		ldr	r3, .L13
+ 277 0004 8342     		cmp	r3, r0
+ 278 0006 00D0     		beq	.L12
+ 279              	.LVL34:
+ 280              	.L9:
+  40:Core/Src/tim.c **** 
+ 281              		.loc 1 40 1 view .LVU40
+ 282 0008 08BD     		pop	{r3, pc}
+ 283              	.LVL35:
+ 284              	.L12:
+  37:Core/Src/tim.c ****         Oled_Data_List();
+ 285              		.loc 1 37 9 is_stmt 1 view .LVU41
+ 286 000a FFF7FEFF 		bl	Data_Refresh_Task
+ 287              	.LVL36:
+  38:Core/Src/tim.c ****     }
+ 288              		.loc 1 38 9 view .LVU42
+ 289 000e FFF7FEFF 		bl	Oled_Data_List
+ 290              	.LVL37:
+  40:Core/Src/tim.c **** 
+ 291              		.loc 1 40 1 is_stmt 0 view .LVU43
+ 292 0012 F9E7     		b	.L9
+ 293              	.L14:
+ 294              		.align	2
+ 295              	.L13:
+ 296 0014 00000000 		.word	htim1
+ 297              		.cfi_endproc
+ 298              	.LFE68:
+ 300              		.section	.text.MX_TIM1_Init,"ax",%progbits
+ 301              		.align	1
+ 302              		.global	MX_TIM1_Init
+ 303              		.syntax unified
+ 304              		.thumb
+ 305              		.thumb_func
+ 306              		.fpu softvfp
+ 308              	MX_TIM1_Init:
+ 309              	.LFB71:
+  65:Core/Src/tim.c **** /* USER CODE END 0 */
+  66:Core/Src/tim.c **** 
+  67:Core/Src/tim.c **** TIM_HandleTypeDef htim1;
+  68:Core/Src/tim.c **** 
+  69:Core/Src/tim.c **** /* TIM1 init function */
+  70:Core/Src/tim.c **** void MX_TIM1_Init(void)
+  71:Core/Src/tim.c **** {
+ 310              		.loc 1 71 1 is_stmt 1 view -0
+ 311              		.cfi_startproc
+ 312              		@ args = 0, pretend = 0, frame = 24
+ 313              		@ frame_needed = 0, uses_anonymous_args = 0
+ 314 0000 00B5     		push	{lr}
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s 			page 8
+
+
+ 315              	.LCFI3:
+ 316              		.cfi_def_cfa_offset 4
+ 317              		.cfi_offset 14, -4
+ 318 0002 87B0     		sub	sp, sp, #28
+ 319              	.LCFI4:
+ 320              		.cfi_def_cfa_offset 32
+  72:Core/Src/tim.c ****     TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+ 321              		.loc 1 72 5 view .LVU45
+ 322              		.loc 1 72 28 is_stmt 0 view .LVU46
+ 323 0004 0023     		movs	r3, #0
+ 324 0006 0293     		str	r3, [sp, #8]
+ 325 0008 0393     		str	r3, [sp, #12]
+ 326 000a 0493     		str	r3, [sp, #16]
+ 327 000c 0593     		str	r3, [sp, #20]
+  73:Core/Src/tim.c ****     TIM_MasterConfigTypeDef sMasterConfig = {0};
+ 328              		.loc 1 73 5 is_stmt 1 view .LVU47
+ 329              		.loc 1 73 29 is_stmt 0 view .LVU48
+ 330 000e 0093     		str	r3, [sp]
+ 331 0010 0193     		str	r3, [sp, #4]
+  74:Core/Src/tim.c **** 
+  75:Core/Src/tim.c ****     htim1.Instance = TIM1;
+ 332              		.loc 1 75 5 is_stmt 1 view .LVU49
+ 333              		.loc 1 75 20 is_stmt 0 view .LVU50
+ 334 0012 1648     		ldr	r0, .L23
+ 335 0014 164A     		ldr	r2, .L23+4
+ 336 0016 0260     		str	r2, [r0]
+  76:Core/Src/tim.c ****     htim1.Init.Prescaler = 720 - 1;
+ 337              		.loc 1 76 5 is_stmt 1 view .LVU51
+ 338              		.loc 1 76 26 is_stmt 0 view .LVU52
+ 339 0018 40F2CF22 		movw	r2, #719
+ 340 001c 4260     		str	r2, [r0, #4]
+  77:Core/Src/tim.c ****     htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
+ 341              		.loc 1 77 5 is_stmt 1 view .LVU53
+ 342              		.loc 1 77 28 is_stmt 0 view .LVU54
+ 343 001e 8360     		str	r3, [r0, #8]
+  78:Core/Src/tim.c ****     htim1.Init.Period = 1000 - 1;
+ 344              		.loc 1 78 5 is_stmt 1 view .LVU55
+ 345              		.loc 1 78 23 is_stmt 0 view .LVU56
+ 346 0020 40F2E732 		movw	r2, #999
+ 347 0024 C260     		str	r2, [r0, #12]
+  79:Core/Src/tim.c ****     htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+ 348              		.loc 1 79 5 is_stmt 1 view .LVU57
+ 349              		.loc 1 79 30 is_stmt 0 view .LVU58
+ 350 0026 0361     		str	r3, [r0, #16]
+  80:Core/Src/tim.c ****     htim1.Init.RepetitionCounter = 0;
+ 351              		.loc 1 80 5 is_stmt 1 view .LVU59
+ 352              		.loc 1 80 34 is_stmt 0 view .LVU60
+ 353 0028 4361     		str	r3, [r0, #20]
+  81:Core/Src/tim.c ****     htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
+ 354              		.loc 1 81 5 is_stmt 1 view .LVU61
+ 355              		.loc 1 81 34 is_stmt 0 view .LVU62
+ 356 002a 8023     		movs	r3, #128
+ 357 002c 8361     		str	r3, [r0, #24]
+  82:Core/Src/tim.c ****     if (HAL_TIM_Base_Init(&htim1) != HAL_OK)
+ 358              		.loc 1 82 5 is_stmt 1 view .LVU63
+ 359              		.loc 1 82 9 is_stmt 0 view .LVU64
+ 360 002e FFF7FEFF 		bl	HAL_TIM_Base_Init
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s 			page 9
+
+
+ 361              	.LVL38:
+ 362              		.loc 1 82 8 view .LVU65
+ 363 0032 90B9     		cbnz	r0, .L20
+ 364              	.L16:
+  83:Core/Src/tim.c ****     {
+  84:Core/Src/tim.c ****         Error_Handler();
+  85:Core/Src/tim.c ****     }
+  86:Core/Src/tim.c ****     sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+ 365              		.loc 1 86 5 is_stmt 1 view .LVU66
+ 366              		.loc 1 86 36 is_stmt 0 view .LVU67
+ 367 0034 4FF48053 		mov	r3, #4096
+ 368 0038 0293     		str	r3, [sp, #8]
+  87:Core/Src/tim.c ****     if (HAL_TIM_ConfigClockSource(&htim1, &sClockSourceConfig) != HAL_OK)
+ 369              		.loc 1 87 5 is_stmt 1 view .LVU68
+ 370              		.loc 1 87 9 is_stmt 0 view .LVU69
+ 371 003a 02A9     		add	r1, sp, #8
+ 372 003c 0B48     		ldr	r0, .L23
+ 373 003e FFF7FEFF 		bl	HAL_TIM_ConfigClockSource
+ 374              	.LVL39:
+ 375              		.loc 1 87 8 view .LVU70
+ 376 0042 68B9     		cbnz	r0, .L21
+ 377              	.L17:
+  88:Core/Src/tim.c ****     {
+  89:Core/Src/tim.c ****         Error_Handler();
+  90:Core/Src/tim.c ****     }
+  91:Core/Src/tim.c ****     sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+ 378              		.loc 1 91 5 is_stmt 1 view .LVU71
+ 379              		.loc 1 91 39 is_stmt 0 view .LVU72
+ 380 0044 0023     		movs	r3, #0
+ 381 0046 0093     		str	r3, [sp]
+  92:Core/Src/tim.c ****     sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+ 382              		.loc 1 92 5 is_stmt 1 view .LVU73
+ 383              		.loc 1 92 35 is_stmt 0 view .LVU74
+ 384 0048 0193     		str	r3, [sp, #4]
+  93:Core/Src/tim.c ****     if (HAL_TIMEx_MasterConfigSynchronization(&htim1, &sMasterConfig) != HAL_OK)
+ 385              		.loc 1 93 5 is_stmt 1 view .LVU75
+ 386              		.loc 1 93 9 is_stmt 0 view .LVU76
+ 387 004a 6946     		mov	r1, sp
+ 388 004c 0748     		ldr	r0, .L23
+ 389 004e FFF7FEFF 		bl	HAL_TIMEx_MasterConfigSynchronization
+ 390              	.LVL40:
+ 391              		.loc 1 93 8 view .LVU77
+ 392 0052 40B9     		cbnz	r0, .L22
+ 393              	.L15:
+  94:Core/Src/tim.c ****     {
+  95:Core/Src/tim.c ****         Error_Handler();
+  96:Core/Src/tim.c ****     }
+  97:Core/Src/tim.c **** }
+ 394              		.loc 1 97 1 view .LVU78
+ 395 0054 07B0     		add	sp, sp, #28
+ 396              	.LCFI5:
+ 397              		.cfi_remember_state
+ 398              		.cfi_def_cfa_offset 4
+ 399              		@ sp needed
+ 400 0056 5DF804FB 		ldr	pc, [sp], #4
+ 401              	.L20:
+ 402              	.LCFI6:
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s 			page 10
+
+
+ 403              		.cfi_restore_state
+  84:Core/Src/tim.c ****     }
+ 404              		.loc 1 84 9 is_stmt 1 view .LVU79
+ 405 005a FFF7FEFF 		bl	Error_Handler
+ 406              	.LVL41:
+ 407 005e E9E7     		b	.L16
+ 408              	.L21:
+  89:Core/Src/tim.c ****     }
+ 409              		.loc 1 89 9 view .LVU80
+ 410 0060 FFF7FEFF 		bl	Error_Handler
+ 411              	.LVL42:
+ 412 0064 EEE7     		b	.L17
+ 413              	.L22:
+  95:Core/Src/tim.c ****     }
+ 414              		.loc 1 95 9 view .LVU81
+ 415 0066 FFF7FEFF 		bl	Error_Handler
+ 416              	.LVL43:
+ 417              		.loc 1 97 1 is_stmt 0 view .LVU82
+ 418 006a F3E7     		b	.L15
+ 419              	.L24:
+ 420              		.align	2
+ 421              	.L23:
+ 422 006c 00000000 		.word	htim1
+ 423 0070 002C0140 		.word	1073818624
+ 424              		.cfi_endproc
+ 425              	.LFE71:
+ 427              		.section	.text.HAL_TIM_Base_MspInit,"ax",%progbits
+ 428              		.align	1
+ 429              		.global	HAL_TIM_Base_MspInit
+ 430              		.syntax unified
+ 431              		.thumb
+ 432              		.thumb_func
+ 433              		.fpu softvfp
+ 435              	HAL_TIM_Base_MspInit:
+ 436              	.LVL44:
+ 437              	.LFB72:
+  98:Core/Src/tim.c **** 
+  99:Core/Src/tim.c **** void HAL_TIM_Base_MspInit(TIM_HandleTypeDef *tim_baseHandle)
+ 100:Core/Src/tim.c **** {
+ 438              		.loc 1 100 1 is_stmt 1 view -0
+ 439              		.cfi_startproc
+ 440              		@ args = 0, pretend = 0, frame = 8
+ 441              		@ frame_needed = 0, uses_anonymous_args = 0
+ 101:Core/Src/tim.c **** 
+ 102:Core/Src/tim.c ****     if (tim_baseHandle->Instance == TIM1)
+ 442              		.loc 1 102 5 view .LVU84
+ 443              		.loc 1 102 23 is_stmt 0 view .LVU85
+ 444 0000 0268     		ldr	r2, [r0]
+ 445              		.loc 1 102 8 view .LVU86
+ 446 0002 0E4B     		ldr	r3, .L32
+ 447 0004 9A42     		cmp	r2, r3
+ 448 0006 00D0     		beq	.L31
+ 449 0008 7047     		bx	lr
+ 450              	.L31:
+ 100:Core/Src/tim.c **** 
+ 451              		.loc 1 100 1 view .LVU87
+ 452 000a 00B5     		push	{lr}
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s 			page 11
+
+
+ 453              	.LCFI7:
+ 454              		.cfi_def_cfa_offset 4
+ 455              		.cfi_offset 14, -4
+ 456 000c 83B0     		sub	sp, sp, #12
+ 457              	.LCFI8:
+ 458              		.cfi_def_cfa_offset 16
+ 103:Core/Src/tim.c ****     {
+ 104:Core/Src/tim.c ****         /* USER CODE BEGIN TIM1_MspInit 0 */
+ 105:Core/Src/tim.c **** 
+ 106:Core/Src/tim.c ****         /* USER CODE END TIM1_MspInit 0 */
+ 107:Core/Src/tim.c ****         /* TIM1 clock enable */
+ 108:Core/Src/tim.c ****         __HAL_RCC_TIM1_CLK_ENABLE();
+ 459              		.loc 1 108 9 is_stmt 1 view .LVU88
+ 460              	.LBB2:
+ 461              		.loc 1 108 9 view .LVU89
+ 462              		.loc 1 108 9 view .LVU90
+ 463 000e 03F56443 		add	r3, r3, #58368
+ 464 0012 9A69     		ldr	r2, [r3, #24]
+ 465 0014 42F40062 		orr	r2, r2, #2048
+ 466 0018 9A61     		str	r2, [r3, #24]
+ 467              		.loc 1 108 9 view .LVU91
+ 468 001a 9B69     		ldr	r3, [r3, #24]
+ 469 001c 03F40063 		and	r3, r3, #2048
+ 470 0020 0193     		str	r3, [sp, #4]
+ 471              		.loc 1 108 9 view .LVU92
+ 472 0022 019B     		ldr	r3, [sp, #4]
+ 473              	.LBE2:
+ 474              		.loc 1 108 9 view .LVU93
+ 109:Core/Src/tim.c **** 
+ 110:Core/Src/tim.c ****         /* TIM1 interrupt Init */
+ 111:Core/Src/tim.c ****         HAL_NVIC_SetPriority(TIM1_UP_IRQn, 2, 1);
+ 475              		.loc 1 111 9 view .LVU94
+ 476 0024 0122     		movs	r2, #1
+ 477 0026 0221     		movs	r1, #2
+ 478 0028 1920     		movs	r0, #25
+ 479              	.LVL45:
+ 480              		.loc 1 111 9 is_stmt 0 view .LVU95
+ 481 002a FFF7FEFF 		bl	HAL_NVIC_SetPriority
+ 482              	.LVL46:
+ 112:Core/Src/tim.c ****         HAL_NVIC_EnableIRQ(TIM1_UP_IRQn);
+ 483              		.loc 1 112 9 is_stmt 1 view .LVU96
+ 484 002e 1920     		movs	r0, #25
+ 485 0030 FFF7FEFF 		bl	HAL_NVIC_EnableIRQ
+ 486              	.LVL47:
+ 113:Core/Src/tim.c ****         /* USER CODE BEGIN TIM1_MspInit 1 */
+ 114:Core/Src/tim.c **** 
+ 115:Core/Src/tim.c ****         /* USER CODE END TIM1_MspInit 1 */
+ 116:Core/Src/tim.c ****     }
+ 117:Core/Src/tim.c **** }
+ 487              		.loc 1 117 1 is_stmt 0 view .LVU97
+ 488 0034 03B0     		add	sp, sp, #12
+ 489              	.LCFI9:
+ 490              		.cfi_def_cfa_offset 4
+ 491              		@ sp needed
+ 492 0036 5DF804FB 		ldr	pc, [sp], #4
+ 493              	.L33:
+ 494 003a 00BF     		.align	2
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s 			page 12
+
+
+ 495              	.L32:
+ 496 003c 002C0140 		.word	1073818624
+ 497              		.cfi_endproc
+ 498              	.LFE72:
+ 500              		.section	.text.HAL_TIM_Base_MspDeInit,"ax",%progbits
+ 501              		.align	1
+ 502              		.global	HAL_TIM_Base_MspDeInit
+ 503              		.syntax unified
+ 504              		.thumb
+ 505              		.thumb_func
+ 506              		.fpu softvfp
+ 508              	HAL_TIM_Base_MspDeInit:
+ 509              	.LVL48:
+ 510              	.LFB73:
+ 118:Core/Src/tim.c **** 
+ 119:Core/Src/tim.c **** void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef *tim_baseHandle)
+ 120:Core/Src/tim.c **** {
+ 511              		.loc 1 120 1 is_stmt 1 view -0
+ 512              		.cfi_startproc
+ 513              		@ args = 0, pretend = 0, frame = 0
+ 514              		@ frame_needed = 0, uses_anonymous_args = 0
+ 515              		.loc 1 120 1 is_stmt 0 view .LVU99
+ 516 0000 08B5     		push	{r3, lr}
+ 517              	.LCFI10:
+ 518              		.cfi_def_cfa_offset 8
+ 519              		.cfi_offset 3, -8
+ 520              		.cfi_offset 14, -4
+ 121:Core/Src/tim.c **** 
+ 122:Core/Src/tim.c ****     if (tim_baseHandle->Instance == TIM1)
+ 521              		.loc 1 122 5 is_stmt 1 view .LVU100
+ 522              		.loc 1 122 23 is_stmt 0 view .LVU101
+ 523 0002 0268     		ldr	r2, [r0]
+ 524              		.loc 1 122 8 view .LVU102
+ 525 0004 064B     		ldr	r3, .L38
+ 526 0006 9A42     		cmp	r2, r3
+ 527 0008 00D0     		beq	.L37
+ 528              	.LVL49:
+ 529              	.L34:
+ 123:Core/Src/tim.c ****     {
+ 124:Core/Src/tim.c ****         /* USER CODE BEGIN TIM1_MspDeInit 0 */
+ 125:Core/Src/tim.c **** 
+ 126:Core/Src/tim.c ****         /* USER CODE END TIM1_MspDeInit 0 */
+ 127:Core/Src/tim.c ****         /* Peripheral clock disable */
+ 128:Core/Src/tim.c ****         __HAL_RCC_TIM1_CLK_DISABLE();
+ 129:Core/Src/tim.c **** 
+ 130:Core/Src/tim.c ****         /* TIM1 interrupt Deinit */
+ 131:Core/Src/tim.c ****         HAL_NVIC_DisableIRQ(TIM1_UP_IRQn);
+ 132:Core/Src/tim.c ****         /* USER CODE BEGIN TIM1_MspDeInit 1 */
+ 133:Core/Src/tim.c **** 
+ 134:Core/Src/tim.c ****         /* USER CODE END TIM1_MspDeInit 1 */
+ 135:Core/Src/tim.c ****     }
+ 136:Core/Src/tim.c **** }
+ 530              		.loc 1 136 1 view .LVU103
+ 531 000a 08BD     		pop	{r3, pc}
+ 532              	.LVL50:
+ 533              	.L37:
+ 128:Core/Src/tim.c **** 
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s 			page 13
+
+
+ 534              		.loc 1 128 9 is_stmt 1 view .LVU104
+ 535 000c 054A     		ldr	r2, .L38+4
+ 536 000e 9369     		ldr	r3, [r2, #24]
+ 537 0010 23F40063 		bic	r3, r3, #2048
+ 538 0014 9361     		str	r3, [r2, #24]
+ 131:Core/Src/tim.c ****         /* USER CODE BEGIN TIM1_MspDeInit 1 */
+ 539              		.loc 1 131 9 view .LVU105
+ 540 0016 1920     		movs	r0, #25
+ 541              	.LVL51:
+ 131:Core/Src/tim.c ****         /* USER CODE BEGIN TIM1_MspDeInit 1 */
+ 542              		.loc 1 131 9 is_stmt 0 view .LVU106
+ 543 0018 FFF7FEFF 		bl	HAL_NVIC_DisableIRQ
+ 544              	.LVL52:
+ 545              		.loc 1 136 1 view .LVU107
+ 546 001c F5E7     		b	.L34
+ 547              	.L39:
+ 548 001e 00BF     		.align	2
+ 549              	.L38:
+ 550 0020 002C0140 		.word	1073818624
+ 551 0024 00100240 		.word	1073876992
+ 552              		.cfi_endproc
+ 553              	.LFE73:
+ 555              		.comm	htim1,72,4
+ 556              		.comm	char_W,20,4
+ 557              		.comm	char_I,20,4
+ 558              		.comm	char_V,20,4
+ 559              		.global	BMP1
+ 560              		.section	.data.BMP1,"aw"
+ 561              		.align	2
+ 564              	BMP1:
+ 565 0000 00060AFE 		.ascii	"\000\006\012\376\012\306\000\340\000\360\000\370\000"
+ 565      0AC600E0 
+ 565      00F000F8 
+ 565      00
+ 566 000d 00000000 		.ascii	"\000\000\000\000\000\376}\273\307\357\357\357\357\357"
+ 566      00FE7DBB 
+ 566      C7EFEFEF 
+ 566      EFEF
+ 567 001b EFEFC7BB 		.ascii	"\357\357\307\273}\376\000\000\000\000\000\000\000\000"
+ 567      7DFE0000 
+ 567      00000000 
+ 567      0000
+ 568 0029 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ 568      00000000 
+ 568      00000000 
+ 568      00
+ 569 0036 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ 569      00000000 
+ 569      00000000 
+ 569      00
+ 570 0043 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ 570      00000000 
+ 570      00000000 
+ 570      00
+ 571 0050 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ 571      00000000 
+ 571      00000000 
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s 			page 14
+
+
+ 571      00
+ 572 005d 0000080C 		.ascii	"\000\000\010\014\376\376\014\010 `\376\376` \000\000"
+ 572      FEFE0C08 
+ 572      2060FEFE 
+ 572      60200000 
+ 573 006d 007848FE 		.ascii	"\000xH\376\202\272\272\202\272\272\202\272\272\202\272"
+ 573      82BABA82 
+ 573      BABA82BA 
+ 573      BA82BA
+ 574 007c BA82FE00 		.ascii	"\272\202\376\000\000\000\000\000\000\000\000\000\000"
+ 574      00000000 
+ 574      00000000 
+ 574      00
+ 575 0089 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\001\001\001"
+ 575      00000000 
+ 575      00000101 
+ 575      01
+ 576 0096 01010101 		.ascii	"\001\001\001\001\001\001\001\001\001\001\000\000\000"
+ 576      01010101 
+ 576      01010000 
+ 576      00
+ 577 00a3 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ 577      00000000 
+ 577      00000000 
+ 577      00
+ 578 00b0 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ 578      00000000 
+ 578      00000000 
+ 578      00
+ 579 00bd 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ 579      00000000 
+ 579      00000000 
+ 579      00
+ 580 00ca 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ 580      00000000 
+ 580      00000000 
+ 580      00
+ 581 00d7 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ 581      00000000 
+ 581      00000000 
+ 581      00
+ 582 00e4 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ 582      00000000 
+ 582      00000000 
+ 582      00
+ 583 00f1 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ 583      00000000 
+ 583      00000000 
+ 583      00
+ 584 00fe 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ 584      00000000 
+ 584      00000000 
+ 584      00
+ 585 010b 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ 585      00000000 
+ 585      00000000 
+ 585      00
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s 			page 15
+
+
+ 586 0118 00000000 		.ascii	"\000\000\000\000\000\000\376\377\003\003\003\003\003"
+ 586      0000FEFF 
+ 586      03030303 
+ 586      03
+ 587 0125 03030303 		.ascii	"\003\003\003\003\377\377\000\000\376\377\003\003\003"
+ 587      FFFF0000 
+ 587      FEFF0303 
+ 587      03
+ 588 0132 03030303 		.ascii	"\003\003\003\003\003\003\377\376\000\000\000\000\300"
+ 588      0303FFFE 
+ 588      00000000 
+ 588      C0
+ 589 013f C0C00000 		.ascii	"\300\300\000\000\000\000\376\377\003\003\003\003\003"
+ 589      0000FEFF 
+ 589      03030303 
+ 589      03
+ 590 014c 03030303 		.ascii	"\003\003\003\003\377\376\000\000\376\377\003\003\003"
+ 590      FFFE0000 
+ 590      FEFF0303 
+ 590      03
+ 591 0159 03030303 		.ascii	"\003\003\003\003\003\003\377\376\000\000\000\000\000"
+ 591      0303FFFE 
+ 591      00000000 
+ 591      00
+ 592 0166 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ 592      00000000 
+ 592      00000000 
+ 592      00
+ 593 0173 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ 593      00000000 
+ 593      00000000 
+ 593      00
+ 594 0180 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ 594      00000000 
+ 594      00000000 
+ 594      00
+ 595 018d 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ 595      00000000 
+ 595      00000000 
+ 595      00
+ 596 019a 00000000 		.ascii	"\000\000\000\000\377\377\000\000\000\000\000\000\000"
+ 596      FFFF0000 
+ 596      00000000 
+ 596      00
+ 597 01a7 0000FFFF 		.ascii	"\000\000\377\377\000\000\377\377\014\014\014\014\014"
+ 597      0000FFFF 
+ 597      0C0C0C0C 
+ 597      0C
+ 598 01b4 0C0C0C0C 		.ascii	"\014\014\014\014\377\377\000\000\000\000\341\341\341"
+ 598      FFFF0000 
+ 598      0000E1E1 
+ 598      E1
+ 599 01c1 00000000 		.ascii	"\000\000\000\000\377\377\000\000\000\000\000\000\000"
+ 599      FFFF0000 
+ 599      00000000 
+ 599      00
+ 600 01ce 0000FFFF 		.ascii	"\000\000\377\377\000\000\377\377\014\014\014\014\014"
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s 			page 16
+
+
+ 600      0000FFFF 
+ 600      0C0C0C0C 
+ 600      0C
+ 601 01db 0C0C0C0C 		.ascii	"\014\014\014\014\377\377\000\000\000\000\000\000\000"
+ 601      FFFF0000 
+ 601      00000000 
+ 601      00
+ 602 01e8 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ 602      00000000 
+ 602      00000000 
+ 602      00
+ 603 01f5 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ 603      00000000 
+ 603      00000000 
+ 603      00
+ 604 0202 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ 604      00000000 
+ 604      00000000 
+ 604      00
+ 605 020f 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ 605      00000000 
+ 605      00000000 
+ 605      00
+ 606 021c 00000F1F 		.ascii	"\000\000\017\037\030\030\030\030\030\030\030\030\030"
+ 606      18181818 
+ 606      18181818 
+ 606      18
+ 607 0229 1F0F0000 		.ascii	"\037\017\000\000\017\037\030\030\030\030\030\030\030"
+ 607      0F1F1818 
+ 607      18181818 
+ 607      18
+ 608 0236 18181F0F 		.ascii	"\030\030\037\017\000\000\000\000\000\000\000\000\000"
+ 608      00000000 
+ 608      00000000 
+ 608      00
+ 609 0243 00000F1F 		.ascii	"\000\000\017\037\030\030\030\030\030\030\030\030\030"
+ 609      18181818 
+ 609      18181818 
+ 609      18
+ 610 0250 1F0F0000 		.ascii	"\037\017\000\000\017\037\030\030\030\030\030\030\030"
+ 610      0F1F1818 
+ 610      18181818 
+ 610      18
+ 611 025d 18181F0F 		.ascii	"\030\030\037\017\000\000\000\000\000\000\000\000\000"
+ 611      00000000 
+ 611      00000000 
+ 611      00
+ 612 026a 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ 612      00000000 
+ 612      00000000 
+ 612      00
+ 613 0277 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ 613      00000000 
+ 613      00000000 
+ 613      00
+ 614 0284 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ 614      00000000 
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s 			page 17
+
+
+ 614      00000000 
+ 614      00
+ 615 0291 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ 615      00000000 
+ 615      00000000 
+ 615      00
+ 616 029e 00000000 		.ascii	"\000\000\000\000\214B\"\022\014\000\374\002\002\002"
+ 616      8C422212 
+ 616      0C00FC02 
+ 616      0202
+ 617 02ac FC000004 		.ascii	"\374\000\000\004\376\000\000\000 XD\376@\000\020\020"
+ 617      FE000000 
+ 617      205844FE 
+ 617      40001010 
+ 618 02bc 10101000 		.ascii	"\020\020\020\000\000\004\376\000\000\000\374\002\002"
+ 618      0004FE00 
+ 618      0000FC02 
+ 618      02
+ 619 02c9 02FC0010 		.ascii	"\002\374\000\020\020\020\020\020\000\374\002\002\002"
+ 619      10101010 
+ 619      00FC0202 
+ 619      02
+ 620 02d6 FC000004 		.ascii	"\374\000\000\004\376\000\000\000\000\000\000\000\000"
+ 620      FE000000 
+ 620      00000000 
+ 620      00
+ 621 02e3 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ 621      00000000 
+ 621      00000000 
+ 621      00
+ 622 02f0 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ 622      00000000 
+ 622      00000000 
+ 622      00
+ 623 02fd 00000000 		.ascii	"\000\000\000\000$\244.$\344$.\244$\000\000\000\370J"
+ 623      24A42E24 
+ 623      E4242EA4 
+ 623      24000000 
+ 623      F84A
+ 624 030f 4C48F848 		.ascii	"LH\370HLJ\370\000\000\000\000\000\000\000\000\000\000"
+ 624      4C4AF800 
+ 624      00000000 
+ 624      00000000 
+ 624      00
+ 625 0320 00000101 		.ascii	"\000\000\001\001\001\001\001\000\000\001\001\001\000"
+ 625      01010100 
+ 625      00010101 
+ 625      00
+ 626 032d 00000101 		.ascii	"\000\000\001\001\001\000\000\000\000\000\001\001\000"
+ 626      01000000 
+ 626      00000101 
+ 626      00
+ 627 033a 00000000 		.ascii	"\000\000\000\000\000\000\000\001\001\001\000\000\000"
+ 627      00000001 
+ 627      01010000 
+ 627      00
+ 628 0347 01010100 		.ascii	"\001\001\001\000\000\000\000\000\000\000\000\000\001"
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s 			page 18
+
+
+ 628      00000000 
+ 628      00000000 
+ 628      01
+ 629 0354 01010000 		.ascii	"\001\001\000\000\000\001\001\001\000\000\000\000\000"
+ 629      00010101 
+ 629      00000000 
+ 629      00
+ 630 0361 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\000\300 \020"
+ 630      00000000 
+ 630      000000C0 
+ 630      2010
+ 631 036f 10101020 		.ascii	"\020\020\020 \300\000\000\300 \020\020\020\020 \300"
+ 631      C00000C0 
+ 631      20101010 
+ 631      1020C0
+ 632 037e 00000012 		.ascii	"\000\000\000\022\012\007\002\177\002\007\012\022\000"
+ 632      0A07027F 
+ 632      02070A12 
+ 632      00
+ 633 038b 00000B0A 		.ascii	"\000\000\013\012\012\012\177\012\012\012\013\000\000"
+ 633      0A0A7F0A 
+ 633      0A0A0B00 
+ 633      00
+ 634 0398 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ 634      00000000 
+ 634      00000000 
+ 634      00
+ 635 03a5 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ 635      00000000 
+ 635      00000000 
+ 635      00
+ 636 03b2 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ 636      00000000 
+ 636      00000000 
+ 636      00
+ 637 03bf 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ 637      00000000 
+ 637      00000000 
+ 637      00
+ 638 03cc 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ 638      00000000 
+ 638      00000000 
+ 638      00
+ 639 03d9 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ 639      00000000 
+ 639      00000000 
+ 639      00
+ 640 03e6 00000000 		.ascii	"\000\000\000\000\000\000\037 @@@P _\200\000\037 @@@"
+ 640      00001F20 
+ 640      40404050 
+ 640      205F8000 
+ 640      1F204040 
+ 641 03fb 50205F80 		.ascii	"P _\200\000"
+ 641      00
+ 642              		.text
+ 643              	.Letext0:
+ 644              		.file 2 "c:\\users\\cheng\\.iotlink\\tools\\gcc-arm-none-eabi\\arm-none-eabi\\include\\machine\\_d
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s 			page 19
+
+
+ 645              		.file 3 "c:\\users\\cheng\\.iotlink\\tools\\gcc-arm-none-eabi\\arm-none-eabi\\include\\sys\\_stdin
+ 646              		.file 4 "Drivers/CMSIS/Include/core_cm3.h"
+ 647              		.file 5 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 648              		.file 6 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 649              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 650              		.file 8 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 651              		.file 9 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h"
+ 652              		.file 10 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 653              		.file 11 "Core/Inc/tim.h"
+ 654              		.file 12 "c:\\users\\cheng\\.iotlink\\tools\\gcc-arm-none-eabi\\arm-none-eabi\\include\\sys\\lock.
+ 655              		.file 13 "c:\\users\\cheng\\.iotlink\\tools\\gcc-arm-none-eabi\\arm-none-eabi\\include\\sys\\_type
+ 656              		.file 14 "c:\\users\\cheng\\.iotlink\\tools\\gcc-arm-none-eabi\\lib\\gcc\\arm-none-eabi\\9.2.1\\in
+ 657              		.file 15 "c:\\users\\cheng\\.iotlink\\tools\\gcc-arm-none-eabi\\arm-none-eabi\\include\\sys\\reent
+ 658              		.file 16 "Core/Inc/bmp.h"
+ 659              		.file 17 "Core/Inc/ina226.h"
+ 660              		.file 18 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h"
+ 661              		.file 19 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h"
+ 662              		.file 20 "Core/Inc/main.h"
+ 663              		.file 21 "Core/Inc/oled.h"
+ 664              		.file 22 "c:\\users\\cheng\\.iotlink\\tools\\gcc-arm-none-eabi\\arm-none-eabi\\include\\stdio.h"
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s 			page 20
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 tim.c
+C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s:21     .rodata.Data_Refresh_Task.str1.4:00000000 $d
+C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s:31     .text.Data_Refresh_Task:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s:39     .text.Data_Refresh_Task:00000000 Data_Refresh_Task
+C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s:179    .text.Data_Refresh_Task:000000b0 $d
+                            *COM*:00000014 char_V
+                            *COM*:00000014 char_I
+                            *COM*:00000014 char_W
+C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s:191    .rodata.Oled_Data_List.str1.4:00000000 $d
+C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s:195    .text.Oled_Data_List:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s:202    .text.Oled_Data_List:00000000 Oled_Data_List
+C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s:246    .text.Oled_Data_List:00000034 $d
+C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s:254    .text.HAL_TIM_PeriodElapsedCallback:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s:261    .text.HAL_TIM_PeriodElapsedCallback:00000000 HAL_TIM_PeriodElapsedCallback
+C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s:296    .text.HAL_TIM_PeriodElapsedCallback:00000014 $d
+                            *COM*:00000048 htim1
+C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s:301    .text.MX_TIM1_Init:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s:308    .text.MX_TIM1_Init:00000000 MX_TIM1_Init
+C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s:422    .text.MX_TIM1_Init:0000006c $d
+C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s:428    .text.HAL_TIM_Base_MspInit:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s:435    .text.HAL_TIM_Base_MspInit:00000000 HAL_TIM_Base_MspInit
+C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s:496    .text.HAL_TIM_Base_MspInit:0000003c $d
+C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s:501    .text.HAL_TIM_Base_MspDeInit:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s:508    .text.HAL_TIM_Base_MspDeInit:00000000 HAL_TIM_Base_MspDeInit
+C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s:550    .text.HAL_TIM_Base_MspDeInit:00000020 $d
+C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s:564    .data.BMP1:00000000 BMP1
+C:\Users\Cheng\AppData\Local\Temp\ccP7q43C.s:561    .data.BMP1:00000000 $d
+
+UNDEFINED SYMBOLS
+__aeabi_fdiv
+__aeabi_f2uiz
+__aeabi_i2f
+__aeabi_fsub
+__aeabi_fmul
+get_power
+sprintf
+INA226_data
+OLED_ShowString
+HAL_TIM_Base_Init
+HAL_TIM_ConfigClockSource
+HAL_TIMEx_MasterConfigSynchronization
+Error_Handler
+HAL_NVIC_SetPriority
+HAL_NVIC_EnableIRQ
+HAL_NVIC_DisableIRQ

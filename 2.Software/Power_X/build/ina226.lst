@@ -1,0 +1,1983 @@
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"ina226.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.delay_nms,"ax",%progbits
+  16              		.align	1
+  17              		.global	delay_nms
+  18              		.arch armv7-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu softvfp
+  24              	delay_nms:
+  25              	.LVL0:
+  26              	.LFB66:
+  27              		.file 1 "Core/Src/ina226.c"
+   1:Core/Src/ina226.c **** #include "ina226.h"
+   2:Core/Src/ina226.c **** //	模拟IIC:
+   3:Core/Src/ina226.c **** 
+   4:Core/Src/ina226.c **** INA226 INA226_data;
+   5:Core/Src/ina226.c **** 
+   6:Core/Src/ina226.c **** static void delay_nns(uint16_t D) //30纳秒ns  根据手册要用到IIC的HS高速模式
+   7:Core/Src/ina226.c **** {
+   8:Core/Src/ina226.c ****     while (--D)
+   9:Core/Src/ina226.c ****         ;
+  10:Core/Src/ina226.c **** }
+  11:Core/Src/ina226.c **** 
+  12:Core/Src/ina226.c **** void delay_nms(uint16_t ms) //毫秒
+  13:Core/Src/ina226.c **** {
+  28              		.loc 1 13 1 view -0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33              		.loc 1 13 1 is_stmt 0 view .LVU1
+  34 0000 0146     		mov	r1, r0
+  14:Core/Src/ina226.c ****     uint16_t i;
+  35              		.loc 1 14 5 is_stmt 1 view .LVU2
+  15:Core/Src/ina226.c ****     uint32_t M = 0; //720W
+  36              		.loc 1 15 5 view .LVU3
+  37              	.LVL1:
+  16:Core/Src/ina226.c ****     for (i = 0; i < ms; i++)
+  38              		.loc 1 16 5 view .LVU4
+  39              		.loc 1 16 12 is_stmt 0 view .LVU5
+  40 0002 0022     		movs	r2, #0
+  41              		.loc 1 16 5 view .LVU6
+  42 0004 01E0     		b	.L2
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s 			page 2
+
+
+  43              	.LVL2:
+  44              	.L7:
+  45              		.loc 1 16 25 is_stmt 1 discriminator 2 view .LVU7
+  46              		.loc 1 16 26 is_stmt 0 discriminator 2 view .LVU8
+  47 0006 0132     		adds	r2, r2, #1
+  48              	.LVL3:
+  49              		.loc 1 16 26 discriminator 2 view .LVU9
+  50 0008 92B2     		uxth	r2, r2
+  51              	.LVL4:
+  52              	.L2:
+  53              		.loc 1 16 17 is_stmt 1 discriminator 1 view .LVU10
+  54              		.loc 1 16 5 is_stmt 0 discriminator 1 view .LVU11
+  55 000a 8A42     		cmp	r2, r1
+  56 000c 05D2     		bcs	.L6
+  17:Core/Src/ina226.c ****         for (M = 12000; M > 0; M--)
+  57              		.loc 1 17 16 view .LVU12
+  58 000e 42F6E063 		movw	r3, #12000
+  59              	.L4:
+  60              	.LVL5:
+  61              		.loc 1 17 25 is_stmt 1 discriminator 1 view .LVU13
+  62              		.loc 1 17 9 is_stmt 0 discriminator 1 view .LVU14
+  63 0012 002B     		cmp	r3, #0
+  64 0014 F7D0     		beq	.L7
+  18:Core/Src/ina226.c ****             ;
+  65              		.loc 1 18 13 is_stmt 1 discriminator 3 view .LVU15
+  17:Core/Src/ina226.c ****         for (M = 12000; M > 0; M--)
+  66              		.loc 1 17 32 discriminator 3 view .LVU16
+  17:Core/Src/ina226.c ****         for (M = 12000; M > 0; M--)
+  67              		.loc 1 17 33 is_stmt 0 discriminator 3 view .LVU17
+  68 0016 013B     		subs	r3, r3, #1
+  69              	.LVL6:
+  17:Core/Src/ina226.c ****         for (M = 12000; M > 0; M--)
+  70              		.loc 1 17 33 discriminator 3 view .LVU18
+  71 0018 FBE7     		b	.L4
+  72              	.LVL7:
+  73              	.L6:
+  19:Core/Src/ina226.c **** }
+  74              		.loc 1 19 1 view .LVU19
+  75 001a 7047     		bx	lr
+  76              		.cfi_endproc
+  77              	.LFE66:
+  79              		.section	.text.delay_nus,"ax",%progbits
+  80              		.align	1
+  81              		.global	delay_nus
+  82              		.syntax unified
+  83              		.thumb
+  84              		.thumb_func
+  85              		.fpu softvfp
+  87              	delay_nus:
+  88              	.LVL8:
+  89              	.LFB67:
+  20:Core/Src/ina226.c **** 
+  21:Core/Src/ina226.c **** void delay_nus(uint16_t us) //微秒
+  22:Core/Src/ina226.c **** {
+  90              		.loc 1 22 1 is_stmt 1 view -0
+  91              		.cfi_startproc
+  92              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s 			page 3
+
+
+  93              		@ frame_needed = 0, uses_anonymous_args = 0
+  94              		@ link register save eliminated.
+  95              		.loc 1 22 1 is_stmt 0 view .LVU21
+  96 0000 0146     		mov	r1, r0
+  23:Core/Src/ina226.c ****     uint16_t i;
+  97              		.loc 1 23 5 is_stmt 1 view .LVU22
+  24:Core/Src/ina226.c ****     uint16_t M = 0; //720W
+  98              		.loc 1 24 5 view .LVU23
+  99              	.LVL9:
+  25:Core/Src/ina226.c ****     for (i = 0; i < us; i++)
+ 100              		.loc 1 25 5 view .LVU24
+ 101              		.loc 1 25 12 is_stmt 0 view .LVU25
+ 102 0002 0022     		movs	r2, #0
+ 103              		.loc 1 25 5 view .LVU26
+ 104 0004 05E0     		b	.L9
+ 105              	.LVL10:
+ 106              	.L10:
+  26:Core/Src/ina226.c ****         for (M = 72; M > 0; M--)
+  27:Core/Src/ina226.c ****             ;
+ 107              		.loc 1 27 13 is_stmt 1 discriminator 3 view .LVU27
+  26:Core/Src/ina226.c ****         for (M = 72; M > 0; M--)
+ 108              		.loc 1 26 29 discriminator 3 view .LVU28
+  26:Core/Src/ina226.c ****         for (M = 72; M > 0; M--)
+ 109              		.loc 1 26 30 is_stmt 0 discriminator 3 view .LVU29
+ 110 0006 013B     		subs	r3, r3, #1
+ 111              	.LVL11:
+  26:Core/Src/ina226.c ****         for (M = 72; M > 0; M--)
+ 112              		.loc 1 26 30 discriminator 3 view .LVU30
+ 113 0008 9BB2     		uxth	r3, r3
+ 114              	.LVL12:
+ 115              	.L11:
+  26:Core/Src/ina226.c ****         for (M = 72; M > 0; M--)
+ 116              		.loc 1 26 22 is_stmt 1 discriminator 1 view .LVU31
+  26:Core/Src/ina226.c ****         for (M = 72; M > 0; M--)
+ 117              		.loc 1 26 9 is_stmt 0 discriminator 1 view .LVU32
+ 118 000a 002B     		cmp	r3, #0
+ 119 000c FBD1     		bne	.L10
+  25:Core/Src/ina226.c ****     for (i = 0; i < us; i++)
+ 120              		.loc 1 25 25 is_stmt 1 discriminator 2 view .LVU33
+  25:Core/Src/ina226.c ****     for (i = 0; i < us; i++)
+ 121              		.loc 1 25 26 is_stmt 0 discriminator 2 view .LVU34
+ 122 000e 0132     		adds	r2, r2, #1
+ 123              	.LVL13:
+  25:Core/Src/ina226.c ****     for (i = 0; i < us; i++)
+ 124              		.loc 1 25 26 discriminator 2 view .LVU35
+ 125 0010 92B2     		uxth	r2, r2
+ 126              	.LVL14:
+ 127              	.L9:
+  25:Core/Src/ina226.c ****     for (i = 0; i < us; i++)
+ 128              		.loc 1 25 17 is_stmt 1 discriminator 1 view .LVU36
+  25:Core/Src/ina226.c ****     for (i = 0; i < us; i++)
+ 129              		.loc 1 25 5 is_stmt 0 discriminator 1 view .LVU37
+ 130 0012 8A42     		cmp	r2, r1
+ 131 0014 01D2     		bcs	.L13
+  26:Core/Src/ina226.c ****         for (M = 72; M > 0; M--)
+ 132              		.loc 1 26 16 view .LVU38
+ 133 0016 4823     		movs	r3, #72
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s 			page 4
+
+
+ 134 0018 F7E7     		b	.L11
+ 135              	.L13:
+  28:Core/Src/ina226.c **** }
+ 136              		.loc 1 28 1 view .LVU39
+ 137 001a 7047     		bx	lr
+ 138              		.cfi_endproc
+ 139              	.LFE67:
+ 141              		.section	.text.INA226_IIC_Init,"ax",%progbits
+ 142              		.align	1
+ 143              		.global	INA226_IIC_Init
+ 144              		.syntax unified
+ 145              		.thumb
+ 146              		.thumb_func
+ 147              		.fpu softvfp
+ 149              	INA226_IIC_Init:
+ 150              	.LFB68:
+  29:Core/Src/ina226.c **** 
+  30:Core/Src/ina226.c **** void INA226_IIC_Init(void)
+  31:Core/Src/ina226.c **** {
+ 151              		.loc 1 31 1 is_stmt 1 view -0
+ 152              		.cfi_startproc
+ 153              		@ args = 0, pretend = 0, frame = 0
+ 154              		@ frame_needed = 0, uses_anonymous_args = 0
+ 155 0000 10B5     		push	{r4, lr}
+ 156              	.LCFI0:
+ 157              		.cfi_def_cfa_offset 8
+ 158              		.cfi_offset 4, -8
+ 159              		.cfi_offset 14, -4
+  32:Core/Src/ina226.c ****     // GPIO_InitTypeDef GPIO_Initure;
+  33:Core/Src/ina226.c ****     // __HAL_RCC_GPIOB_CLK_ENABLE(); //使能GPIOB时钟
+  34:Core/Src/ina226.c **** 
+  35:Core/Src/ina226.c ****     // GPIO_Initure.Pin = GPIO_PIN_6 | GPIO_PIN_7; //PB10SCL PB11SDA
+  36:Core/Src/ina226.c ****     // GPIO_Initure.Mode = GPIO_MODE_OUTPUT_PP;    //推挽输出
+  37:Core/Src/ina226.c ****     // GPIO_Initure.Pull = GPIO_PULLUP;            //上拉
+  38:Core/Src/ina226.c ****     // GPIO_Initure.Speed = GPIO_SPEED_FREQ_HIGH;  //高速
+  39:Core/Src/ina226.c ****     // HAL_GPIO_Init(GPIOB, &GPIO_Initure);
+  40:Core/Src/ina226.c **** 
+  41:Core/Src/ina226.c ****     IIC_SDA_H;
+ 160              		.loc 1 41 5 view .LVU41
+ 161 0002 064C     		ldr	r4, .L16
+ 162 0004 0122     		movs	r2, #1
+ 163 0006 8021     		movs	r1, #128
+ 164 0008 2046     		mov	r0, r4
+ 165 000a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 166              	.LVL15:
+  42:Core/Src/ina226.c ****     IIC_SCL_H;
+ 167              		.loc 1 42 5 view .LVU42
+ 168 000e 0122     		movs	r2, #1
+ 169 0010 4021     		movs	r1, #64
+ 170 0012 2046     		mov	r0, r4
+ 171 0014 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 172              	.LVL16:
+  43:Core/Src/ina226.c ****     delay_nms(5);
+ 173              		.loc 1 43 5 view .LVU43
+  44:Core/Src/ina226.c **** }
+ 174              		.loc 1 44 1 is_stmt 0 view .LVU44
+ 175 0018 10BD     		pop	{r4, pc}
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s 			page 5
+
+
+ 176              	.L17:
+ 177 001a 00BF     		.align	2
+ 178              	.L16:
+ 179 001c 000C0140 		.word	1073810432
+ 180              		.cfi_endproc
+ 181              	.LFE68:
+ 183              		.section	.text.INA226_IIC_Start,"ax",%progbits
+ 184              		.align	1
+ 185              		.global	INA226_IIC_Start
+ 186              		.syntax unified
+ 187              		.thumb
+ 188              		.thumb_func
+ 189              		.fpu softvfp
+ 191              	INA226_IIC_Start:
+ 192              	.LFB69:
+  45:Core/Src/ina226.c **** 
+  46:Core/Src/ina226.c **** void INA226_IIC_Start(void)
+  47:Core/Src/ina226.c **** {
+ 193              		.loc 1 47 1 is_stmt 1 view -0
+ 194              		.cfi_startproc
+ 195              		@ args = 0, pretend = 0, frame = 0
+ 196              		@ frame_needed = 0, uses_anonymous_args = 0
+ 197 0000 10B5     		push	{r4, lr}
+ 198              	.LCFI1:
+ 199              		.cfi_def_cfa_offset 8
+ 200              		.cfi_offset 4, -8
+ 201              		.cfi_offset 14, -4
+  48:Core/Src/ina226.c ****     IIC_SDA_H;
+ 202              		.loc 1 48 5 view .LVU46
+ 203 0002 0B4C     		ldr	r4, .L20
+ 204 0004 0122     		movs	r2, #1
+ 205 0006 8021     		movs	r1, #128
+ 206 0008 2046     		mov	r0, r4
+ 207 000a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 208              	.LVL17:
+  49:Core/Src/ina226.c ****     IIC_SCL_H;
+ 209              		.loc 1 49 5 view .LVU47
+ 210 000e 0122     		movs	r2, #1
+ 211 0010 4021     		movs	r1, #64
+ 212 0012 2046     		mov	r0, r4
+ 213 0014 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 214              	.LVL18:
+  50:Core/Src/ina226.c ****     delay_nns(5);
+ 215              		.loc 1 50 5 view .LVU48
+  51:Core/Src/ina226.c ****     IIC_SDA_L; //START:when CLK is high,DATA change form high to low
+ 216              		.loc 1 51 5 view .LVU49
+ 217 0018 0022     		movs	r2, #0
+ 218 001a 8021     		movs	r1, #128
+ 219 001c 2046     		mov	r0, r4
+ 220 001e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 221              	.LVL19:
+  52:Core/Src/ina226.c ****     delay_nns(5);
+ 222              		.loc 1 52 5 view .LVU50
+  53:Core/Src/ina226.c ****     IIC_SCL_L; //钳住I2C总线，准备发送或接收数据
+ 223              		.loc 1 53 5 view .LVU51
+ 224 0022 0022     		movs	r2, #0
+ 225 0024 4021     		movs	r1, #64
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s 			page 6
+
+
+ 226 0026 2046     		mov	r0, r4
+ 227 0028 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 228              	.LVL20:
+  54:Core/Src/ina226.c ****     delay_nns(5);
+ 229              		.loc 1 54 5 view .LVU52
+  55:Core/Src/ina226.c **** }
+ 230              		.loc 1 55 1 is_stmt 0 view .LVU53
+ 231 002c 10BD     		pop	{r4, pc}
+ 232              	.L21:
+ 233 002e 00BF     		.align	2
+ 234              	.L20:
+ 235 0030 000C0140 		.word	1073810432
+ 236              		.cfi_endproc
+ 237              	.LFE69:
+ 239              		.section	.text.INA226_IIC_Stop,"ax",%progbits
+ 240              		.align	1
+ 241              		.global	INA226_IIC_Stop
+ 242              		.syntax unified
+ 243              		.thumb
+ 244              		.thumb_func
+ 245              		.fpu softvfp
+ 247              	INA226_IIC_Stop:
+ 248              	.LFB70:
+  56:Core/Src/ina226.c **** 
+  57:Core/Src/ina226.c **** void INA226_IIC_Stop(void)
+  58:Core/Src/ina226.c **** {
+ 249              		.loc 1 58 1 is_stmt 1 view -0
+ 250              		.cfi_startproc
+ 251              		@ args = 0, pretend = 0, frame = 0
+ 252              		@ frame_needed = 0, uses_anonymous_args = 0
+ 253 0000 10B5     		push	{r4, lr}
+ 254              	.LCFI2:
+ 255              		.cfi_def_cfa_offset 8
+ 256              		.cfi_offset 4, -8
+ 257              		.cfi_offset 14, -4
+  59:Core/Src/ina226.c ****     IIC_SDA_L; //STOP:when CLK is high DATA change form low to high
+ 258              		.loc 1 59 5 view .LVU55
+ 259 0002 084C     		ldr	r4, .L24
+ 260 0004 0022     		movs	r2, #0
+ 261 0006 8021     		movs	r1, #128
+ 262 0008 2046     		mov	r0, r4
+ 263 000a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 264              	.LVL21:
+  60:Core/Src/ina226.c ****     delay_nns(5);
+ 265              		.loc 1 60 5 view .LVU56
+  61:Core/Src/ina226.c ****     IIC_SCL_H;
+ 266              		.loc 1 61 5 view .LVU57
+ 267 000e 0122     		movs	r2, #1
+ 268 0010 4021     		movs	r1, #64
+ 269 0012 2046     		mov	r0, r4
+ 270 0014 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 271              	.LVL22:
+  62:Core/Src/ina226.c ****     delay_nns(5);
+ 272              		.loc 1 62 5 view .LVU58
+  63:Core/Src/ina226.c ****     IIC_SDA_H; //发送I2C总线结束信号
+ 273              		.loc 1 63 5 view .LVU59
+ 274 0018 0122     		movs	r2, #1
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s 			page 7
+
+
+ 275 001a 8021     		movs	r1, #128
+ 276 001c 2046     		mov	r0, r4
+ 277 001e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 278              	.LVL23:
+  64:Core/Src/ina226.c ****     delay_nns(5);
+ 279              		.loc 1 64 5 view .LVU60
+  65:Core/Src/ina226.c **** }
+ 280              		.loc 1 65 1 is_stmt 0 view .LVU61
+ 281 0022 10BD     		pop	{r4, pc}
+ 282              	.L25:
+ 283              		.align	2
+ 284              	.L24:
+ 285 0024 000C0140 		.word	1073810432
+ 286              		.cfi_endproc
+ 287              	.LFE70:
+ 289              		.section	.text.INA226_IIC_Ack,"ax",%progbits
+ 290              		.align	1
+ 291              		.global	INA226_IIC_Ack
+ 292              		.syntax unified
+ 293              		.thumb
+ 294              		.thumb_func
+ 295              		.fpu softvfp
+ 297              	INA226_IIC_Ack:
+ 298              	.LFB71:
+  66:Core/Src/ina226.c **** 
+  67:Core/Src/ina226.c **** void INA226_IIC_Ack(void)
+  68:Core/Src/ina226.c **** {
+ 299              		.loc 1 68 1 is_stmt 1 view -0
+ 300              		.cfi_startproc
+ 301              		@ args = 0, pretend = 0, frame = 0
+ 302              		@ frame_needed = 0, uses_anonymous_args = 0
+ 303 0000 10B5     		push	{r4, lr}
+ 304              	.LCFI3:
+ 305              		.cfi_def_cfa_offset 8
+ 306              		.cfi_offset 4, -8
+ 307              		.cfi_offset 14, -4
+  69:Core/Src/ina226.c ****     IIC_SDA_L;
+ 308              		.loc 1 69 5 view .LVU63
+ 309 0002 0B4C     		ldr	r4, .L28
+ 310 0004 0022     		movs	r2, #0
+ 311 0006 8021     		movs	r1, #128
+ 312 0008 2046     		mov	r0, r4
+ 313 000a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 314              	.LVL24:
+  70:Core/Src/ina226.c ****     delay_nns(5);
+ 315              		.loc 1 70 5 view .LVU64
+  71:Core/Src/ina226.c ****     IIC_SCL_H;
+ 316              		.loc 1 71 5 view .LVU65
+ 317 000e 0122     		movs	r2, #1
+ 318 0010 4021     		movs	r1, #64
+ 319 0012 2046     		mov	r0, r4
+ 320 0014 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 321              	.LVL25:
+  72:Core/Src/ina226.c ****     delay_nns(5);
+ 322              		.loc 1 72 5 view .LVU66
+  73:Core/Src/ina226.c ****     IIC_SCL_L;
+ 323              		.loc 1 73 5 view .LVU67
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s 			page 8
+
+
+ 324 0018 0022     		movs	r2, #0
+ 325 001a 4021     		movs	r1, #64
+ 326 001c 2046     		mov	r0, r4
+ 327 001e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 328              	.LVL26:
+  74:Core/Src/ina226.c ****     delay_nns(5);
+ 329              		.loc 1 74 5 view .LVU68
+  75:Core/Src/ina226.c ****     IIC_SDA_H;
+ 330              		.loc 1 75 5 view .LVU69
+ 331 0022 0122     		movs	r2, #1
+ 332 0024 8021     		movs	r1, #128
+ 333 0026 2046     		mov	r0, r4
+ 334 0028 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 335              	.LVL27:
+  76:Core/Src/ina226.c **** }
+ 336              		.loc 1 76 1 is_stmt 0 view .LVU70
+ 337 002c 10BD     		pop	{r4, pc}
+ 338              	.L29:
+ 339 002e 00BF     		.align	2
+ 340              	.L28:
+ 341 0030 000C0140 		.word	1073810432
+ 342              		.cfi_endproc
+ 343              	.LFE71:
+ 345              		.section	.text.INA226_IIC_NAck,"ax",%progbits
+ 346              		.align	1
+ 347              		.global	INA226_IIC_NAck
+ 348              		.syntax unified
+ 349              		.thumb
+ 350              		.thumb_func
+ 351              		.fpu softvfp
+ 353              	INA226_IIC_NAck:
+ 354              	.LFB72:
+  77:Core/Src/ina226.c **** 
+  78:Core/Src/ina226.c **** void INA226_IIC_NAck(void)
+  79:Core/Src/ina226.c **** {
+ 355              		.loc 1 79 1 is_stmt 1 view -0
+ 356              		.cfi_startproc
+ 357              		@ args = 0, pretend = 0, frame = 0
+ 358              		@ frame_needed = 0, uses_anonymous_args = 0
+ 359 0000 10B5     		push	{r4, lr}
+ 360              	.LCFI4:
+ 361              		.cfi_def_cfa_offset 8
+ 362              		.cfi_offset 4, -8
+ 363              		.cfi_offset 14, -4
+  80:Core/Src/ina226.c ****     IIC_SDA_H;
+ 364              		.loc 1 80 5 view .LVU72
+ 365 0002 0B4C     		ldr	r4, .L32
+ 366 0004 0122     		movs	r2, #1
+ 367 0006 8021     		movs	r1, #128
+ 368 0008 2046     		mov	r0, r4
+ 369 000a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 370              	.LVL28:
+  81:Core/Src/ina226.c ****     delay_nns(5);
+ 371              		.loc 1 81 5 view .LVU73
+  82:Core/Src/ina226.c ****     IIC_SCL_H;
+ 372              		.loc 1 82 5 view .LVU74
+ 373 000e 0122     		movs	r2, #1
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s 			page 9
+
+
+ 374 0010 4021     		movs	r1, #64
+ 375 0012 2046     		mov	r0, r4
+ 376 0014 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 377              	.LVL29:
+  83:Core/Src/ina226.c ****     delay_nns(5);
+ 378              		.loc 1 83 5 view .LVU75
+  84:Core/Src/ina226.c ****     IIC_SCL_L;
+ 379              		.loc 1 84 5 view .LVU76
+ 380 0018 0022     		movs	r2, #0
+ 381 001a 4021     		movs	r1, #64
+ 382 001c 2046     		mov	r0, r4
+ 383 001e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 384              	.LVL30:
+  85:Core/Src/ina226.c ****     delay_nns(5);
+ 385              		.loc 1 85 5 view .LVU77
+  86:Core/Src/ina226.c ****     IIC_SDA_L;
+ 386              		.loc 1 86 5 view .LVU78
+ 387 0022 0022     		movs	r2, #0
+ 388 0024 8021     		movs	r1, #128
+ 389 0026 2046     		mov	r0, r4
+ 390 0028 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 391              	.LVL31:
+  87:Core/Src/ina226.c **** }
+ 392              		.loc 1 87 1 is_stmt 0 view .LVU79
+ 393 002c 10BD     		pop	{r4, pc}
+ 394              	.L33:
+ 395 002e 00BF     		.align	2
+ 396              	.L32:
+ 397 0030 000C0140 		.word	1073810432
+ 398              		.cfi_endproc
+ 399              	.LFE72:
+ 401              		.section	.text.INA226_IIC_Wait_Ack,"ax",%progbits
+ 402              		.align	1
+ 403              		.global	INA226_IIC_Wait_Ack
+ 404              		.syntax unified
+ 405              		.thumb
+ 406              		.thumb_func
+ 407              		.fpu softvfp
+ 409              	INA226_IIC_Wait_Ack:
+ 410              	.LFB73:
+  88:Core/Src/ina226.c **** 
+  89:Core/Src/ina226.c **** uint8_t INA226_IIC_Wait_Ack(void)
+  90:Core/Src/ina226.c **** {
+ 411              		.loc 1 90 1 is_stmt 1 view -0
+ 412              		.cfi_startproc
+ 413              		@ args = 0, pretend = 0, frame = 0
+ 414              		@ frame_needed = 0, uses_anonymous_args = 0
+ 415 0000 38B5     		push	{r3, r4, r5, lr}
+ 416              	.LCFI5:
+ 417              		.cfi_def_cfa_offset 16
+ 418              		.cfi_offset 3, -16
+ 419              		.cfi_offset 4, -12
+ 420              		.cfi_offset 5, -8
+ 421              		.cfi_offset 14, -4
+  91:Core/Src/ina226.c ****     uint8_t ucErrTime = 0;
+ 422              		.loc 1 91 5 view .LVU81
+ 423              	.LVL32:
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s 			page 10
+
+
+  92:Core/Src/ina226.c ****     //SDA_IN();      //SDA设置为输入
+  93:Core/Src/ina226.c ****     IIC_SDA_H;
+ 424              		.loc 1 93 5 view .LVU82
+ 425 0002 104C     		ldr	r4, .L40
+ 426 0004 0122     		movs	r2, #1
+ 427 0006 8021     		movs	r1, #128
+ 428 0008 2046     		mov	r0, r4
+ 429 000a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 430              	.LVL33:
+  94:Core/Src/ina226.c ****     delay_nns(5);
+ 431              		.loc 1 94 5 view .LVU83
+  95:Core/Src/ina226.c ****     IIC_SCL_H;
+ 432              		.loc 1 95 5 view .LVU84
+ 433 000e 0122     		movs	r2, #1
+ 434 0010 4021     		movs	r1, #64
+ 435 0012 2046     		mov	r0, r4
+ 436 0014 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 437              	.LVL34:
+  96:Core/Src/ina226.c ****     delay_nns(5);
+ 438              		.loc 1 96 5 view .LVU85
+  97:Core/Src/ina226.c **** 
+  98:Core/Src/ina226.c ****     while (READ_SDA)
+ 439              		.loc 1 98 5 view .LVU86
+  91:Core/Src/ina226.c ****     //SDA_IN();      //SDA设置为输入
+ 440              		.loc 1 91 13 is_stmt 0 view .LVU87
+ 441 0018 0024     		movs	r4, #0
+ 442              	.LVL35:
+ 443              	.L35:
+ 444              		.loc 1 98 11 is_stmt 1 view .LVU88
+ 445              		.loc 1 98 12 is_stmt 0 view .LVU89
+ 446 001a 8021     		movs	r1, #128
+ 447 001c 0948     		ldr	r0, .L40
+ 448 001e FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 449              	.LVL36:
+ 450              		.loc 1 98 11 view .LVU90
+ 451 0022 0546     		mov	r5, r0
+ 452 0024 38B1     		cbz	r0, .L39
+  99:Core/Src/ina226.c ****     {
+ 100:Core/Src/ina226.c ****         ucErrTime++;
+ 453              		.loc 1 100 9 is_stmt 1 view .LVU91
+ 454              		.loc 1 100 18 is_stmt 0 view .LVU92
+ 455 0026 0134     		adds	r4, r4, #1
+ 456              	.LVL37:
+ 457              		.loc 1 100 18 view .LVU93
+ 458 0028 E4B2     		uxtb	r4, r4
+ 459              	.LVL38:
+ 101:Core/Src/ina226.c ****         if (ucErrTime > 250)
+ 460              		.loc 1 101 9 is_stmt 1 view .LVU94
+ 461              		.loc 1 101 12 is_stmt 0 view .LVU95
+ 462 002a FA2C     		cmp	r4, #250
+ 463 002c F5D9     		bls	.L35
+ 102:Core/Src/ina226.c ****         {
+ 103:Core/Src/ina226.c ****             INA226_IIC_Stop();
+ 464              		.loc 1 103 13 is_stmt 1 view .LVU96
+ 465 002e FFF7FEFF 		bl	INA226_IIC_Stop
+ 466              	.LVL39:
+ 104:Core/Src/ina226.c ****             return 1;
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s 			page 11
+
+
+ 467              		.loc 1 104 13 view .LVU97
+ 468              		.loc 1 104 20 is_stmt 0 view .LVU98
+ 469 0032 0125     		movs	r5, #1
+ 470 0034 04E0     		b	.L36
+ 471              	.L39:
+ 105:Core/Src/ina226.c ****         }
+ 106:Core/Src/ina226.c ****     }
+ 107:Core/Src/ina226.c ****     IIC_SCL_L; //时钟输出0
+ 472              		.loc 1 107 5 is_stmt 1 view .LVU99
+ 473 0036 0022     		movs	r2, #0
+ 474 0038 4021     		movs	r1, #64
+ 475 003a 0248     		ldr	r0, .L40
+ 476 003c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 477              	.LVL40:
+ 108:Core/Src/ina226.c ****     return 0;
+ 478              		.loc 1 108 5 view .LVU100
+ 479              	.L36:
+ 109:Core/Src/ina226.c **** }
+ 480              		.loc 1 109 1 is_stmt 0 view .LVU101
+ 481 0040 2846     		mov	r0, r5
+ 482 0042 38BD     		pop	{r3, r4, r5, pc}
+ 483              	.LVL41:
+ 484              	.L41:
+ 485              		.loc 1 109 1 view .LVU102
+ 486              		.align	2
+ 487              	.L40:
+ 488 0044 000C0140 		.word	1073810432
+ 489              		.cfi_endproc
+ 490              	.LFE73:
+ 492              		.section	.text.INA226_IIC_Send_Byte,"ax",%progbits
+ 493              		.align	1
+ 494              		.global	INA226_IIC_Send_Byte
+ 495              		.syntax unified
+ 496              		.thumb
+ 497              		.thumb_func
+ 498              		.fpu softvfp
+ 500              	INA226_IIC_Send_Byte:
+ 501              	.LVL42:
+ 502              	.LFB74:
+ 110:Core/Src/ina226.c **** 
+ 111:Core/Src/ina226.c **** void INA226_IIC_Send_Byte(uint8_t txd)
+ 112:Core/Src/ina226.c **** {
+ 503              		.loc 1 112 1 is_stmt 1 view -0
+ 504              		.cfi_startproc
+ 505              		@ args = 0, pretend = 0, frame = 0
+ 506              		@ frame_needed = 0, uses_anonymous_args = 0
+ 507              		.loc 1 112 1 is_stmt 0 view .LVU104
+ 508 0000 70B5     		push	{r4, r5, r6, lr}
+ 509              	.LCFI6:
+ 510              		.cfi_def_cfa_offset 16
+ 511              		.cfi_offset 4, -16
+ 512              		.cfi_offset 5, -12
+ 513              		.cfi_offset 6, -8
+ 514              		.cfi_offset 14, -4
+ 515 0002 0446     		mov	r4, r0
+ 113:Core/Src/ina226.c ****     IIC_SCL_L; //拉低时钟开始数据传输
+ 516              		.loc 1 113 5 is_stmt 1 view .LVU105
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s 			page 12
+
+
+ 517 0004 0022     		movs	r2, #0
+ 518 0006 4021     		movs	r1, #64
+ 519 0008 1248     		ldr	r0, .L50
+ 520              	.LVL43:
+ 521              		.loc 1 113 5 is_stmt 0 view .LVU106
+ 522 000a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 523              	.LVL44:
+ 114:Core/Src/ina226.c ****     for (uint8_t i = 0; i < 8; i++)
+ 524              		.loc 1 114 5 is_stmt 1 view .LVU107
+ 525              	.LBB2:
+ 526              		.loc 1 114 10 view .LVU108
+ 527              		.loc 1 114 18 is_stmt 0 view .LVU109
+ 528 000e 0025     		movs	r5, #0
+ 529              		.loc 1 114 5 view .LVU110
+ 530 0010 13E0     		b	.L43
+ 531              	.LVL45:
+ 532              	.L49:
+ 115:Core/Src/ina226.c ****     {
+ 116:Core/Src/ina226.c ****         if (txd & 0x80)
+ 117:Core/Src/ina226.c ****             IIC_SDA_H;
+ 533              		.loc 1 117 13 is_stmt 1 view .LVU111
+ 534 0012 0122     		movs	r2, #1
+ 535 0014 8021     		movs	r1, #128
+ 536 0016 0F48     		ldr	r0, .L50
+ 537 0018 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 538              	.LVL46:
+ 539              	.L45:
+ 118:Core/Src/ina226.c ****         else
+ 119:Core/Src/ina226.c ****             IIC_SDA_L;
+ 120:Core/Src/ina226.c ****         txd <<= 1;
+ 540              		.loc 1 120 9 discriminator 2 view .LVU112
+ 541              		.loc 1 120 13 is_stmt 0 discriminator 2 view .LVU113
+ 542 001c 6400     		lsls	r4, r4, #1
+ 543              	.LVL47:
+ 544              		.loc 1 120 13 discriminator 2 view .LVU114
+ 545 001e E4B2     		uxtb	r4, r4
+ 546              	.LVL48:
+ 121:Core/Src/ina226.c **** 
+ 122:Core/Src/ina226.c ****         IIC_SCL_H;
+ 547              		.loc 1 122 9 is_stmt 1 discriminator 2 view .LVU115
+ 548 0020 0C4E     		ldr	r6, .L50
+ 549 0022 0122     		movs	r2, #1
+ 550 0024 4021     		movs	r1, #64
+ 551 0026 3046     		mov	r0, r6
+ 552 0028 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 553              	.LVL49:
+ 123:Core/Src/ina226.c ****         delay_nns(5);
+ 554              		.loc 1 123 9 discriminator 2 view .LVU116
+ 124:Core/Src/ina226.c ****         IIC_SCL_L;
+ 555              		.loc 1 124 9 discriminator 2 view .LVU117
+ 556 002c 0022     		movs	r2, #0
+ 557 002e 4021     		movs	r1, #64
+ 558 0030 3046     		mov	r0, r6
+ 559 0032 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 560              	.LVL50:
+ 125:Core/Src/ina226.c ****         delay_nns(5);
+ 561              		.loc 1 125 9 discriminator 2 view .LVU118
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s 			page 13
+
+
+ 114:Core/Src/ina226.c ****     {
+ 562              		.loc 1 114 32 discriminator 2 view .LVU119
+ 114:Core/Src/ina226.c ****     {
+ 563              		.loc 1 114 33 is_stmt 0 discriminator 2 view .LVU120
+ 564 0036 0135     		adds	r5, r5, #1
+ 565              	.LVL51:
+ 114:Core/Src/ina226.c ****     {
+ 566              		.loc 1 114 33 discriminator 2 view .LVU121
+ 567 0038 EDB2     		uxtb	r5, r5
+ 568              	.LVL52:
+ 569              	.L43:
+ 114:Core/Src/ina226.c ****     {
+ 570              		.loc 1 114 25 is_stmt 1 discriminator 1 view .LVU122
+ 114:Core/Src/ina226.c ****     {
+ 571              		.loc 1 114 5 is_stmt 0 discriminator 1 view .LVU123
+ 572 003a 072D     		cmp	r5, #7
+ 573 003c 08D8     		bhi	.L48
+ 116:Core/Src/ina226.c ****             IIC_SDA_H;
+ 574              		.loc 1 116 9 is_stmt 1 view .LVU124
+ 116:Core/Src/ina226.c ****             IIC_SDA_H;
+ 575              		.loc 1 116 12 is_stmt 0 view .LVU125
+ 576 003e 14F0800F 		tst	r4, #128
+ 577 0042 E6D1     		bne	.L49
+ 119:Core/Src/ina226.c ****         txd <<= 1;
+ 578              		.loc 1 119 13 is_stmt 1 view .LVU126
+ 579 0044 0022     		movs	r2, #0
+ 580 0046 8021     		movs	r1, #128
+ 581 0048 0248     		ldr	r0, .L50
+ 582 004a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 583              	.LVL53:
+ 584 004e E5E7     		b	.L45
+ 585              	.L48:
+ 586              	.LBE2:
+ 126:Core/Src/ina226.c ****     }
+ 127:Core/Src/ina226.c ****     //    IIC_SDA_H;
+ 128:Core/Src/ina226.c ****     //    IIC_SCL_H;            //当去掉wait_ack时的时候添加
+ 129:Core/Src/ina226.c ****     //    delay_nns(5);
+ 130:Core/Src/ina226.c ****     //IIC_SCL_L;
+ 131:Core/Src/ina226.c **** }
+ 587              		.loc 1 131 1 is_stmt 0 view .LVU127
+ 588 0050 70BD     		pop	{r4, r5, r6, pc}
+ 589              	.LVL54:
+ 590              	.L51:
+ 591              		.loc 1 131 1 view .LVU128
+ 592 0052 00BF     		.align	2
+ 593              	.L50:
+ 594 0054 000C0140 		.word	1073810432
+ 595              		.cfi_endproc
+ 596              	.LFE74:
+ 598              		.section	.text.INA226_IIC_Read_Byte,"ax",%progbits
+ 599              		.align	1
+ 600              		.global	INA226_IIC_Read_Byte
+ 601              		.syntax unified
+ 602              		.thumb
+ 603              		.thumb_func
+ 604              		.fpu softvfp
+ 606              	INA226_IIC_Read_Byte:
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s 			page 14
+
+
+ 607              	.LVL55:
+ 608              	.LFB75:
+ 132:Core/Src/ina226.c **** 
+ 133:Core/Src/ina226.c **** uint8_t INA226_IIC_Read_Byte(unsigned char ack)
+ 134:Core/Src/ina226.c **** {
+ 609              		.loc 1 134 1 is_stmt 1 view -0
+ 610              		.cfi_startproc
+ 611              		@ args = 0, pretend = 0, frame = 0
+ 612              		@ frame_needed = 0, uses_anonymous_args = 0
+ 613              		.loc 1 134 1 is_stmt 0 view .LVU130
+ 614 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 615              	.LCFI7:
+ 616              		.cfi_def_cfa_offset 24
+ 617              		.cfi_offset 3, -24
+ 618              		.cfi_offset 4, -20
+ 619              		.cfi_offset 5, -16
+ 620              		.cfi_offset 6, -12
+ 621              		.cfi_offset 7, -8
+ 622              		.cfi_offset 14, -4
+ 623 0002 0746     		mov	r7, r0
+ 135:Core/Src/ina226.c ****     uint8_t TData = 0, i;
+ 624              		.loc 1 135 5 is_stmt 1 view .LVU131
+ 625              	.LVL56:
+ 136:Core/Src/ina226.c ****     for (i = 0; i < 8; i++)
+ 626              		.loc 1 136 5 view .LVU132
+ 627              		.loc 1 136 12 is_stmt 0 view .LVU133
+ 628 0004 0024     		movs	r4, #0
+ 135:Core/Src/ina226.c ****     uint8_t TData = 0, i;
+ 629              		.loc 1 135 13 view .LVU134
+ 630 0006 2546     		mov	r5, r4
+ 631              		.loc 1 136 5 view .LVU135
+ 632 0008 06E0     		b	.L53
+ 633              	.LVL57:
+ 634              	.L54:
+ 137:Core/Src/ina226.c ****     {
+ 138:Core/Src/ina226.c ****         IIC_SCL_H;
+ 139:Core/Src/ina226.c ****         delay_nns(5);
+ 140:Core/Src/ina226.c ****         TData = TData << 1;
+ 141:Core/Src/ina226.c ****         //if(GPIOB->IDR& GPIO_IDR_IDR7)        //判断SDA是否为高
+ 142:Core/Src/ina226.c ****         if (SDA_READ)
+ 143:Core/Src/ina226.c ****         {
+ 144:Core/Src/ina226.c ****             TData |= 0x01;
+ 145:Core/Src/ina226.c ****         }
+ 146:Core/Src/ina226.c ****         IIC_SCL_L;
+ 635              		.loc 1 146 9 is_stmt 1 discriminator 2 view .LVU136
+ 636 000a 0022     		movs	r2, #0
+ 637 000c 4021     		movs	r1, #64
+ 638 000e 0F48     		ldr	r0, .L60
+ 639 0010 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 640              	.LVL58:
+ 147:Core/Src/ina226.c ****         delay_nns(5);
+ 641              		.loc 1 147 9 discriminator 2 view .LVU137
+ 136:Core/Src/ina226.c ****     for (i = 0; i < 8; i++)
+ 642              		.loc 1 136 24 discriminator 2 view .LVU138
+ 136:Core/Src/ina226.c ****     for (i = 0; i < 8; i++)
+ 643              		.loc 1 136 25 is_stmt 0 discriminator 2 view .LVU139
+ 644 0014 0134     		adds	r4, r4, #1
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s 			page 15
+
+
+ 645              	.LVL59:
+ 136:Core/Src/ina226.c ****     for (i = 0; i < 8; i++)
+ 646              		.loc 1 136 25 discriminator 2 view .LVU140
+ 647 0016 E4B2     		uxtb	r4, r4
+ 648              	.LVL60:
+ 649              	.L53:
+ 136:Core/Src/ina226.c ****     for (i = 0; i < 8; i++)
+ 650              		.loc 1 136 17 is_stmt 1 discriminator 1 view .LVU141
+ 136:Core/Src/ina226.c ****     for (i = 0; i < 8; i++)
+ 651              		.loc 1 136 5 is_stmt 0 discriminator 1 view .LVU142
+ 652 0018 072C     		cmp	r4, #7
+ 653 001a 0ED8     		bhi	.L59
+ 138:Core/Src/ina226.c ****         delay_nns(5);
+ 654              		.loc 1 138 9 is_stmt 1 view .LVU143
+ 655 001c 0B4E     		ldr	r6, .L60
+ 656 001e 0122     		movs	r2, #1
+ 657 0020 4021     		movs	r1, #64
+ 658 0022 3046     		mov	r0, r6
+ 659 0024 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 660              	.LVL61:
+ 139:Core/Src/ina226.c ****         TData = TData << 1;
+ 661              		.loc 1 139 9 view .LVU144
+ 140:Core/Src/ina226.c ****         //if(GPIOB->IDR& GPIO_IDR_IDR7)        //判断SDA是否为高
+ 662              		.loc 1 140 9 view .LVU145
+ 140:Core/Src/ina226.c ****         //if(GPIOB->IDR& GPIO_IDR_IDR7)        //判断SDA是否为高
+ 663              		.loc 1 140 15 is_stmt 0 view .LVU146
+ 664 0028 6D00     		lsls	r5, r5, #1
+ 665              	.LVL62:
+ 140:Core/Src/ina226.c ****         //if(GPIOB->IDR& GPIO_IDR_IDR7)        //判断SDA是否为高
+ 666              		.loc 1 140 15 view .LVU147
+ 667 002a EDB2     		uxtb	r5, r5
+ 668              	.LVL63:
+ 142:Core/Src/ina226.c ****         {
+ 669              		.loc 1 142 9 is_stmt 1 view .LVU148
+ 142:Core/Src/ina226.c ****         {
+ 670              		.loc 1 142 13 is_stmt 0 view .LVU149
+ 671 002c B368     		ldr	r3, [r6, #8]
+ 142:Core/Src/ina226.c ****         {
+ 672              		.loc 1 142 12 view .LVU150
+ 673 002e 13F0800F 		tst	r3, #128
+ 674 0032 EAD0     		beq	.L54
+ 144:Core/Src/ina226.c ****         }
+ 675              		.loc 1 144 13 is_stmt 1 view .LVU151
+ 144:Core/Src/ina226.c ****         }
+ 676              		.loc 1 144 19 is_stmt 0 view .LVU152
+ 677 0034 45F00105 		orr	r5, r5, #1
+ 678              	.LVL64:
+ 144:Core/Src/ina226.c ****         }
+ 679              		.loc 1 144 19 view .LVU153
+ 680 0038 E7E7     		b	.L54
+ 681              	.L59:
+ 148:Core/Src/ina226.c ****     }
+ 149:Core/Src/ina226.c ****     if (!ack)
+ 682              		.loc 1 149 5 is_stmt 1 view .LVU154
+ 683              		.loc 1 149 8 is_stmt 0 view .LVU155
+ 684 003a 1FB9     		cbnz	r7, .L56
+ 150:Core/Src/ina226.c ****         INA226_IIC_NAck();
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s 			page 16
+
+
+ 685              		.loc 1 150 9 is_stmt 1 view .LVU156
+ 686 003c FFF7FEFF 		bl	INA226_IIC_NAck
+ 687              	.LVL65:
+ 688              	.L57:
+ 151:Core/Src/ina226.c ****     else
+ 152:Core/Src/ina226.c ****         INA226_IIC_Ack();
+ 153:Core/Src/ina226.c ****     //    IIC_SCL_L;
+ 154:Core/Src/ina226.c ****     //    delay_nns(5);
+ 155:Core/Src/ina226.c ****     //    IIC_SDA_L;
+ 156:Core/Src/ina226.c ****     //    delay_nns(5);                //ACK
+ 157:Core/Src/ina226.c ****     //    IIC_SCL_H;
+ 158:Core/Src/ina226.c ****     //    delay_nns(5);
+ 159:Core/Src/ina226.c ****     //    IIC_SCL_L;
+ 160:Core/Src/ina226.c ****     //    delay_nns(5);
+ 161:Core/Src/ina226.c ****     //    IIC_SDA_H;
+ 162:Core/Src/ina226.c ****     return TData;
+ 689              		.loc 1 162 5 view .LVU157
+ 163:Core/Src/ina226.c **** }
+ 690              		.loc 1 163 1 is_stmt 0 view .LVU158
+ 691 0040 2846     		mov	r0, r5
+ 692 0042 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 693              	.LVL66:
+ 694              	.L56:
+ 152:Core/Src/ina226.c ****     //    IIC_SCL_L;
+ 695              		.loc 1 152 9 is_stmt 1 view .LVU159
+ 696 0044 FFF7FEFF 		bl	INA226_IIC_Ack
+ 697              	.LVL67:
+ 698 0048 FAE7     		b	.L57
+ 699              	.L61:
+ 700 004a 00BF     		.align	2
+ 701              	.L60:
+ 702 004c 000C0140 		.word	1073810432
+ 703              		.cfi_endproc
+ 704              	.LFE75:
+ 706              		.section	.text.INA226_SetRegPointer,"ax",%progbits
+ 707              		.align	1
+ 708              		.global	INA226_SetRegPointer
+ 709              		.syntax unified
+ 710              		.thumb
+ 711              		.thumb_func
+ 712              		.fpu softvfp
+ 714              	INA226_SetRegPointer:
+ 715              	.LVL68:
+ 716              	.LFB77:
+ 164:Core/Src/ina226.c **** 
+ 165:Core/Src/ina226.c **** /**********************IIC_END*************************/
+ 166:Core/Src/ina226.c **** 
+ 167:Core/Src/ina226.c **** //初始化INA226
+ 168:Core/Src/ina226.c **** void mx_ina226_init(void)
+ 169:Core/Src/ina226.c **** {
+ 170:Core/Src/ina226.c **** 
+ 171:Core/Src/ina226.c ****     INA226_IIC_Init();
+ 172:Core/Src/ina226.c ****     INA226_SendData(INA226_ADDR1, CFG_REG, 0x8000); //重新启动
+ 173:Core/Src/ina226.c **** 
+ 174:Core/Src/ina226.c ****     INA226_SendData(INA226_ADDR1, CFG_REG, 0x484f); //设置转换时间204us,求平均值次数128
+ 175:Core/Src/ina226.c ****     INA226_SendData(INA226_ADDR1, CAL_REG, CAL);    //设置分辨率
+ 176:Core/Src/ina226.c ****     INA226_Get_ID(INA226_ADDR1);                    //获取ina226的id
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s 			page 17
+
+
+ 177:Core/Src/ina226.c **** }
+ 178:Core/Src/ina226.c **** 
+ 179:Core/Src/ina226.c **** //设置寄存器指针
+ 180:Core/Src/ina226.c **** void INA226_SetRegPointer(uint8_t addr, uint8_t reg)
+ 181:Core/Src/ina226.c **** {
+ 717              		.loc 1 181 1 view -0
+ 718              		.cfi_startproc
+ 719              		@ args = 0, pretend = 0, frame = 0
+ 720              		@ frame_needed = 0, uses_anonymous_args = 0
+ 721              		.loc 1 181 1 is_stmt 0 view .LVU161
+ 722 0000 38B5     		push	{r3, r4, r5, lr}
+ 723              	.LCFI8:
+ 724              		.cfi_def_cfa_offset 16
+ 725              		.cfi_offset 3, -16
+ 726              		.cfi_offset 4, -12
+ 727              		.cfi_offset 5, -8
+ 728              		.cfi_offset 14, -4
+ 729 0002 0546     		mov	r5, r0
+ 730 0004 0C46     		mov	r4, r1
+ 182:Core/Src/ina226.c ****     INA226_IIC_Start();
+ 731              		.loc 1 182 5 is_stmt 1 view .LVU162
+ 732 0006 FFF7FEFF 		bl	INA226_IIC_Start
+ 733              	.LVL69:
+ 183:Core/Src/ina226.c **** 
+ 184:Core/Src/ina226.c ****     INA226_IIC_Send_Byte(addr);
+ 734              		.loc 1 184 5 view .LVU163
+ 735 000a 2846     		mov	r0, r5
+ 736 000c FFF7FEFF 		bl	INA226_IIC_Send_Byte
+ 737              	.LVL70:
+ 185:Core/Src/ina226.c ****     INA226_IIC_Wait_Ack();
+ 738              		.loc 1 185 5 view .LVU164
+ 739 0010 FFF7FEFF 		bl	INA226_IIC_Wait_Ack
+ 740              	.LVL71:
+ 186:Core/Src/ina226.c **** 
+ 187:Core/Src/ina226.c ****     INA226_IIC_Send_Byte(reg);
+ 741              		.loc 1 187 5 view .LVU165
+ 742 0014 2046     		mov	r0, r4
+ 743 0016 FFF7FEFF 		bl	INA226_IIC_Send_Byte
+ 744              	.LVL72:
+ 188:Core/Src/ina226.c ****     INA226_IIC_Wait_Ack();
+ 745              		.loc 1 188 5 view .LVU166
+ 746 001a FFF7FEFF 		bl	INA226_IIC_Wait_Ack
+ 747              	.LVL73:
+ 189:Core/Src/ina226.c **** 
+ 190:Core/Src/ina226.c ****     INA226_IIC_Stop();
+ 748              		.loc 1 190 5 view .LVU167
+ 749 001e FFF7FEFF 		bl	INA226_IIC_Stop
+ 750              	.LVL74:
+ 191:Core/Src/ina226.c **** }
+ 751              		.loc 1 191 1 is_stmt 0 view .LVU168
+ 752 0022 38BD     		pop	{r3, r4, r5, pc}
+ 753              		.cfi_endproc
+ 754              	.LFE77:
+ 756              		.section	.text.INA226_SendData,"ax",%progbits
+ 757              		.align	1
+ 758              		.global	INA226_SendData
+ 759              		.syntax unified
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s 			page 18
+
+
+ 760              		.thumb
+ 761              		.thumb_func
+ 762              		.fpu softvfp
+ 764              	INA226_SendData:
+ 765              	.LVL75:
+ 766              	.LFB78:
+ 192:Core/Src/ina226.c **** 
+ 193:Core/Src/ina226.c **** //发送,写入数据
+ 194:Core/Src/ina226.c **** void INA226_SendData(uint8_t addr, uint8_t reg, uint16_t data)
+ 195:Core/Src/ina226.c **** {
+ 767              		.loc 1 195 1 is_stmt 1 view -0
+ 768              		.cfi_startproc
+ 769              		@ args = 0, pretend = 0, frame = 0
+ 770              		@ frame_needed = 0, uses_anonymous_args = 0
+ 771              		.loc 1 195 1 is_stmt 0 view .LVU170
+ 772 0000 70B5     		push	{r4, r5, r6, lr}
+ 773              	.LCFI9:
+ 774              		.cfi_def_cfa_offset 16
+ 775              		.cfi_offset 4, -16
+ 776              		.cfi_offset 5, -12
+ 777              		.cfi_offset 6, -8
+ 778              		.cfi_offset 14, -4
+ 779 0002 0646     		mov	r6, r0
+ 780 0004 0D46     		mov	r5, r1
+ 781 0006 1446     		mov	r4, r2
+ 196:Core/Src/ina226.c ****     uint8_t temp = 0;
+ 782              		.loc 1 196 5 is_stmt 1 view .LVU171
+ 783              	.LVL76:
+ 197:Core/Src/ina226.c ****     INA226_IIC_Start();
+ 784              		.loc 1 197 5 view .LVU172
+ 785 0008 FFF7FEFF 		bl	INA226_IIC_Start
+ 786              	.LVL77:
+ 198:Core/Src/ina226.c **** 
+ 199:Core/Src/ina226.c ****     INA226_IIC_Send_Byte(addr);
+ 787              		.loc 1 199 5 view .LVU173
+ 788 000c 3046     		mov	r0, r6
+ 789 000e FFF7FEFF 		bl	INA226_IIC_Send_Byte
+ 790              	.LVL78:
+ 200:Core/Src/ina226.c ****     INA226_IIC_Wait_Ack();
+ 791              		.loc 1 200 5 view .LVU174
+ 792 0012 FFF7FEFF 		bl	INA226_IIC_Wait_Ack
+ 793              	.LVL79:
+ 201:Core/Src/ina226.c **** 
+ 202:Core/Src/ina226.c ****     INA226_IIC_Send_Byte(reg);
+ 794              		.loc 1 202 5 view .LVU175
+ 795 0016 2846     		mov	r0, r5
+ 796 0018 FFF7FEFF 		bl	INA226_IIC_Send_Byte
+ 797              	.LVL80:
+ 203:Core/Src/ina226.c ****     INA226_IIC_Wait_Ack();
+ 798              		.loc 1 203 5 view .LVU176
+ 799 001c FFF7FEFF 		bl	INA226_IIC_Wait_Ack
+ 800              	.LVL81:
+ 204:Core/Src/ina226.c **** 
+ 205:Core/Src/ina226.c ****     temp = (uint8_t)(data >> 8);
+ 801              		.loc 1 205 5 view .LVU177
+ 206:Core/Src/ina226.c ****     INA226_IIC_Send_Byte(temp);
+ 802              		.loc 1 206 5 view .LVU178
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s 			page 19
+
+
+ 803 0020 200A     		lsrs	r0, r4, #8
+ 804 0022 FFF7FEFF 		bl	INA226_IIC_Send_Byte
+ 805              	.LVL82:
+ 207:Core/Src/ina226.c ****     INA226_IIC_Wait_Ack();
+ 806              		.loc 1 207 5 view .LVU179
+ 807 0026 FFF7FEFF 		bl	INA226_IIC_Wait_Ack
+ 808              	.LVL83:
+ 208:Core/Src/ina226.c **** 
+ 209:Core/Src/ina226.c ****     temp = (uint8_t)(data & 0x00FF);
+ 809              		.loc 1 209 5 view .LVU180
+ 210:Core/Src/ina226.c ****     INA226_IIC_Send_Byte(temp);
+ 810              		.loc 1 210 5 view .LVU181
+ 811 002a E0B2     		uxtb	r0, r4
+ 812 002c FFF7FEFF 		bl	INA226_IIC_Send_Byte
+ 813              	.LVL84:
+ 211:Core/Src/ina226.c ****     INA226_IIC_Wait_Ack();
+ 814              		.loc 1 211 5 view .LVU182
+ 815 0030 FFF7FEFF 		bl	INA226_IIC_Wait_Ack
+ 816              	.LVL85:
+ 212:Core/Src/ina226.c **** 
+ 213:Core/Src/ina226.c ****     INA226_IIC_Stop();
+ 817              		.loc 1 213 5 view .LVU183
+ 818 0034 FFF7FEFF 		bl	INA226_IIC_Stop
+ 819              	.LVL86:
+ 214:Core/Src/ina226.c **** }
+ 820              		.loc 1 214 1 is_stmt 0 view .LVU184
+ 821 0038 70BD     		pop	{r4, r5, r6, pc}
+ 822              		.loc 1 214 1 view .LVU185
+ 823              		.cfi_endproc
+ 824              	.LFE78:
+ 826              		.section	.text.INA226_ReadData,"ax",%progbits
+ 827              		.align	1
+ 828              		.global	INA226_ReadData
+ 829              		.syntax unified
+ 830              		.thumb
+ 831              		.thumb_func
+ 832              		.fpu softvfp
+ 834              	INA226_ReadData:
+ 835              	.LVL87:
+ 836              	.LFB79:
+ 215:Core/Src/ina226.c **** 
+ 216:Core/Src/ina226.c **** //读取数据
+ 217:Core/Src/ina226.c **** uint16_t INA226_ReadData(uint8_t addr)
+ 218:Core/Src/ina226.c **** {
+ 837              		.loc 1 218 1 is_stmt 1 view -0
+ 838              		.cfi_startproc
+ 839              		@ args = 0, pretend = 0, frame = 0
+ 840              		@ frame_needed = 0, uses_anonymous_args = 0
+ 841              		.loc 1 218 1 is_stmt 0 view .LVU187
+ 842 0000 10B5     		push	{r4, lr}
+ 843              	.LCFI10:
+ 844              		.cfi_def_cfa_offset 8
+ 845              		.cfi_offset 4, -8
+ 846              		.cfi_offset 14, -4
+ 847 0002 0446     		mov	r4, r0
+ 219:Core/Src/ina226.c ****     uint16_t temp = 0;
+ 848              		.loc 1 219 5 is_stmt 1 view .LVU188
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s 			page 20
+
+
+ 849              	.LVL88:
+ 220:Core/Src/ina226.c ****     INA226_IIC_Start();
+ 850              		.loc 1 220 5 view .LVU189
+ 851 0004 FFF7FEFF 		bl	INA226_IIC_Start
+ 852              	.LVL89:
+ 221:Core/Src/ina226.c **** 
+ 222:Core/Src/ina226.c ****     INA226_IIC_Send_Byte(addr + 1);
+ 853              		.loc 1 222 5 view .LVU190
+ 854 0008 601C     		adds	r0, r4, #1
+ 855 000a C0B2     		uxtb	r0, r0
+ 856 000c FFF7FEFF 		bl	INA226_IIC_Send_Byte
+ 857              	.LVL90:
+ 223:Core/Src/ina226.c ****     INA226_IIC_Wait_Ack();
+ 858              		.loc 1 223 5 view .LVU191
+ 859 0010 FFF7FEFF 		bl	INA226_IIC_Wait_Ack
+ 860              	.LVL91:
+ 224:Core/Src/ina226.c **** 
+ 225:Core/Src/ina226.c ****     temp = INA226_IIC_Read_Byte(1);
+ 861              		.loc 1 225 5 view .LVU192
+ 862              		.loc 1 225 12 is_stmt 0 view .LVU193
+ 863 0014 0120     		movs	r0, #1
+ 864 0016 FFF7FEFF 		bl	INA226_IIC_Read_Byte
+ 865              	.LVL92:
+ 866              		.loc 1 225 10 view .LVU194
+ 867 001a 84B2     		uxth	r4, r0
+ 868              	.LVL93:
+ 226:Core/Src/ina226.c ****     temp <<= 8;
+ 869              		.loc 1 226 5 is_stmt 1 view .LVU195
+ 870              		.loc 1 226 10 is_stmt 0 view .LVU196
+ 871 001c 2402     		lsls	r4, r4, #8
+ 872              	.LVL94:
+ 873              		.loc 1 226 10 view .LVU197
+ 874 001e A4B2     		uxth	r4, r4
+ 875              	.LVL95:
+ 227:Core/Src/ina226.c ****     temp |= INA226_IIC_Read_Byte(0);
+ 876              		.loc 1 227 5 is_stmt 1 view .LVU198
+ 877              		.loc 1 227 13 is_stmt 0 view .LVU199
+ 878 0020 0020     		movs	r0, #0
+ 879 0022 FFF7FEFF 		bl	INA226_IIC_Read_Byte
+ 880              	.LVL96:
+ 881 0026 80B2     		uxth	r0, r0
+ 882              		.loc 1 227 10 view .LVU200
+ 883 0028 0443     		orrs	r4, r4, r0
+ 884              	.LVL97:
+ 228:Core/Src/ina226.c **** 
+ 229:Core/Src/ina226.c ****     INA226_IIC_Stop();
+ 885              		.loc 1 229 5 is_stmt 1 view .LVU201
+ 886 002a FFF7FEFF 		bl	INA226_IIC_Stop
+ 887              	.LVL98:
+ 230:Core/Src/ina226.c ****     return temp;
+ 888              		.loc 1 230 5 view .LVU202
+ 231:Core/Src/ina226.c **** }
+ 889              		.loc 1 231 1 is_stmt 0 view .LVU203
+ 890 002e 2046     		mov	r0, r4
+ 891 0030 10BD     		pop	{r4, pc}
+ 892              		.loc 1 231 1 view .LVU204
+ 893              		.cfi_endproc
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s 			page 21
+
+
+ 894              	.LFE79:
+ 896              		.section	.text.INA226_GetShunt_Current,"ax",%progbits
+ 897              		.align	1
+ 898              		.global	INA226_GetShunt_Current
+ 899              		.syntax unified
+ 900              		.thumb
+ 901              		.thumb_func
+ 902              		.fpu softvfp
+ 904              	INA226_GetShunt_Current:
+ 905              	.LVL99:
+ 906              	.LFB80:
+ 232:Core/Src/ina226.c **** //1mA/bit
+ 233:Core/Src/ina226.c **** uint16_t INA226_GetShunt_Current(uint8_t addr)
+ 234:Core/Src/ina226.c **** {
+ 907              		.loc 1 234 1 is_stmt 1 view -0
+ 908              		.cfi_startproc
+ 909              		@ args = 0, pretend = 0, frame = 0
+ 910              		@ frame_needed = 0, uses_anonymous_args = 0
+ 911              		.loc 1 234 1 is_stmt 0 view .LVU206
+ 912 0000 10B5     		push	{r4, lr}
+ 913              	.LCFI11:
+ 914              		.cfi_def_cfa_offset 8
+ 915              		.cfi_offset 4, -8
+ 916              		.cfi_offset 14, -4
+ 917 0002 0446     		mov	r4, r0
+ 235:Core/Src/ina226.c ****     uint16_t temp = 0;
+ 918              		.loc 1 235 5 is_stmt 1 view .LVU207
+ 919              	.LVL100:
+ 236:Core/Src/ina226.c ****     INA226_SetRegPointer(addr, CUR_REG);
+ 920              		.loc 1 236 5 view .LVU208
+ 921 0004 0421     		movs	r1, #4
+ 922 0006 FFF7FEFF 		bl	INA226_SetRegPointer
+ 923              	.LVL101:
+ 237:Core/Src/ina226.c ****     temp = INA226_ReadData(addr);
+ 924              		.loc 1 237 5 view .LVU209
+ 925              		.loc 1 237 12 is_stmt 0 view .LVU210
+ 926 000a 2046     		mov	r0, r4
+ 927 000c FFF7FEFF 		bl	INA226_ReadData
+ 928              	.LVL102:
+ 238:Core/Src/ina226.c ****     if (temp & 0x8000)
+ 929              		.loc 1 238 5 is_stmt 1 view .LVU211
+ 930              		.loc 1 238 8 is_stmt 0 view .LVU212
+ 931 0010 10F4004F 		tst	r0, #32768
+ 932 0014 00D1     		bne	.L71
+ 933              	.L69:
+ 239:Core/Src/ina226.c ****         temp = ~(temp - 1);
+ 240:Core/Src/ina226.c ****     return temp;
+ 934              		.loc 1 240 5 is_stmt 1 view .LVU213
+ 241:Core/Src/ina226.c **** }
+ 935              		.loc 1 241 1 is_stmt 0 view .LVU214
+ 936 0016 10BD     		pop	{r4, pc}
+ 937              	.L71:
+ 239:Core/Src/ina226.c ****         temp = ~(temp - 1);
+ 938              		.loc 1 239 9 is_stmt 1 view .LVU215
+ 239:Core/Src/ina226.c ****         temp = ~(temp - 1);
+ 939              		.loc 1 239 14 is_stmt 0 view .LVU216
+ 940 0018 4042     		rsbs	r0, r0, #0
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s 			page 22
+
+
+ 941              	.LVL103:
+ 239:Core/Src/ina226.c ****         temp = ~(temp - 1);
+ 942              		.loc 1 239 14 view .LVU217
+ 943 001a 80B2     		uxth	r0, r0
+ 944              	.LVL104:
+ 239:Core/Src/ina226.c ****         temp = ~(temp - 1);
+ 945              		.loc 1 239 14 view .LVU218
+ 946 001c FBE7     		b	.L69
+ 947              		.cfi_endproc
+ 948              	.LFE80:
+ 950              		.section	.text.INA226_Get_ID,"ax",%progbits
+ 951              		.align	1
+ 952              		.global	INA226_Get_ID
+ 953              		.syntax unified
+ 954              		.thumb
+ 955              		.thumb_func
+ 956              		.fpu softvfp
+ 958              	INA226_Get_ID:
+ 959              	.LVL105:
+ 960              	.LFB81:
+ 242:Core/Src/ina226.c **** 
+ 243:Core/Src/ina226.c **** //获取id
+ 244:Core/Src/ina226.c **** void INA226_Get_ID(uint8_t addr)
+ 245:Core/Src/ina226.c **** {
+ 961              		.loc 1 245 1 is_stmt 1 view -0
+ 962              		.cfi_startproc
+ 963              		@ args = 0, pretend = 0, frame = 0
+ 964              		@ frame_needed = 0, uses_anonymous_args = 0
+ 965              		.loc 1 245 1 is_stmt 0 view .LVU220
+ 966 0000 10B5     		push	{r4, lr}
+ 967              	.LCFI12:
+ 968              		.cfi_def_cfa_offset 8
+ 969              		.cfi_offset 4, -8
+ 970              		.cfi_offset 14, -4
+ 971 0002 0446     		mov	r4, r0
+ 246:Core/Src/ina226.c ****     uint32_t temp = 0;
+ 972              		.loc 1 246 5 is_stmt 1 view .LVU221
+ 973              	.LVL106:
+ 247:Core/Src/ina226.c ****     INA226_SetRegPointer(addr, INA226_GET_ADDR);
+ 974              		.loc 1 247 5 view .LVU222
+ 975 0004 FF21     		movs	r1, #255
+ 976 0006 FFF7FEFF 		bl	INA226_SetRegPointer
+ 977              	.LVL107:
+ 248:Core/Src/ina226.c ****     temp = INA226_ReadData(addr);
+ 978              		.loc 1 248 5 view .LVU223
+ 979              		.loc 1 248 12 is_stmt 0 view .LVU224
+ 980 000a 2046     		mov	r0, r4
+ 981 000c FFF7FEFF 		bl	INA226_ReadData
+ 982              	.LVL108:
+ 249:Core/Src/ina226.c ****     INA226_data.ina226_id = temp;
+ 983              		.loc 1 249 5 is_stmt 1 view .LVU225
+ 984              		.loc 1 249 27 is_stmt 0 view .LVU226
+ 985 0010 014B     		ldr	r3, .L74
+ 986 0012 5861     		str	r0, [r3, #20]
+ 250:Core/Src/ina226.c **** }
+ 987              		.loc 1 250 1 view .LVU227
+ 988 0014 10BD     		pop	{r4, pc}
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s 			page 23
+
+
+ 989              	.L75:
+ 990 0016 00BF     		.align	2
+ 991              	.L74:
+ 992 0018 00000000 		.word	INA226_data
+ 993              		.cfi_endproc
+ 994              	.LFE81:
+ 996              		.section	.text.mx_ina226_init,"ax",%progbits
+ 997              		.align	1
+ 998              		.global	mx_ina226_init
+ 999              		.syntax unified
+ 1000              		.thumb
+ 1001              		.thumb_func
+ 1002              		.fpu softvfp
+ 1004              	mx_ina226_init:
+ 1005              	.LFB76:
+ 169:Core/Src/ina226.c **** 
+ 1006              		.loc 1 169 1 is_stmt 1 view -0
+ 1007              		.cfi_startproc
+ 1008              		@ args = 0, pretend = 0, frame = 0
+ 1009              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1010 0000 08B5     		push	{r3, lr}
+ 1011              	.LCFI13:
+ 1012              		.cfi_def_cfa_offset 8
+ 1013              		.cfi_offset 3, -8
+ 1014              		.cfi_offset 14, -4
+ 171:Core/Src/ina226.c ****     INA226_SendData(INA226_ADDR1, CFG_REG, 0x8000); //重新启动
+ 1015              		.loc 1 171 5 view .LVU229
+ 1016 0002 FFF7FEFF 		bl	INA226_IIC_Init
+ 1017              	.LVL109:
+ 172:Core/Src/ina226.c **** 
+ 1018              		.loc 1 172 5 view .LVU230
+ 1019 0006 4FF40042 		mov	r2, #32768
+ 1020 000a 0021     		movs	r1, #0
+ 1021 000c 8020     		movs	r0, #128
+ 1022 000e FFF7FEFF 		bl	INA226_SendData
+ 1023              	.LVL110:
+ 174:Core/Src/ina226.c ****     INA226_SendData(INA226_ADDR1, CAL_REG, CAL);    //设置分辨率
+ 1024              		.loc 1 174 5 view .LVU231
+ 1025 0012 44F64F02 		movw	r2, #18511
+ 1026 0016 0021     		movs	r1, #0
+ 1027 0018 8020     		movs	r0, #128
+ 1028 001a FFF7FEFF 		bl	INA226_SendData
+ 1029              	.LVL111:
+ 175:Core/Src/ina226.c ****     INA226_Get_ID(INA226_ADDR1);                    //获取ina226的id
+ 1030              		.loc 1 175 5 view .LVU232
+ 1031 001e 4FF4E472 		mov	r2, #456
+ 1032 0022 0521     		movs	r1, #5
+ 1033 0024 8020     		movs	r0, #128
+ 1034 0026 FFF7FEFF 		bl	INA226_SendData
+ 1035              	.LVL112:
+ 176:Core/Src/ina226.c **** }
+ 1036              		.loc 1 176 5 view .LVU233
+ 1037 002a 8020     		movs	r0, #128
+ 1038 002c FFF7FEFF 		bl	INA226_Get_ID
+ 1039              	.LVL113:
+ 177:Core/Src/ina226.c **** 
+ 1040              		.loc 1 177 1 is_stmt 0 view .LVU234
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s 			page 24
+
+
+ 1041 0030 08BD     		pop	{r3, pc}
+ 1042              		.cfi_endproc
+ 1043              	.LFE76:
+ 1045              		.section	.text.INA226_GET_CAL_REG,"ax",%progbits
+ 1046              		.align	1
+ 1047              		.global	INA226_GET_CAL_REG
+ 1048              		.syntax unified
+ 1049              		.thumb
+ 1050              		.thumb_func
+ 1051              		.fpu softvfp
+ 1053              	INA226_GET_CAL_REG:
+ 1054              	.LVL114:
+ 1055              	.LFB82:
+ 251:Core/Src/ina226.c **** 
+ 252:Core/Src/ina226.c **** //获取校准值
+ 253:Core/Src/ina226.c **** uint16_t INA226_GET_CAL_REG(uint8_t addr)
+ 254:Core/Src/ina226.c **** {
+ 1056              		.loc 1 254 1 is_stmt 1 view -0
+ 1057              		.cfi_startproc
+ 1058              		@ args = 0, pretend = 0, frame = 0
+ 1059              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1060              		.loc 1 254 1 is_stmt 0 view .LVU236
+ 1061 0000 10B5     		push	{r4, lr}
+ 1062              	.LCFI14:
+ 1063              		.cfi_def_cfa_offset 8
+ 1064              		.cfi_offset 4, -8
+ 1065              		.cfi_offset 14, -4
+ 1066 0002 0446     		mov	r4, r0
+ 255:Core/Src/ina226.c ****     uint32_t temp = 0;
+ 1067              		.loc 1 255 5 is_stmt 1 view .LVU237
+ 1068              	.LVL115:
+ 256:Core/Src/ina226.c ****     INA226_SetRegPointer(addr, CAL_REG);
+ 1069              		.loc 1 256 5 view .LVU238
+ 1070 0004 0521     		movs	r1, #5
+ 1071 0006 FFF7FEFF 		bl	INA226_SetRegPointer
+ 1072              	.LVL116:
+ 257:Core/Src/ina226.c ****     temp = INA226_ReadData(addr);
+ 1073              		.loc 1 257 5 view .LVU239
+ 1074              		.loc 1 257 12 is_stmt 0 view .LVU240
+ 1075 000a 2046     		mov	r0, r4
+ 1076 000c FFF7FEFF 		bl	INA226_ReadData
+ 1077              	.LVL117:
+ 258:Core/Src/ina226.c ****     return (uint16_t)temp;
+ 1078              		.loc 1 258 5 is_stmt 1 view .LVU241
+ 259:Core/Src/ina226.c **** }
+ 1079              		.loc 1 259 1 is_stmt 0 view .LVU242
+ 1080 0010 10BD     		pop	{r4, pc}
+ 1081              		.cfi_endproc
+ 1082              	.LFE82:
+ 1084              		.section	.text.INA226_GetVoltage,"ax",%progbits
+ 1085              		.align	1
+ 1086              		.global	INA226_GetVoltage
+ 1087              		.syntax unified
+ 1088              		.thumb
+ 1089              		.thumb_func
+ 1090              		.fpu softvfp
+ 1092              	INA226_GetVoltage:
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s 			page 25
+
+
+ 1093              	.LVL118:
+ 1094              	.LFB83:
+ 260:Core/Src/ina226.c **** 
+ 261:Core/Src/ina226.c **** //1.25mV/bit
+ 262:Core/Src/ina226.c **** uint16_t INA226_GetVoltage(uint8_t addr)
+ 263:Core/Src/ina226.c **** {
+ 1095              		.loc 1 263 1 is_stmt 1 view -0
+ 1096              		.cfi_startproc
+ 1097              		@ args = 0, pretend = 0, frame = 0
+ 1098              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1099              		.loc 1 263 1 is_stmt 0 view .LVU244
+ 1100 0000 10B5     		push	{r4, lr}
+ 1101              	.LCFI15:
+ 1102              		.cfi_def_cfa_offset 8
+ 1103              		.cfi_offset 4, -8
+ 1104              		.cfi_offset 14, -4
+ 1105 0002 0446     		mov	r4, r0
+ 264:Core/Src/ina226.c ****     uint32_t temp = 0;
+ 1106              		.loc 1 264 5 is_stmt 1 view .LVU245
+ 1107              	.LVL119:
+ 265:Core/Src/ina226.c ****     INA226_SetRegPointer(addr, BV_REG);
+ 1108              		.loc 1 265 5 view .LVU246
+ 1109 0004 0221     		movs	r1, #2
+ 1110 0006 FFF7FEFF 		bl	INA226_SetRegPointer
+ 1111              	.LVL120:
+ 266:Core/Src/ina226.c ****     temp = INA226_ReadData(addr);
+ 1112              		.loc 1 266 5 view .LVU247
+ 1113              		.loc 1 266 12 is_stmt 0 view .LVU248
+ 1114 000a 2046     		mov	r0, r4
+ 1115 000c FFF7FEFF 		bl	INA226_ReadData
+ 1116              	.LVL121:
+ 267:Core/Src/ina226.c ****     return (uint16_t)temp;
+ 1117              		.loc 1 267 5 is_stmt 1 view .LVU249
+ 268:Core/Src/ina226.c **** }
+ 1118              		.loc 1 268 1 is_stmt 0 view .LVU250
+ 1119 0010 10BD     		pop	{r4, pc}
+ 1120              		.cfi_endproc
+ 1121              	.LFE83:
+ 1123              		.section	.text.INA226_GetShuntVoltage,"ax",%progbits
+ 1124              		.align	1
+ 1125              		.global	INA226_GetShuntVoltage
+ 1126              		.syntax unified
+ 1127              		.thumb
+ 1128              		.thumb_func
+ 1129              		.fpu softvfp
+ 1131              	INA226_GetShuntVoltage:
+ 1132              	.LVL122:
+ 1133              	.LFB84:
+ 269:Core/Src/ina226.c **** 
+ 270:Core/Src/ina226.c **** //2.5uV/bit
+ 271:Core/Src/ina226.c **** uint16_t INA226_GetShuntVoltage(uint8_t addr)
+ 272:Core/Src/ina226.c **** {
+ 1134              		.loc 1 272 1 is_stmt 1 view -0
+ 1135              		.cfi_startproc
+ 1136              		@ args = 0, pretend = 0, frame = 0
+ 1137              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1138              		.loc 1 272 1 is_stmt 0 view .LVU252
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s 			page 26
+
+
+ 1139 0000 10B5     		push	{r4, lr}
+ 1140              	.LCFI16:
+ 1141              		.cfi_def_cfa_offset 8
+ 1142              		.cfi_offset 4, -8
+ 1143              		.cfi_offset 14, -4
+ 1144 0002 0446     		mov	r4, r0
+ 273:Core/Src/ina226.c ****     int16_t temp = 0;
+ 1145              		.loc 1 273 5 is_stmt 1 view .LVU253
+ 1146              	.LVL123:
+ 274:Core/Src/ina226.c ****     INA226_SetRegPointer(addr, SV_REG);
+ 1147              		.loc 1 274 5 view .LVU254
+ 1148 0004 0121     		movs	r1, #1
+ 1149 0006 FFF7FEFF 		bl	INA226_SetRegPointer
+ 1150              	.LVL124:
+ 275:Core/Src/ina226.c ****     temp = INA226_ReadData(addr);
+ 1151              		.loc 1 275 5 view .LVU255
+ 1152              		.loc 1 275 12 is_stmt 0 view .LVU256
+ 1153 000a 2046     		mov	r0, r4
+ 1154 000c FFF7FEFF 		bl	INA226_ReadData
+ 1155              	.LVL125:
+ 1156              		.loc 1 275 10 view .LVU257
+ 1157 0010 03B2     		sxth	r3, r0
+ 1158              	.LVL126:
+ 276:Core/Src/ina226.c ****     if (temp & 0x8000)
+ 1159              		.loc 1 276 5 is_stmt 1 view .LVU258
+ 1160              		.loc 1 276 8 is_stmt 0 view .LVU259
+ 1161 0012 002B     		cmp	r3, #0
+ 1162 0014 01DB     		blt	.L85
+ 1163              	.L83:
+ 277:Core/Src/ina226.c ****         temp = ~(temp - 1);
+ 278:Core/Src/ina226.c ****     return (uint16_t)temp;
+ 1164              		.loc 1 278 5 is_stmt 1 view .LVU260
+ 279:Core/Src/ina226.c **** }
+ 1165              		.loc 1 279 1 is_stmt 0 view .LVU261
+ 1166 0016 98B2     		uxth	r0, r3
+ 1167 0018 10BD     		pop	{r4, pc}
+ 1168              	.L85:
+ 277:Core/Src/ina226.c ****         temp = ~(temp - 1);
+ 1169              		.loc 1 277 9 is_stmt 1 view .LVU262
+ 277:Core/Src/ina226.c ****         temp = ~(temp - 1);
+ 1170              		.loc 1 277 14 is_stmt 0 view .LVU263
+ 1171 001a 4042     		rsbs	r0, r0, #0
+ 1172 001c 03B2     		sxth	r3, r0
+ 1173              	.LVL127:
+ 277:Core/Src/ina226.c ****         temp = ~(temp - 1);
+ 1174              		.loc 1 277 14 view .LVU264
+ 1175 001e FAE7     		b	.L83
+ 1176              		.cfi_endproc
+ 1177              	.LFE84:
+ 1179              		.global	__aeabi_i2f
+ 1180              		.global	__aeabi_fmul
+ 1181              		.section	.text.GetVoltage,"ax",%progbits
+ 1182              		.align	1
+ 1183              		.global	GetVoltage
+ 1184              		.syntax unified
+ 1185              		.thumb
+ 1186              		.thumb_func
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s 			page 27
+
+
+ 1187              		.fpu softvfp
+ 1189              	GetVoltage:
+ 1190              	.LVL128:
+ 1191              	.LFB85:
+ 280:Core/Src/ina226.c **** 
+ 281:Core/Src/ina226.c **** //获取电压
+ 282:Core/Src/ina226.c **** void GetVoltage(float *Voltage) //mV
+ 283:Core/Src/ina226.c **** {
+ 1192              		.loc 1 283 1 is_stmt 1 view -0
+ 1193              		.cfi_startproc
+ 1194              		@ args = 0, pretend = 0, frame = 0
+ 1195              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1196              		.loc 1 283 1 is_stmt 0 view .LVU266
+ 1197 0000 10B5     		push	{r4, lr}
+ 1198              	.LCFI17:
+ 1199              		.cfi_def_cfa_offset 8
+ 1200              		.cfi_offset 4, -8
+ 1201              		.cfi_offset 14, -4
+ 1202 0002 0446     		mov	r4, r0
+ 284:Core/Src/ina226.c ****     *Voltage = INA226_GetVoltage(INA226_ADDR1) * Voltage_LSB;
+ 1203              		.loc 1 284 5 is_stmt 1 view .LVU267
+ 1204              		.loc 1 284 16 is_stmt 0 view .LVU268
+ 1205 0004 8020     		movs	r0, #128
+ 1206              	.LVL129:
+ 1207              		.loc 1 284 16 view .LVU269
+ 1208 0006 FFF7FEFF 		bl	INA226_GetVoltage
+ 1209              	.LVL130:
+ 1210              		.loc 1 284 48 view .LVU270
+ 1211 000a FFF7FEFF 		bl	__aeabi_i2f
+ 1212              	.LVL131:
+ 1213 000e 0249     		ldr	r1, .L88
+ 1214 0010 FFF7FEFF 		bl	__aeabi_fmul
+ 1215              	.LVL132:
+ 1216              		.loc 1 284 14 view .LVU271
+ 1217 0014 2060     		str	r0, [r4]	@ float
+ 285:Core/Src/ina226.c **** }
+ 1218              		.loc 1 285 1 view .LVU272
+ 1219 0016 10BD     		pop	{r4, pc}
+ 1220              	.LVL133:
+ 1221              	.L89:
+ 1222              		.loc 1 285 1 view .LVU273
+ 1223              		.align	2
+ 1224              	.L88:
+ 1225 0018 0000A03F 		.word	1067450368
+ 1226              		.cfi_endproc
+ 1227              	.LFE85:
+ 1229              		.section	.text.Get_Shunt_voltage,"ax",%progbits
+ 1230              		.align	1
+ 1231              		.global	Get_Shunt_voltage
+ 1232              		.syntax unified
+ 1233              		.thumb
+ 1234              		.thumb_func
+ 1235              		.fpu softvfp
+ 1237              	Get_Shunt_voltage:
+ 1238              	.LVL134:
+ 1239              	.LFB86:
+ 286:Core/Src/ina226.c **** 
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s 			page 28
+
+
+ 287:Core/Src/ina226.c **** //获取分流电压
+ 288:Core/Src/ina226.c **** void Get_Shunt_voltage(float *Voltage) //uV
+ 289:Core/Src/ina226.c **** {
+ 1240              		.loc 1 289 1 is_stmt 1 view -0
+ 1241              		.cfi_startproc
+ 1242              		@ args = 0, pretend = 0, frame = 0
+ 1243              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1244              		.loc 1 289 1 is_stmt 0 view .LVU275
+ 1245 0000 10B5     		push	{r4, lr}
+ 1246              	.LCFI18:
+ 1247              		.cfi_def_cfa_offset 8
+ 1248              		.cfi_offset 4, -8
+ 1249              		.cfi_offset 14, -4
+ 1250 0002 0446     		mov	r4, r0
+ 290:Core/Src/ina226.c ****     *Voltage = (INA226_GetShuntVoltage(INA226_ADDR1) * INA226_VAL_LSB); //如需矫正电流分流�
+ 1251              		.loc 1 290 5 is_stmt 1 view .LVU276
+ 1252              		.loc 1 290 17 is_stmt 0 view .LVU277
+ 1253 0004 8020     		movs	r0, #128
+ 1254              	.LVL135:
+ 1255              		.loc 1 290 17 view .LVU278
+ 1256 0006 FFF7FEFF 		bl	INA226_GetShuntVoltage
+ 1257              	.LVL136:
+ 1258              		.loc 1 290 54 view .LVU279
+ 1259 000a FFF7FEFF 		bl	__aeabi_i2f
+ 1260              	.LVL137:
+ 1261 000e 0249     		ldr	r1, .L92
+ 1262 0010 FFF7FEFF 		bl	__aeabi_fmul
+ 1263              	.LVL138:
+ 1264              		.loc 1 290 14 view .LVU280
+ 1265 0014 2060     		str	r0, [r4]	@ float
+ 291:Core/Src/ina226.c **** }
+ 1266              		.loc 1 291 1 view .LVU281
+ 1267 0016 10BD     		pop	{r4, pc}
+ 1268              	.LVL139:
+ 1269              	.L93:
+ 1270              		.loc 1 291 1 view .LVU282
+ 1271              		.align	2
+ 1272              	.L92:
+ 1273 0018 00002040 		.word	1075838976
+ 1274              		.cfi_endproc
+ 1275              	.LFE86:
+ 1277              		.section	.text.Get_Shunt_Current,"ax",%progbits
+ 1278              		.align	1
+ 1279              		.global	Get_Shunt_Current
+ 1280              		.syntax unified
+ 1281              		.thumb
+ 1282              		.thumb_func
+ 1283              		.fpu softvfp
+ 1285              	Get_Shunt_Current:
+ 1286              	.LVL140:
+ 1287              	.LFB87:
+ 292:Core/Src/ina226.c **** 
+ 293:Core/Src/ina226.c **** //获取电流
+ 294:Core/Src/ina226.c **** void Get_Shunt_Current(float *Current) //mA
+ 295:Core/Src/ina226.c **** {
+ 1288              		.loc 1 295 1 is_stmt 1 view -0
+ 1289              		.cfi_startproc
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s 			page 29
+
+
+ 1290              		@ args = 0, pretend = 0, frame = 0
+ 1291              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1292              		.loc 1 295 1 is_stmt 0 view .LVU284
+ 1293 0000 10B5     		push	{r4, lr}
+ 1294              	.LCFI19:
+ 1295              		.cfi_def_cfa_offset 8
+ 1296              		.cfi_offset 4, -8
+ 1297              		.cfi_offset 14, -4
+ 1298 0002 0446     		mov	r4, r0
+ 296:Core/Src/ina226.c ****     *Current = (INA226_GetShunt_Current(INA226_ADDR1) * CURRENT_LSB);
+ 1299              		.loc 1 296 5 is_stmt 1 view .LVU285
+ 1300              		.loc 1 296 17 is_stmt 0 view .LVU286
+ 1301 0004 8020     		movs	r0, #128
+ 1302              	.LVL141:
+ 1303              		.loc 1 296 17 view .LVU287
+ 1304 0006 FFF7FEFF 		bl	INA226_GetShunt_Current
+ 1305              	.LVL142:
+ 1306              		.loc 1 296 55 view .LVU288
+ 1307 000a FFF7FEFF 		bl	__aeabi_i2f
+ 1308              	.LVL143:
+ 1309              		.loc 1 296 14 view .LVU289
+ 1310 000e 2060     		str	r0, [r4]	@ float
+ 297:Core/Src/ina226.c **** }
+ 1311              		.loc 1 297 1 view .LVU290
+ 1312 0010 10BD     		pop	{r4, pc}
+ 1313              		.loc 1 297 1 view .LVU291
+ 1314              		.cfi_endproc
+ 1315              	.LFE87:
+ 1317              		.section	.text.INA226_Get_Power,"ax",%progbits
+ 1318              		.align	1
+ 1319              		.global	INA226_Get_Power
+ 1320              		.syntax unified
+ 1321              		.thumb
+ 1322              		.thumb_func
+ 1323              		.fpu softvfp
+ 1325              	INA226_Get_Power:
+ 1326              	.LVL144:
+ 1327              	.LFB89:
+ 298:Core/Src/ina226.c **** 
+ 299:Core/Src/ina226.c **** //获取功率= 总线电压 * 电流
+ 300:Core/Src/ina226.c **** void get_power() //W
+ 301:Core/Src/ina226.c **** {
+ 302:Core/Src/ina226.c ****     GetVoltage(&INA226_data.voltageVal);           //mV
+ 303:Core/Src/ina226.c ****     Get_Shunt_voltage(&INA226_data.Shunt_voltage); //uV
+ 304:Core/Src/ina226.c ****     Get_Shunt_Current(&INA226_data.Shunt_Current); //mA
+ 305:Core/Src/ina226.c ****     Get_Power(&INA226_data.Power);
+ 306:Core/Src/ina226.c ****     INA226_data.Power_Val = INA226_data.voltageVal * 0.001f * INA226_data.Shunt_Current * 0.001f; /
+ 307:Core/Src/ina226.c **** }
+ 308:Core/Src/ina226.c **** 
+ 309:Core/Src/ina226.c **** //获取功率装载值,ina226内部计算的的功率，由于未经校准，故不采用
+ 310:Core/Src/ina226.c **** 
+ 311:Core/Src/ina226.c **** uint16_t INA226_Get_Power(uint8_t addr)
+ 312:Core/Src/ina226.c **** {
+ 1328              		.loc 1 312 1 is_stmt 1 view -0
+ 1329              		.cfi_startproc
+ 1330              		@ args = 0, pretend = 0, frame = 0
+ 1331              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s 			page 30
+
+
+ 1332              		.loc 1 312 1 is_stmt 0 view .LVU293
+ 1333 0000 10B5     		push	{r4, lr}
+ 1334              	.LCFI20:
+ 1335              		.cfi_def_cfa_offset 8
+ 1336              		.cfi_offset 4, -8
+ 1337              		.cfi_offset 14, -4
+ 1338 0002 0446     		mov	r4, r0
+ 313:Core/Src/ina226.c ****     int16_t temp = 0;
+ 1339              		.loc 1 313 5 is_stmt 1 view .LVU294
+ 1340              	.LVL145:
+ 314:Core/Src/ina226.c ****     INA226_SetRegPointer(addr, PWR_REG);
+ 1341              		.loc 1 314 5 view .LVU295
+ 1342 0004 0321     		movs	r1, #3
+ 1343 0006 FFF7FEFF 		bl	INA226_SetRegPointer
+ 1344              	.LVL146:
+ 315:Core/Src/ina226.c ****     temp = INA226_ReadData(addr);
+ 1345              		.loc 1 315 5 view .LVU296
+ 1346              		.loc 1 315 12 is_stmt 0 view .LVU297
+ 1347 000a 2046     		mov	r0, r4
+ 1348 000c FFF7FEFF 		bl	INA226_ReadData
+ 1349              	.LVL147:
+ 316:Core/Src/ina226.c ****     return (uint16_t)temp;
+ 1350              		.loc 1 316 5 is_stmt 1 view .LVU298
+ 317:Core/Src/ina226.c **** }
+ 1351              		.loc 1 317 1 is_stmt 0 view .LVU299
+ 1352 0010 10BD     		pop	{r4, pc}
+ 1353              		.cfi_endproc
+ 1354              	.LFE89:
+ 1356              		.section	.text.Get_Power,"ax",%progbits
+ 1357              		.align	1
+ 1358              		.global	Get_Power
+ 1359              		.syntax unified
+ 1360              		.thumb
+ 1361              		.thumb_func
+ 1362              		.fpu softvfp
+ 1364              	Get_Power:
+ 1365              	.LVL148:
+ 1366              	.LFB90:
+ 318:Core/Src/ina226.c **** 
+ 319:Core/Src/ina226.c **** //获取功率,ina226内部计算，不准确，不采用
+ 320:Core/Src/ina226.c **** void Get_Power(float *Power) //W
+ 321:Core/Src/ina226.c **** {
+ 1367              		.loc 1 321 1 is_stmt 1 view -0
+ 1368              		.cfi_startproc
+ 1369              		@ args = 0, pretend = 0, frame = 0
+ 1370              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1371              		.loc 1 321 1 is_stmt 0 view .LVU301
+ 1372 0000 10B5     		push	{r4, lr}
+ 1373              	.LCFI21:
+ 1374              		.cfi_def_cfa_offset 8
+ 1375              		.cfi_offset 4, -8
+ 1376              		.cfi_offset 14, -4
+ 1377 0002 0446     		mov	r4, r0
+ 322:Core/Src/ina226.c ****     *Power = (INA226_Get_Power(INA226_ADDR1) * POWER_LSB);
+ 1378              		.loc 1 322 5 is_stmt 1 view .LVU302
+ 1379              		.loc 1 322 15 is_stmt 0 view .LVU303
+ 1380 0004 8020     		movs	r0, #128
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s 			page 31
+
+
+ 1381              	.LVL149:
+ 1382              		.loc 1 322 15 view .LVU304
+ 1383 0006 FFF7FEFF 		bl	INA226_Get_Power
+ 1384              	.LVL150:
+ 1385              		.loc 1 322 46 view .LVU305
+ 1386 000a 00EB8000 		add	r0, r0, r0, lsl #2
+ 1387              		.loc 1 322 48 view .LVU306
+ 1388 000e 00EB8000 		add	r0, r0, r0, lsl #2
+ 1389 0012 FFF7FEFF 		bl	__aeabi_i2f
+ 1390              	.LVL151:
+ 1391              		.loc 1 322 12 view .LVU307
+ 1392 0016 2060     		str	r0, [r4]	@ float
+ 323:Core/Src/ina226.c **** }
+ 1393              		.loc 1 323 1 view .LVU308
+ 1394 0018 10BD     		pop	{r4, pc}
+ 1395              		.loc 1 323 1 view .LVU309
+ 1396              		.cfi_endproc
+ 1397              	.LFE90:
+ 1399              		.section	.text.get_power,"ax",%progbits
+ 1400              		.align	1
+ 1401              		.global	get_power
+ 1402              		.syntax unified
+ 1403              		.thumb
+ 1404              		.thumb_func
+ 1405              		.fpu softvfp
+ 1407              	get_power:
+ 1408              	.LFB88:
+ 301:Core/Src/ina226.c ****     GetVoltage(&INA226_data.voltageVal);           //mV
+ 1409              		.loc 1 301 1 is_stmt 1 view -0
+ 1410              		.cfi_startproc
+ 1411              		@ args = 0, pretend = 0, frame = 0
+ 1412              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1413 0000 10B5     		push	{r4, lr}
+ 1414              	.LCFI22:
+ 1415              		.cfi_def_cfa_offset 8
+ 1416              		.cfi_offset 4, -8
+ 1417              		.cfi_offset 14, -4
+ 302:Core/Src/ina226.c ****     Get_Shunt_voltage(&INA226_data.Shunt_voltage); //uV
+ 1418              		.loc 1 302 5 view .LVU311
+ 1419 0002 0D4C     		ldr	r4, .L102
+ 1420 0004 2046     		mov	r0, r4
+ 1421 0006 FFF7FEFF 		bl	GetVoltage
+ 1422              	.LVL152:
+ 303:Core/Src/ina226.c ****     Get_Shunt_Current(&INA226_data.Shunt_Current); //mA
+ 1423              		.loc 1 303 5 view .LVU312
+ 1424 000a 201D     		adds	r0, r4, #4
+ 1425 000c FFF7FEFF 		bl	Get_Shunt_voltage
+ 1426              	.LVL153:
+ 304:Core/Src/ina226.c ****     Get_Power(&INA226_data.Power);
+ 1427              		.loc 1 304 5 view .LVU313
+ 1428 0010 04F10800 		add	r0, r4, #8
+ 1429 0014 FFF7FEFF 		bl	Get_Shunt_Current
+ 1430              	.LVL154:
+ 305:Core/Src/ina226.c ****     INA226_data.Power_Val = INA226_data.voltageVal * 0.001f * INA226_data.Shunt_Current * 0.001f; /
+ 1431              		.loc 1 305 5 view .LVU314
+ 1432 0018 04F11000 		add	r0, r4, #16
+ 1433 001c FFF7FEFF 		bl	Get_Power
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s 			page 32
+
+
+ 1434              	.LVL155:
+ 306:Core/Src/ina226.c **** }
+ 1435              		.loc 1 306 5 view .LVU315
+ 306:Core/Src/ina226.c **** }
+ 1436              		.loc 1 306 52 is_stmt 0 view .LVU316
+ 1437 0020 0649     		ldr	r1, .L102+4
+ 1438 0022 2068     		ldr	r0, [r4]	@ float
+ 1439 0024 FFF7FEFF 		bl	__aeabi_fmul
+ 1440              	.LVL156:
+ 306:Core/Src/ina226.c **** }
+ 1441              		.loc 1 306 61 view .LVU317
+ 1442 0028 A168     		ldr	r1, [r4, #8]	@ float
+ 1443 002a FFF7FEFF 		bl	__aeabi_fmul
+ 1444              	.LVL157:
+ 306:Core/Src/ina226.c **** }
+ 1445              		.loc 1 306 89 view .LVU318
+ 1446 002e 0349     		ldr	r1, .L102+4
+ 1447 0030 FFF7FEFF 		bl	__aeabi_fmul
+ 1448              	.LVL158:
+ 306:Core/Src/ina226.c **** }
+ 1449              		.loc 1 306 27 view .LVU319
+ 1450 0034 E060     		str	r0, [r4, #12]	@ float
+ 307:Core/Src/ina226.c **** 
+ 1451              		.loc 1 307 1 view .LVU320
+ 1452 0036 10BD     		pop	{r4, pc}
+ 1453              	.L103:
+ 1454              		.align	2
+ 1455              	.L102:
+ 1456 0038 00000000 		.word	INA226_data
+ 1457 003c 6F12833A 		.word	981668463
+ 1458              		.cfi_endproc
+ 1459              	.LFE88:
+ 1461              		.comm	INA226_data,24,4
+ 1462              		.text
+ 1463              	.Letext0:
+ 1464              		.file 2 "c:\\users\\cheng\\.iotlink\\tools\\gcc-arm-none-eabi\\arm-none-eabi\\include\\machine\\_d
+ 1465              		.file 3 "c:\\users\\cheng\\.iotlink\\tools\\gcc-arm-none-eabi\\arm-none-eabi\\include\\sys\\_stdin
+ 1466              		.file 4 "Drivers/CMSIS/Include/core_cm3.h"
+ 1467              		.file 5 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 1468              		.file 6 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 1469              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h"
+ 1470              		.file 8 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 1471              		.file 9 "Core/Inc/ina226.h"
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s 			page 33
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 ina226.c
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:16     .text.delay_nms:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:24     .text.delay_nms:00000000 delay_nms
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:80     .text.delay_nus:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:87     .text.delay_nus:00000000 delay_nus
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:142    .text.INA226_IIC_Init:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:149    .text.INA226_IIC_Init:00000000 INA226_IIC_Init
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:179    .text.INA226_IIC_Init:0000001c $d
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:184    .text.INA226_IIC_Start:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:191    .text.INA226_IIC_Start:00000000 INA226_IIC_Start
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:235    .text.INA226_IIC_Start:00000030 $d
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:240    .text.INA226_IIC_Stop:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:247    .text.INA226_IIC_Stop:00000000 INA226_IIC_Stop
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:285    .text.INA226_IIC_Stop:00000024 $d
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:290    .text.INA226_IIC_Ack:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:297    .text.INA226_IIC_Ack:00000000 INA226_IIC_Ack
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:341    .text.INA226_IIC_Ack:00000030 $d
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:346    .text.INA226_IIC_NAck:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:353    .text.INA226_IIC_NAck:00000000 INA226_IIC_NAck
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:397    .text.INA226_IIC_NAck:00000030 $d
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:402    .text.INA226_IIC_Wait_Ack:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:409    .text.INA226_IIC_Wait_Ack:00000000 INA226_IIC_Wait_Ack
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:488    .text.INA226_IIC_Wait_Ack:00000044 $d
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:493    .text.INA226_IIC_Send_Byte:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:500    .text.INA226_IIC_Send_Byte:00000000 INA226_IIC_Send_Byte
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:594    .text.INA226_IIC_Send_Byte:00000054 $d
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:599    .text.INA226_IIC_Read_Byte:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:606    .text.INA226_IIC_Read_Byte:00000000 INA226_IIC_Read_Byte
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:702    .text.INA226_IIC_Read_Byte:0000004c $d
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:707    .text.INA226_SetRegPointer:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:714    .text.INA226_SetRegPointer:00000000 INA226_SetRegPointer
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:757    .text.INA226_SendData:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:764    .text.INA226_SendData:00000000 INA226_SendData
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:827    .text.INA226_ReadData:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:834    .text.INA226_ReadData:00000000 INA226_ReadData
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:897    .text.INA226_GetShunt_Current:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:904    .text.INA226_GetShunt_Current:00000000 INA226_GetShunt_Current
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:951    .text.INA226_Get_ID:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:958    .text.INA226_Get_ID:00000000 INA226_Get_ID
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:992    .text.INA226_Get_ID:00000018 $d
+                            *COM*:00000018 INA226_data
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:997    .text.mx_ina226_init:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:1004   .text.mx_ina226_init:00000000 mx_ina226_init
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:1046   .text.INA226_GET_CAL_REG:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:1053   .text.INA226_GET_CAL_REG:00000000 INA226_GET_CAL_REG
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:1085   .text.INA226_GetVoltage:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:1092   .text.INA226_GetVoltage:00000000 INA226_GetVoltage
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:1124   .text.INA226_GetShuntVoltage:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:1131   .text.INA226_GetShuntVoltage:00000000 INA226_GetShuntVoltage
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:1182   .text.GetVoltage:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:1189   .text.GetVoltage:00000000 GetVoltage
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:1225   .text.GetVoltage:00000018 $d
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:1230   .text.Get_Shunt_voltage:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:1237   .text.Get_Shunt_voltage:00000000 Get_Shunt_voltage
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:1273   .text.Get_Shunt_voltage:00000018 $d
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:1278   .text.Get_Shunt_Current:00000000 $t
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s 			page 34
+
+
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:1285   .text.Get_Shunt_Current:00000000 Get_Shunt_Current
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:1318   .text.INA226_Get_Power:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:1325   .text.INA226_Get_Power:00000000 INA226_Get_Power
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:1357   .text.Get_Power:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:1364   .text.Get_Power:00000000 Get_Power
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:1400   .text.get_power:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:1407   .text.get_power:00000000 get_power
+C:\Users\Cheng\AppData\Local\Temp\ccC4et49.s:1456   .text.get_power:00000038 $d
+
+UNDEFINED SYMBOLS
+HAL_GPIO_WritePin
+HAL_GPIO_ReadPin
+__aeabi_i2f
+__aeabi_fmul

@@ -1,0 +1,3298 @@
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"oled.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.IIC_Start,"ax",%progbits
+  16              		.align	1
+  17              		.global	IIC_Start
+  18              		.arch armv7-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu softvfp
+  24              	IIC_Start:
+  25              	.LFB65:
+  26              		.file 1 "Core/Src/oled.c"
+   1:Core/Src/oled.c **** #include "oled.h"
+   2:Core/Src/oled.c **** #include "oledfont.h"
+   3:Core/Src/oled.c **** //OLED的显存
+   4:Core/Src/oled.c **** //存放格式如下.
+   5:Core/Src/oled.c **** //[0]0 1 2 3 ... 127
+   6:Core/Src/oled.c **** //[1]0 1 2 3 ... 127
+   7:Core/Src/oled.c **** //[2]0 1 2 3 ... 127
+   8:Core/Src/oled.c **** //[3]0 1 2 3 ... 127
+   9:Core/Src/oled.c **** //[4]0 1 2 3 ... 127
+  10:Core/Src/oled.c **** //[5]0 1 2 3 ... 127
+  11:Core/Src/oled.c **** //[6]0 1 2 3 ... 127
+  12:Core/Src/oled.c **** //[7]0 1 2 3 ... 127
+  13:Core/Src/oled.c **** /**********************************************
+  14:Core/Src/oled.c **** //IIC Start
+  15:Core/Src/oled.c **** **********************************************/
+  16:Core/Src/oled.c **** /**********************************************
+  17:Core/Src/oled.c **** //IIC Start
+  18:Core/Src/oled.c **** **********************************************/
+  19:Core/Src/oled.c **** void IIC_Start()
+  20:Core/Src/oled.c **** {
+  27              		.loc 1 20 1 view -0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31 0000 10B5     		push	{r4, lr}
+  32              	.LCFI0:
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 4, -8
+  35              		.cfi_offset 14, -4
+  21:Core/Src/oled.c ****     OLED_SCLK_Set();
+  36              		.loc 1 21 5 view .LVU1
+  37 0002 0B4C     		ldr	r4, .L3
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 2
+
+
+  38 0004 0122     		movs	r2, #1
+  39 0006 4021     		movs	r1, #64
+  40 0008 2046     		mov	r0, r4
+  41 000a FFF7FEFF 		bl	HAL_GPIO_WritePin
+  42              	.LVL0:
+  22:Core/Src/oled.c ****     OLED_SDIN_Set();
+  43              		.loc 1 22 5 view .LVU2
+  44 000e 0122     		movs	r2, #1
+  45 0010 8021     		movs	r1, #128
+  46 0012 2046     		mov	r0, r4
+  47 0014 FFF7FEFF 		bl	HAL_GPIO_WritePin
+  48              	.LVL1:
+  23:Core/Src/oled.c ****     OLED_SDIN_Clr();
+  49              		.loc 1 23 5 view .LVU3
+  50 0018 0022     		movs	r2, #0
+  51 001a 8021     		movs	r1, #128
+  52 001c 2046     		mov	r0, r4
+  53 001e FFF7FEFF 		bl	HAL_GPIO_WritePin
+  54              	.LVL2:
+  24:Core/Src/oled.c ****     OLED_SCLK_Clr();
+  55              		.loc 1 24 5 view .LVU4
+  56 0022 0022     		movs	r2, #0
+  57 0024 4021     		movs	r1, #64
+  58 0026 2046     		mov	r0, r4
+  59 0028 FFF7FEFF 		bl	HAL_GPIO_WritePin
+  60              	.LVL3:
+  25:Core/Src/oled.c **** }
+  61              		.loc 1 25 1 is_stmt 0 view .LVU5
+  62 002c 10BD     		pop	{r4, pc}
+  63              	.L4:
+  64 002e 00BF     		.align	2
+  65              	.L3:
+  66 0030 000C0140 		.word	1073810432
+  67              		.cfi_endproc
+  68              	.LFE65:
+  70              		.section	.text.IIC_Stop,"ax",%progbits
+  71              		.align	1
+  72              		.global	IIC_Stop
+  73              		.syntax unified
+  74              		.thumb
+  75              		.thumb_func
+  76              		.fpu softvfp
+  78              	IIC_Stop:
+  79              	.LFB66:
+  26:Core/Src/oled.c **** 
+  27:Core/Src/oled.c **** /**********************************************
+  28:Core/Src/oled.c **** //IIC Stop
+  29:Core/Src/oled.c **** **********************************************/
+  30:Core/Src/oled.c **** void IIC_Stop()
+  31:Core/Src/oled.c **** {
+  80              		.loc 1 31 1 is_stmt 1 view -0
+  81              		.cfi_startproc
+  82              		@ args = 0, pretend = 0, frame = 0
+  83              		@ frame_needed = 0, uses_anonymous_args = 0
+  84 0000 10B5     		push	{r4, lr}
+  85              	.LCFI1:
+  86              		.cfi_def_cfa_offset 8
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 3
+
+
+  87              		.cfi_offset 4, -8
+  88              		.cfi_offset 14, -4
+  32:Core/Src/oled.c ****     OLED_SCLK_Set();
+  89              		.loc 1 32 5 view .LVU7
+  90 0002 084C     		ldr	r4, .L7
+  91 0004 0122     		movs	r2, #1
+  92 0006 4021     		movs	r1, #64
+  93 0008 2046     		mov	r0, r4
+  94 000a FFF7FEFF 		bl	HAL_GPIO_WritePin
+  95              	.LVL4:
+  33:Core/Src/oled.c ****     //	OLED_SCLK_Clr();
+  34:Core/Src/oled.c ****     OLED_SDIN_Clr();
+  96              		.loc 1 34 5 view .LVU8
+  97 000e 0022     		movs	r2, #0
+  98 0010 8021     		movs	r1, #128
+  99 0012 2046     		mov	r0, r4
+ 100 0014 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 101              	.LVL5:
+  35:Core/Src/oled.c ****     OLED_SDIN_Set();
+ 102              		.loc 1 35 5 view .LVU9
+ 103 0018 0122     		movs	r2, #1
+ 104 001a 8021     		movs	r1, #128
+ 105 001c 2046     		mov	r0, r4
+ 106 001e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 107              	.LVL6:
+  36:Core/Src/oled.c **** }
+ 108              		.loc 1 36 1 is_stmt 0 view .LVU10
+ 109 0022 10BD     		pop	{r4, pc}
+ 110              	.L8:
+ 111              		.align	2
+ 112              	.L7:
+ 113 0024 000C0140 		.word	1073810432
+ 114              		.cfi_endproc
+ 115              	.LFE66:
+ 117              		.section	.text.IIC_Wait_Ack,"ax",%progbits
+ 118              		.align	1
+ 119              		.global	IIC_Wait_Ack
+ 120              		.syntax unified
+ 121              		.thumb
+ 122              		.thumb_func
+ 123              		.fpu softvfp
+ 125              	IIC_Wait_Ack:
+ 126              	.LFB67:
+  37:Core/Src/oled.c **** 
+  38:Core/Src/oled.c **** void IIC_Wait_Ack()
+  39:Core/Src/oled.c **** {
+ 127              		.loc 1 39 1 is_stmt 1 view -0
+ 128              		.cfi_startproc
+ 129              		@ args = 0, pretend = 0, frame = 0
+ 130              		@ frame_needed = 0, uses_anonymous_args = 0
+ 131 0000 10B5     		push	{r4, lr}
+ 132              	.LCFI2:
+ 133              		.cfi_def_cfa_offset 8
+ 134              		.cfi_offset 4, -8
+ 135              		.cfi_offset 14, -4
+  40:Core/Src/oled.c **** 
+  41:Core/Src/oled.c ****     //GPIOB->CRH &= 0XFFF0FFFF;	//设置PB12为上拉输入模式
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 4
+
+
+  42:Core/Src/oled.c ****     //GPIOB->CRH |= 0x00080000;
+  43:Core/Src/oled.c ****     //	OLED_SDA = 1;
+  44:Core/Src/oled.c ****     //	delay_us(1);
+  45:Core/Src/oled.c ****     //OLED_SCL = 1;
+  46:Core/Src/oled.c ****     //delay_us(50000);
+  47:Core/Src/oled.c ****     /*	while(1)
+  48:Core/Src/oled.c **** 	{
+  49:Core/Src/oled.c **** 		if(!OLED_SDA)				//判断是否接收到OLED 应答信号
+  50:Core/Src/oled.c **** 		{
+  51:Core/Src/oled.c **** 			//GPIOB->CRH &= 0XFFF0FFFF;	//设置PB12为通用推免输出模式
+  52:Core/Src/oled.c **** 			//GPIOB->CRH |= 0x00030000;
+  53:Core/Src/oled.c **** 			return;
+  54:Core/Src/oled.c **** 		}
+  55:Core/Src/oled.c **** 	}
+  56:Core/Src/oled.c **** */
+  57:Core/Src/oled.c ****     OLED_SCLK_Set();
+ 136              		.loc 1 57 5 view .LVU12
+ 137 0002 064C     		ldr	r4, .L11
+ 138 0004 0122     		movs	r2, #1
+ 139 0006 4021     		movs	r1, #64
+ 140 0008 2046     		mov	r0, r4
+ 141 000a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 142              	.LVL7:
+  58:Core/Src/oled.c ****     OLED_SCLK_Clr();
+ 143              		.loc 1 58 5 view .LVU13
+ 144 000e 0022     		movs	r2, #0
+ 145 0010 4021     		movs	r1, #64
+ 146 0012 2046     		mov	r0, r4
+ 147 0014 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 148              	.LVL8:
+  59:Core/Src/oled.c **** }
+ 149              		.loc 1 59 1 is_stmt 0 view .LVU14
+ 150 0018 10BD     		pop	{r4, pc}
+ 151              	.L12:
+ 152 001a 00BF     		.align	2
+ 153              	.L11:
+ 154 001c 000C0140 		.word	1073810432
+ 155              		.cfi_endproc
+ 156              	.LFE67:
+ 158              		.section	.text.Write_IIC_Byte,"ax",%progbits
+ 159              		.align	1
+ 160              		.global	Write_IIC_Byte
+ 161              		.syntax unified
+ 162              		.thumb
+ 163              		.thumb_func
+ 164              		.fpu softvfp
+ 166              	Write_IIC_Byte:
+ 167              	.LVL9:
+ 168              	.LFB68:
+  60:Core/Src/oled.c **** /**********************************************
+  61:Core/Src/oled.c **** // IIC Write byte
+  62:Core/Src/oled.c **** **********************************************/
+  63:Core/Src/oled.c **** 
+  64:Core/Src/oled.c **** void Write_IIC_Byte(unsigned char IIC_Byte)
+  65:Core/Src/oled.c **** {
+ 169              		.loc 1 65 1 is_stmt 1 view -0
+ 170              		.cfi_startproc
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 5
+
+
+ 171              		@ args = 0, pretend = 0, frame = 0
+ 172              		@ frame_needed = 0, uses_anonymous_args = 0
+ 173              		.loc 1 65 1 is_stmt 0 view .LVU16
+ 174 0000 70B5     		push	{r4, r5, r6, lr}
+ 175              	.LCFI3:
+ 176              		.cfi_def_cfa_offset 16
+ 177              		.cfi_offset 4, -16
+ 178              		.cfi_offset 5, -12
+ 179              		.cfi_offset 6, -8
+ 180              		.cfi_offset 14, -4
+ 181 0002 0446     		mov	r4, r0
+  66:Core/Src/oled.c ****     unsigned char i;
+ 182              		.loc 1 66 5 is_stmt 1 view .LVU17
+  67:Core/Src/oled.c ****     unsigned char m, da;
+ 183              		.loc 1 67 5 view .LVU18
+  68:Core/Src/oled.c ****     da = IIC_Byte;
+ 184              		.loc 1 68 5 view .LVU19
+ 185              	.LVL10:
+  69:Core/Src/oled.c ****     OLED_SCLK_Clr();
+ 186              		.loc 1 69 5 view .LVU20
+ 187 0004 0022     		movs	r2, #0
+ 188 0006 4021     		movs	r1, #64
+ 189 0008 1248     		ldr	r0, .L21
+ 190              	.LVL11:
+ 191              		.loc 1 69 5 is_stmt 0 view .LVU21
+ 192 000a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 193              	.LVL12:
+  70:Core/Src/oled.c ****     for (i = 0; i < 8; i++)
+ 194              		.loc 1 70 5 is_stmt 1 view .LVU22
+ 195              		.loc 1 70 12 is_stmt 0 view .LVU23
+ 196 000e 0025     		movs	r5, #0
+ 197              		.loc 1 70 5 view .LVU24
+ 198 0010 13E0     		b	.L14
+ 199              	.LVL13:
+ 200              	.L20:
+  71:Core/Src/oled.c ****     {
+  72:Core/Src/oled.c ****         m = da;
+  73:Core/Src/oled.c ****         //	OLED_SCLK_Clr();
+  74:Core/Src/oled.c ****         m = m & 0x80;
+  75:Core/Src/oled.c ****         if (m == 0x80)
+  76:Core/Src/oled.c ****         {
+  77:Core/Src/oled.c ****             OLED_SDIN_Set();
+ 201              		.loc 1 77 13 is_stmt 1 view .LVU25
+ 202 0012 0122     		movs	r2, #1
+ 203 0014 8021     		movs	r1, #128
+ 204 0016 0F48     		ldr	r0, .L21
+ 205 0018 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 206              	.LVL14:
+ 207              	.L16:
+  78:Core/Src/oled.c ****         }
+  79:Core/Src/oled.c ****         else
+  80:Core/Src/oled.c ****             OLED_SDIN_Clr();
+  81:Core/Src/oled.c ****         da = da << 1;
+ 208              		.loc 1 81 9 discriminator 2 view .LVU26
+ 209              		.loc 1 81 12 is_stmt 0 discriminator 2 view .LVU27
+ 210 001c 6400     		lsls	r4, r4, #1
+ 211              	.LVL15:
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 6
+
+
+ 212              		.loc 1 81 12 discriminator 2 view .LVU28
+ 213 001e E4B2     		uxtb	r4, r4
+ 214              	.LVL16:
+  82:Core/Src/oled.c ****         OLED_SCLK_Set();
+ 215              		.loc 1 82 9 is_stmt 1 discriminator 2 view .LVU29
+ 216 0020 0C4E     		ldr	r6, .L21
+ 217 0022 0122     		movs	r2, #1
+ 218 0024 4021     		movs	r1, #64
+ 219 0026 3046     		mov	r0, r6
+ 220 0028 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 221              	.LVL17:
+  83:Core/Src/oled.c ****         OLED_SCLK_Clr();
+ 222              		.loc 1 83 9 discriminator 2 view .LVU30
+ 223 002c 0022     		movs	r2, #0
+ 224 002e 4021     		movs	r1, #64
+ 225 0030 3046     		mov	r0, r6
+ 226 0032 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 227              	.LVL18:
+  70:Core/Src/oled.c ****     {
+ 228              		.loc 1 70 24 discriminator 2 view .LVU31
+  70:Core/Src/oled.c ****     {
+ 229              		.loc 1 70 25 is_stmt 0 discriminator 2 view .LVU32
+ 230 0036 0135     		adds	r5, r5, #1
+ 231              	.LVL19:
+  70:Core/Src/oled.c ****     {
+ 232              		.loc 1 70 25 discriminator 2 view .LVU33
+ 233 0038 EDB2     		uxtb	r5, r5
+ 234              	.LVL20:
+ 235              	.L14:
+  70:Core/Src/oled.c ****     {
+ 236              		.loc 1 70 17 is_stmt 1 discriminator 1 view .LVU34
+  70:Core/Src/oled.c ****     {
+ 237              		.loc 1 70 5 is_stmt 0 discriminator 1 view .LVU35
+ 238 003a 072D     		cmp	r5, #7
+ 239 003c 08D8     		bhi	.L19
+  72:Core/Src/oled.c ****         //	OLED_SCLK_Clr();
+ 240              		.loc 1 72 9 is_stmt 1 view .LVU36
+ 241              	.LVL21:
+  74:Core/Src/oled.c ****         if (m == 0x80)
+ 242              		.loc 1 74 9 view .LVU37
+  75:Core/Src/oled.c ****         {
+ 243              		.loc 1 75 9 view .LVU38
+  75:Core/Src/oled.c ****         {
+ 244              		.loc 1 75 12 is_stmt 0 view .LVU39
+ 245 003e 14F0800F 		tst	r4, #128
+ 246 0042 E6D1     		bne	.L20
+  80:Core/Src/oled.c ****         da = da << 1;
+ 247              		.loc 1 80 13 is_stmt 1 view .LVU40
+ 248 0044 0022     		movs	r2, #0
+ 249 0046 8021     		movs	r1, #128
+ 250 0048 0248     		ldr	r0, .L21
+ 251 004a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 252              	.LVL22:
+ 253 004e E5E7     		b	.L16
+ 254              	.LVL23:
+ 255              	.L19:
+  84:Core/Src/oled.c ****     }
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 7
+
+
+  85:Core/Src/oled.c **** }
+ 256              		.loc 1 85 1 is_stmt 0 view .LVU41
+ 257 0050 70BD     		pop	{r4, r5, r6, pc}
+ 258              	.LVL24:
+ 259              	.L22:
+ 260              		.loc 1 85 1 view .LVU42
+ 261 0052 00BF     		.align	2
+ 262              	.L21:
+ 263 0054 000C0140 		.word	1073810432
+ 264              		.cfi_endproc
+ 265              	.LFE68:
+ 267              		.section	.text.Write_IIC_Command,"ax",%progbits
+ 268              		.align	1
+ 269              		.global	Write_IIC_Command
+ 270              		.syntax unified
+ 271              		.thumb
+ 272              		.thumb_func
+ 273              		.fpu softvfp
+ 275              	Write_IIC_Command:
+ 276              	.LVL25:
+ 277              	.LFB69:
+  86:Core/Src/oled.c **** /**********************************************
+  87:Core/Src/oled.c **** // IIC Write Command
+  88:Core/Src/oled.c **** **********************************************/
+  89:Core/Src/oled.c **** void Write_IIC_Command(unsigned char IIC_Command)
+  90:Core/Src/oled.c **** {
+ 278              		.loc 1 90 1 is_stmt 1 view -0
+ 279              		.cfi_startproc
+ 280              		@ args = 0, pretend = 0, frame = 0
+ 281              		@ frame_needed = 0, uses_anonymous_args = 0
+ 282              		.loc 1 90 1 is_stmt 0 view .LVU44
+ 283 0000 10B5     		push	{r4, lr}
+ 284              	.LCFI4:
+ 285              		.cfi_def_cfa_offset 8
+ 286              		.cfi_offset 4, -8
+ 287              		.cfi_offset 14, -4
+ 288 0002 0446     		mov	r4, r0
+  91:Core/Src/oled.c ****     IIC_Start();
+ 289              		.loc 1 91 5 is_stmt 1 view .LVU45
+ 290 0004 FFF7FEFF 		bl	IIC_Start
+ 291              	.LVL26:
+  92:Core/Src/oled.c ****     Write_IIC_Byte(0x78); //Slave address,SA0=0
+ 292              		.loc 1 92 5 view .LVU46
+ 293 0008 7820     		movs	r0, #120
+ 294 000a FFF7FEFF 		bl	Write_IIC_Byte
+ 295              	.LVL27:
+  93:Core/Src/oled.c ****     IIC_Wait_Ack();
+ 296              		.loc 1 93 5 view .LVU47
+ 297 000e FFF7FEFF 		bl	IIC_Wait_Ack
+ 298              	.LVL28:
+  94:Core/Src/oled.c ****     Write_IIC_Byte(0x00); //write command
+ 299              		.loc 1 94 5 view .LVU48
+ 300 0012 0020     		movs	r0, #0
+ 301 0014 FFF7FEFF 		bl	Write_IIC_Byte
+ 302              	.LVL29:
+  95:Core/Src/oled.c ****     IIC_Wait_Ack();
+ 303              		.loc 1 95 5 view .LVU49
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 8
+
+
+ 304 0018 FFF7FEFF 		bl	IIC_Wait_Ack
+ 305              	.LVL30:
+  96:Core/Src/oled.c ****     Write_IIC_Byte(IIC_Command);
+ 306              		.loc 1 96 5 view .LVU50
+ 307 001c 2046     		mov	r0, r4
+ 308 001e FFF7FEFF 		bl	Write_IIC_Byte
+ 309              	.LVL31:
+  97:Core/Src/oled.c ****     IIC_Wait_Ack();
+ 310              		.loc 1 97 5 view .LVU51
+ 311 0022 FFF7FEFF 		bl	IIC_Wait_Ack
+ 312              	.LVL32:
+  98:Core/Src/oled.c ****     IIC_Stop();
+ 313              		.loc 1 98 5 view .LVU52
+ 314 0026 FFF7FEFF 		bl	IIC_Stop
+ 315              	.LVL33:
+  99:Core/Src/oled.c **** }
+ 316              		.loc 1 99 1 is_stmt 0 view .LVU53
+ 317 002a 10BD     		pop	{r4, pc}
+ 318              		.cfi_endproc
+ 319              	.LFE69:
+ 321              		.section	.text.Write_IIC_Data,"ax",%progbits
+ 322              		.align	1
+ 323              		.global	Write_IIC_Data
+ 324              		.syntax unified
+ 325              		.thumb
+ 326              		.thumb_func
+ 327              		.fpu softvfp
+ 329              	Write_IIC_Data:
+ 330              	.LVL34:
+ 331              	.LFB70:
+ 100:Core/Src/oled.c **** /**********************************************
+ 101:Core/Src/oled.c **** // IIC Write Data
+ 102:Core/Src/oled.c **** **********************************************/
+ 103:Core/Src/oled.c **** void Write_IIC_Data(unsigned char IIC_Data)
+ 104:Core/Src/oled.c **** {
+ 332              		.loc 1 104 1 is_stmt 1 view -0
+ 333              		.cfi_startproc
+ 334              		@ args = 0, pretend = 0, frame = 0
+ 335              		@ frame_needed = 0, uses_anonymous_args = 0
+ 336              		.loc 1 104 1 is_stmt 0 view .LVU55
+ 337 0000 10B5     		push	{r4, lr}
+ 338              	.LCFI5:
+ 339              		.cfi_def_cfa_offset 8
+ 340              		.cfi_offset 4, -8
+ 341              		.cfi_offset 14, -4
+ 342 0002 0446     		mov	r4, r0
+ 105:Core/Src/oled.c ****     IIC_Start();
+ 343              		.loc 1 105 5 is_stmt 1 view .LVU56
+ 344 0004 FFF7FEFF 		bl	IIC_Start
+ 345              	.LVL35:
+ 106:Core/Src/oled.c ****     Write_IIC_Byte(0x78); //D/C#=0; R/W#=0
+ 346              		.loc 1 106 5 view .LVU57
+ 347 0008 7820     		movs	r0, #120
+ 348 000a FFF7FEFF 		bl	Write_IIC_Byte
+ 349              	.LVL36:
+ 107:Core/Src/oled.c ****     IIC_Wait_Ack();
+ 350              		.loc 1 107 5 view .LVU58
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 9
+
+
+ 351 000e FFF7FEFF 		bl	IIC_Wait_Ack
+ 352              	.LVL37:
+ 108:Core/Src/oled.c ****     Write_IIC_Byte(0x40); //write data
+ 353              		.loc 1 108 5 view .LVU59
+ 354 0012 4020     		movs	r0, #64
+ 355 0014 FFF7FEFF 		bl	Write_IIC_Byte
+ 356              	.LVL38:
+ 109:Core/Src/oled.c ****     IIC_Wait_Ack();
+ 357              		.loc 1 109 5 view .LVU60
+ 358 0018 FFF7FEFF 		bl	IIC_Wait_Ack
+ 359              	.LVL39:
+ 110:Core/Src/oled.c ****     Write_IIC_Byte(IIC_Data);
+ 360              		.loc 1 110 5 view .LVU61
+ 361 001c 2046     		mov	r0, r4
+ 362 001e FFF7FEFF 		bl	Write_IIC_Byte
+ 363              	.LVL40:
+ 111:Core/Src/oled.c ****     IIC_Wait_Ack();
+ 364              		.loc 1 111 5 view .LVU62
+ 365 0022 FFF7FEFF 		bl	IIC_Wait_Ack
+ 366              	.LVL41:
+ 112:Core/Src/oled.c ****     IIC_Stop();
+ 367              		.loc 1 112 5 view .LVU63
+ 368 0026 FFF7FEFF 		bl	IIC_Stop
+ 369              	.LVL42:
+ 113:Core/Src/oled.c **** }
+ 370              		.loc 1 113 1 is_stmt 0 view .LVU64
+ 371 002a 10BD     		pop	{r4, pc}
+ 372              		.cfi_endproc
+ 373              	.LFE70:
+ 375              		.section	.text.OLED_WR_Byte,"ax",%progbits
+ 376              		.align	1
+ 377              		.global	OLED_WR_Byte
+ 378              		.syntax unified
+ 379              		.thumb
+ 380              		.thumb_func
+ 381              		.fpu softvfp
+ 383              	OLED_WR_Byte:
+ 384              	.LVL43:
+ 385              	.LFB71:
+ 114:Core/Src/oled.c **** void OLED_WR_Byte(unsigned dat, unsigned cmd)
+ 115:Core/Src/oled.c **** {
+ 386              		.loc 1 115 1 is_stmt 1 view -0
+ 387              		.cfi_startproc
+ 388              		@ args = 0, pretend = 0, frame = 0
+ 389              		@ frame_needed = 0, uses_anonymous_args = 0
+ 390              		.loc 1 115 1 is_stmt 0 view .LVU66
+ 391 0000 08B5     		push	{r3, lr}
+ 392              	.LCFI6:
+ 393              		.cfi_def_cfa_offset 8
+ 394              		.cfi_offset 3, -8
+ 395              		.cfi_offset 14, -4
+ 116:Core/Src/oled.c ****     if (cmd)
+ 396              		.loc 1 116 5 is_stmt 1 view .LVU67
+ 397              		.loc 1 116 8 is_stmt 0 view .LVU68
+ 398 0002 19B1     		cbz	r1, .L28
+ 117:Core/Src/oled.c ****     {
+ 118:Core/Src/oled.c **** 
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 10
+
+
+ 119:Core/Src/oled.c ****         Write_IIC_Data(dat);
+ 399              		.loc 1 119 9 is_stmt 1 view .LVU69
+ 400 0004 C0B2     		uxtb	r0, r0
+ 401              	.LVL44:
+ 402              		.loc 1 119 9 is_stmt 0 view .LVU70
+ 403 0006 FFF7FEFF 		bl	Write_IIC_Data
+ 404              	.LVL45:
+ 405              	.L27:
+ 120:Core/Src/oled.c ****     }
+ 121:Core/Src/oled.c ****     else
+ 122:Core/Src/oled.c ****     {
+ 123:Core/Src/oled.c ****         Write_IIC_Command(dat);
+ 124:Core/Src/oled.c ****     }
+ 125:Core/Src/oled.c **** }
+ 406              		.loc 1 125 1 view .LVU71
+ 407 000a 08BD     		pop	{r3, pc}
+ 408              	.LVL46:
+ 409              	.L28:
+ 123:Core/Src/oled.c ****     }
+ 410              		.loc 1 123 9 is_stmt 1 view .LVU72
+ 411 000c C0B2     		uxtb	r0, r0
+ 412              	.LVL47:
+ 123:Core/Src/oled.c ****     }
+ 413              		.loc 1 123 9 is_stmt 0 view .LVU73
+ 414 000e FFF7FEFF 		bl	Write_IIC_Command
+ 415              	.LVL48:
+ 416              		.loc 1 125 1 view .LVU74
+ 417 0012 FAE7     		b	.L27
+ 418              		.cfi_endproc
+ 419              	.LFE71:
+ 421              		.section	.text.fill_picture,"ax",%progbits
+ 422              		.align	1
+ 423              		.global	fill_picture
+ 424              		.syntax unified
+ 425              		.thumb
+ 426              		.thumb_func
+ 427              		.fpu softvfp
+ 429              	fill_picture:
+ 430              	.LVL49:
+ 431              	.LFB72:
+ 126:Core/Src/oled.c **** 
+ 127:Core/Src/oled.c **** /********************************************
+ 128:Core/Src/oled.c **** // fill_Picture
+ 129:Core/Src/oled.c **** ********************************************/
+ 130:Core/Src/oled.c **** void fill_picture(unsigned char fill_Data)
+ 131:Core/Src/oled.c **** {
+ 432              		.loc 1 131 1 is_stmt 1 view -0
+ 433              		.cfi_startproc
+ 434              		@ args = 0, pretend = 0, frame = 0
+ 435              		@ frame_needed = 0, uses_anonymous_args = 0
+ 436              		.loc 1 131 1 is_stmt 0 view .LVU76
+ 437 0000 70B5     		push	{r4, r5, r6, lr}
+ 438              	.LCFI7:
+ 439              		.cfi_def_cfa_offset 16
+ 440              		.cfi_offset 4, -16
+ 441              		.cfi_offset 5, -12
+ 442              		.cfi_offset 6, -8
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 11
+
+
+ 443              		.cfi_offset 14, -4
+ 444 0002 0546     		mov	r5, r0
+ 132:Core/Src/oled.c ****     unsigned char m, n;
+ 445              		.loc 1 132 5 is_stmt 1 view .LVU77
+ 133:Core/Src/oled.c ****     for (m = 0; m < 8; m++)
+ 446              		.loc 1 133 5 view .LVU78
+ 447              	.LVL50:
+ 448              		.loc 1 133 12 is_stmt 0 view .LVU79
+ 449 0004 0026     		movs	r6, #0
+ 450              		.loc 1 133 5 view .LVU80
+ 451 0006 01E0     		b	.L32
+ 452              	.LVL51:
+ 453              	.L38:
+ 454              		.loc 1 133 24 is_stmt 1 discriminator 2 view .LVU81
+ 455              		.loc 1 133 25 is_stmt 0 discriminator 2 view .LVU82
+ 456 0008 0136     		adds	r6, r6, #1
+ 457              	.LVL52:
+ 458              		.loc 1 133 25 discriminator 2 view .LVU83
+ 459 000a F6B2     		uxtb	r6, r6
+ 460              	.LVL53:
+ 461              	.L32:
+ 462              		.loc 1 133 17 is_stmt 1 discriminator 1 view .LVU84
+ 463              		.loc 1 133 5 is_stmt 0 discriminator 1 view .LVU85
+ 464 000c 072E     		cmp	r6, #7
+ 465 000e 17D8     		bhi	.L37
+ 134:Core/Src/oled.c ****     {
+ 135:Core/Src/oled.c ****         OLED_WR_Byte(0xb0 + m, 0); //page0-page1
+ 466              		.loc 1 135 9 is_stmt 1 view .LVU86
+ 467 0010 0021     		movs	r1, #0
+ 468 0012 06F1B000 		add	r0, r6, #176
+ 469 0016 FFF7FEFF 		bl	OLED_WR_Byte
+ 470              	.LVL54:
+ 136:Core/Src/oled.c ****         OLED_WR_Byte(0x00, 0);     //low column start address
+ 471              		.loc 1 136 9 view .LVU87
+ 472 001a 0021     		movs	r1, #0
+ 473 001c 0846     		mov	r0, r1
+ 474 001e FFF7FEFF 		bl	OLED_WR_Byte
+ 475              	.LVL55:
+ 137:Core/Src/oled.c ****         OLED_WR_Byte(0x10, 0);     //high column start address
+ 476              		.loc 1 137 9 view .LVU88
+ 477 0022 0021     		movs	r1, #0
+ 478 0024 1020     		movs	r0, #16
+ 479 0026 FFF7FEFF 		bl	OLED_WR_Byte
+ 480              	.LVL56:
+ 138:Core/Src/oled.c ****         for (n = 0; n < 128; n++)
+ 481              		.loc 1 138 9 view .LVU89
+ 482              		.loc 1 138 16 is_stmt 0 view .LVU90
+ 483 002a 0024     		movs	r4, #0
+ 484              	.LVL57:
+ 485              	.L33:
+ 486              		.loc 1 138 21 is_stmt 1 discriminator 1 view .LVU91
+ 487              		.loc 1 138 9 is_stmt 0 discriminator 1 view .LVU92
+ 488 002c 14F0800F 		tst	r4, #128
+ 489 0030 EAD1     		bne	.L38
+ 139:Core/Src/oled.c ****         {
+ 140:Core/Src/oled.c ****             OLED_WR_Byte(fill_Data, 1);
+ 490              		.loc 1 140 13 is_stmt 1 discriminator 3 view .LVU93
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 12
+
+
+ 491 0032 0121     		movs	r1, #1
+ 492 0034 2846     		mov	r0, r5
+ 493 0036 FFF7FEFF 		bl	OLED_WR_Byte
+ 494              	.LVL58:
+ 138:Core/Src/oled.c ****         for (n = 0; n < 128; n++)
+ 495              		.loc 1 138 30 discriminator 3 view .LVU94
+ 138:Core/Src/oled.c ****         for (n = 0; n < 128; n++)
+ 496              		.loc 1 138 31 is_stmt 0 discriminator 3 view .LVU95
+ 497 003a 0134     		adds	r4, r4, #1
+ 498              	.LVL59:
+ 138:Core/Src/oled.c ****         for (n = 0; n < 128; n++)
+ 499              		.loc 1 138 31 discriminator 3 view .LVU96
+ 500 003c E4B2     		uxtb	r4, r4
+ 501              	.LVL60:
+ 138:Core/Src/oled.c ****         for (n = 0; n < 128; n++)
+ 502              		.loc 1 138 31 discriminator 3 view .LVU97
+ 503 003e F5E7     		b	.L33
+ 504              	.LVL61:
+ 505              	.L37:
+ 141:Core/Src/oled.c ****         }
+ 142:Core/Src/oled.c ****     }
+ 143:Core/Src/oled.c **** }
+ 506              		.loc 1 143 1 view .LVU98
+ 507 0040 70BD     		pop	{r4, r5, r6, pc}
+ 508              		.loc 1 143 1 view .LVU99
+ 509              		.cfi_endproc
+ 510              	.LFE72:
+ 512              		.section	.text.Delay_50ms,"ax",%progbits
+ 513              		.align	1
+ 514              		.global	Delay_50ms
+ 515              		.syntax unified
+ 516              		.thumb
+ 517              		.thumb_func
+ 518              		.fpu softvfp
+ 520              	Delay_50ms:
+ 521              	.LVL62:
+ 522              	.LFB73:
+ 144:Core/Src/oled.c **** 
+ 145:Core/Src/oled.c **** /***********************Delay****************************************/
+ 146:Core/Src/oled.c **** void Delay_50ms(unsigned int Del_50ms)
+ 147:Core/Src/oled.c **** {
+ 523              		.loc 1 147 1 is_stmt 1 view -0
+ 524              		.cfi_startproc
+ 525              		@ args = 0, pretend = 0, frame = 0
+ 526              		@ frame_needed = 0, uses_anonymous_args = 0
+ 527              		@ link register save eliminated.
+ 148:Core/Src/oled.c ****     unsigned int m;
+ 528              		.loc 1 148 5 view .LVU101
+ 149:Core/Src/oled.c ****     for (; Del_50ms > 0; Del_50ms--)
+ 529              		.loc 1 149 5 view .LVU102
+ 530 0000 00E0     		b	.L40
+ 531              	.LVL63:
+ 532              	.L45:
+ 533              		.loc 1 149 26 view .LVU103
+ 534              		.loc 1 149 34 is_stmt 0 view .LVU104
+ 535 0002 0138     		subs	r0, r0, #1
+ 536              	.LVL64:
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 13
+
+
+ 537              	.L40:
+ 538              		.loc 1 149 12 is_stmt 1 discriminator 1 view .LVU105
+ 539              		.loc 1 149 5 is_stmt 0 discriminator 1 view .LVU106
+ 540 0004 28B1     		cbz	r0, .L44
+ 150:Core/Src/oled.c ****         for (m = 6245; m > 0; m--)
+ 541              		.loc 1 150 16 view .LVU107
+ 542 0006 41F66503 		movw	r3, #6245
+ 543              	.L42:
+ 544              	.LVL65:
+ 545              		.loc 1 150 24 is_stmt 1 discriminator 1 view .LVU108
+ 546              		.loc 1 150 9 is_stmt 0 discriminator 1 view .LVU109
+ 547 000a 002B     		cmp	r3, #0
+ 548 000c F9D0     		beq	.L45
+ 151:Core/Src/oled.c ****             ;
+ 549              		.loc 1 151 13 is_stmt 1 discriminator 3 view .LVU110
+ 150:Core/Src/oled.c ****         for (m = 6245; m > 0; m--)
+ 550              		.loc 1 150 31 discriminator 3 view .LVU111
+ 150:Core/Src/oled.c ****         for (m = 6245; m > 0; m--)
+ 551              		.loc 1 150 32 is_stmt 0 discriminator 3 view .LVU112
+ 552 000e 013B     		subs	r3, r3, #1
+ 553              	.LVL66:
+ 150:Core/Src/oled.c ****         for (m = 6245; m > 0; m--)
+ 554              		.loc 1 150 32 discriminator 3 view .LVU113
+ 555 0010 FBE7     		b	.L42
+ 556              	.LVL67:
+ 557              	.L44:
+ 152:Core/Src/oled.c **** }
+ 558              		.loc 1 152 1 view .LVU114
+ 559 0012 7047     		bx	lr
+ 560              		.cfi_endproc
+ 561              	.LFE73:
+ 563              		.section	.text.Delay_1ms,"ax",%progbits
+ 564              		.align	1
+ 565              		.global	Delay_1ms
+ 566              		.syntax unified
+ 567              		.thumb
+ 568              		.thumb_func
+ 569              		.fpu softvfp
+ 571              	Delay_1ms:
+ 572              	.LVL68:
+ 573              	.LFB74:
+ 153:Core/Src/oled.c **** 
+ 154:Core/Src/oled.c **** void Delay_1ms(unsigned int Del_1ms)
+ 155:Core/Src/oled.c **** {
+ 574              		.loc 1 155 1 is_stmt 1 view -0
+ 575              		.cfi_startproc
+ 576              		@ args = 0, pretend = 0, frame = 0
+ 577              		@ frame_needed = 0, uses_anonymous_args = 0
+ 578              		@ link register save eliminated.
+ 579              		.loc 1 155 1 is_stmt 0 view .LVU116
+ 580 0000 0246     		mov	r2, r0
+ 156:Core/Src/oled.c ****     unsigned char j;
+ 581              		.loc 1 156 5 is_stmt 1 view .LVU117
+ 157:Core/Src/oled.c ****     while (Del_1ms--)
+ 582              		.loc 1 157 5 view .LVU118
+ 583              	.LVL69:
+ 584              	.L47:
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 14
+
+
+ 585              		.loc 1 157 11 view .LVU119
+ 586 0002 1346     		mov	r3, r2
+ 587              		.loc 1 157 19 is_stmt 0 view .LVU120
+ 588 0004 013A     		subs	r2, r2, #1
+ 589              	.LVL70:
+ 590              		.loc 1 157 11 view .LVU121
+ 591 0006 2BB1     		cbz	r3, .L51
+ 158:Core/Src/oled.c ****     {
+ 159:Core/Src/oled.c ****         for (j = 0; j < 123; j++)
+ 592              		.loc 1 159 16 view .LVU122
+ 593 0008 0023     		movs	r3, #0
+ 594              	.L49:
+ 595              	.LVL71:
+ 596              		.loc 1 159 21 is_stmt 1 discriminator 1 view .LVU123
+ 597              		.loc 1 159 9 is_stmt 0 discriminator 1 view .LVU124
+ 598 000a 7A2B     		cmp	r3, #122
+ 599 000c F9D8     		bhi	.L47
+ 160:Core/Src/oled.c ****             ;
+ 600              		.loc 1 160 13 is_stmt 1 discriminator 3 view .LVU125
+ 159:Core/Src/oled.c ****             ;
+ 601              		.loc 1 159 30 discriminator 3 view .LVU126
+ 159:Core/Src/oled.c ****             ;
+ 602              		.loc 1 159 31 is_stmt 0 discriminator 3 view .LVU127
+ 603 000e 0133     		adds	r3, r3, #1
+ 604              	.LVL72:
+ 159:Core/Src/oled.c ****             ;
+ 605              		.loc 1 159 31 discriminator 3 view .LVU128
+ 606 0010 DBB2     		uxtb	r3, r3
+ 607              	.LVL73:
+ 159:Core/Src/oled.c ****             ;
+ 608              		.loc 1 159 31 discriminator 3 view .LVU129
+ 609 0012 FAE7     		b	.L49
+ 610              	.LVL74:
+ 611              	.L51:
+ 161:Core/Src/oled.c ****     }
+ 162:Core/Src/oled.c **** }
+ 612              		.loc 1 162 1 view .LVU130
+ 613 0014 7047     		bx	lr
+ 614              		.cfi_endproc
+ 615              	.LFE74:
+ 617              		.section	.text.OLED_Set_Pos,"ax",%progbits
+ 618              		.align	1
+ 619              		.global	OLED_Set_Pos
+ 620              		.syntax unified
+ 621              		.thumb
+ 622              		.thumb_func
+ 623              		.fpu softvfp
+ 625              	OLED_Set_Pos:
+ 626              	.LVL75:
+ 627              	.LFB75:
+ 163:Core/Src/oled.c **** 
+ 164:Core/Src/oled.c **** //坐标设置
+ 165:Core/Src/oled.c **** 
+ 166:Core/Src/oled.c **** void OLED_Set_Pos(unsigned char x, unsigned char y)
+ 167:Core/Src/oled.c **** {
+ 628              		.loc 1 167 1 is_stmt 1 view -0
+ 629              		.cfi_startproc
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 15
+
+
+ 630              		@ args = 0, pretend = 0, frame = 0
+ 631              		@ frame_needed = 0, uses_anonymous_args = 0
+ 632              		.loc 1 167 1 is_stmt 0 view .LVU132
+ 633 0000 10B5     		push	{r4, lr}
+ 634              	.LCFI8:
+ 635              		.cfi_def_cfa_offset 8
+ 636              		.cfi_offset 4, -8
+ 637              		.cfi_offset 14, -4
+ 638 0002 0446     		mov	r4, r0
+ 639 0004 0846     		mov	r0, r1
+ 640              	.LVL76:
+ 168:Core/Src/oled.c ****     OLED_WR_Byte(0xb0 + y, OLED_CMD);
+ 641              		.loc 1 168 5 is_stmt 1 view .LVU133
+ 642 0006 0021     		movs	r1, #0
+ 643              	.LVL77:
+ 644              		.loc 1 168 5 is_stmt 0 view .LVU134
+ 645 0008 B030     		adds	r0, r0, #176
+ 646 000a FFF7FEFF 		bl	OLED_WR_Byte
+ 647              	.LVL78:
+ 169:Core/Src/oled.c ****     OLED_WR_Byte(((x & 0xf0) >> 4) | 0x10, OLED_CMD);
+ 648              		.loc 1 169 5 is_stmt 1 view .LVU135
+ 649              		.loc 1 169 30 is_stmt 0 view .LVU136
+ 650 000e 2009     		lsrs	r0, r4, #4
+ 651              		.loc 1 169 5 view .LVU137
+ 652 0010 0021     		movs	r1, #0
+ 653 0012 40F01000 		orr	r0, r0, #16
+ 654 0016 FFF7FEFF 		bl	OLED_WR_Byte
+ 655              	.LVL79:
+ 170:Core/Src/oled.c ****     OLED_WR_Byte((x & 0x0f), OLED_CMD);
+ 656              		.loc 1 170 5 is_stmt 1 view .LVU138
+ 657 001a 0021     		movs	r1, #0
+ 658 001c 04F00F00 		and	r0, r4, #15
+ 659 0020 FFF7FEFF 		bl	OLED_WR_Byte
+ 660              	.LVL80:
+ 171:Core/Src/oled.c **** }
+ 661              		.loc 1 171 1 is_stmt 0 view .LVU139
+ 662 0024 10BD     		pop	{r4, pc}
+ 663              		.cfi_endproc
+ 664              	.LFE75:
+ 666              		.section	.text.OLED_Display_On,"ax",%progbits
+ 667              		.align	1
+ 668              		.global	OLED_Display_On
+ 669              		.syntax unified
+ 670              		.thumb
+ 671              		.thumb_func
+ 672              		.fpu softvfp
+ 674              	OLED_Display_On:
+ 675              	.LFB76:
+ 172:Core/Src/oled.c **** //开启OLED显示
+ 173:Core/Src/oled.c **** void OLED_Display_On(void)
+ 174:Core/Src/oled.c **** {
+ 676              		.loc 1 174 1 is_stmt 1 view -0
+ 677              		.cfi_startproc
+ 678              		@ args = 0, pretend = 0, frame = 0
+ 679              		@ frame_needed = 0, uses_anonymous_args = 0
+ 680 0000 08B5     		push	{r3, lr}
+ 681              	.LCFI9:
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 16
+
+
+ 682              		.cfi_def_cfa_offset 8
+ 683              		.cfi_offset 3, -8
+ 684              		.cfi_offset 14, -4
+ 175:Core/Src/oled.c ****     OLED_WR_Byte(0X8D, OLED_CMD); //SET DCDC命令
+ 685              		.loc 1 175 5 view .LVU141
+ 686 0002 0021     		movs	r1, #0
+ 687 0004 8D20     		movs	r0, #141
+ 688 0006 FFF7FEFF 		bl	OLED_WR_Byte
+ 689              	.LVL81:
+ 176:Core/Src/oled.c ****     OLED_WR_Byte(0X14, OLED_CMD); //DCDC ON
+ 690              		.loc 1 176 5 view .LVU142
+ 691 000a 0021     		movs	r1, #0
+ 692 000c 1420     		movs	r0, #20
+ 693 000e FFF7FEFF 		bl	OLED_WR_Byte
+ 694              	.LVL82:
+ 177:Core/Src/oled.c ****     OLED_WR_Byte(0XAF, OLED_CMD); //DISPLAY ON
+ 695              		.loc 1 177 5 view .LVU143
+ 696 0012 0021     		movs	r1, #0
+ 697 0014 AF20     		movs	r0, #175
+ 698 0016 FFF7FEFF 		bl	OLED_WR_Byte
+ 699              	.LVL83:
+ 178:Core/Src/oled.c **** }
+ 700              		.loc 1 178 1 is_stmt 0 view .LVU144
+ 701 001a 08BD     		pop	{r3, pc}
+ 702              		.cfi_endproc
+ 703              	.LFE76:
+ 705              		.section	.text.OLED_Display_Off,"ax",%progbits
+ 706              		.align	1
+ 707              		.global	OLED_Display_Off
+ 708              		.syntax unified
+ 709              		.thumb
+ 710              		.thumb_func
+ 711              		.fpu softvfp
+ 713              	OLED_Display_Off:
+ 714              	.LFB77:
+ 179:Core/Src/oled.c **** //关闭OLED显示
+ 180:Core/Src/oled.c **** void OLED_Display_Off(void)
+ 181:Core/Src/oled.c **** {
+ 715              		.loc 1 181 1 is_stmt 1 view -0
+ 716              		.cfi_startproc
+ 717              		@ args = 0, pretend = 0, frame = 0
+ 718              		@ frame_needed = 0, uses_anonymous_args = 0
+ 719 0000 08B5     		push	{r3, lr}
+ 720              	.LCFI10:
+ 721              		.cfi_def_cfa_offset 8
+ 722              		.cfi_offset 3, -8
+ 723              		.cfi_offset 14, -4
+ 182:Core/Src/oled.c ****     OLED_WR_Byte(0X8D, OLED_CMD); //SET DCDC命令
+ 724              		.loc 1 182 5 view .LVU146
+ 725 0002 0021     		movs	r1, #0
+ 726 0004 8D20     		movs	r0, #141
+ 727 0006 FFF7FEFF 		bl	OLED_WR_Byte
+ 728              	.LVL84:
+ 183:Core/Src/oled.c ****     OLED_WR_Byte(0X10, OLED_CMD); //DCDC OFF
+ 729              		.loc 1 183 5 view .LVU147
+ 730 000a 0021     		movs	r1, #0
+ 731 000c 1020     		movs	r0, #16
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 17
+
+
+ 732 000e FFF7FEFF 		bl	OLED_WR_Byte
+ 733              	.LVL85:
+ 184:Core/Src/oled.c ****     OLED_WR_Byte(0XAE, OLED_CMD); //DISPLAY OFF
+ 734              		.loc 1 184 5 view .LVU148
+ 735 0012 0021     		movs	r1, #0
+ 736 0014 AE20     		movs	r0, #174
+ 737 0016 FFF7FEFF 		bl	OLED_WR_Byte
+ 738              	.LVL86:
+ 185:Core/Src/oled.c **** }
+ 739              		.loc 1 185 1 is_stmt 0 view .LVU149
+ 740 001a 08BD     		pop	{r3, pc}
+ 741              		.cfi_endproc
+ 742              	.LFE77:
+ 744              		.section	.text.OLED_Clear,"ax",%progbits
+ 745              		.align	1
+ 746              		.global	OLED_Clear
+ 747              		.syntax unified
+ 748              		.thumb
+ 749              		.thumb_func
+ 750              		.fpu softvfp
+ 752              	OLED_Clear:
+ 753              	.LFB78:
+ 186:Core/Src/oled.c **** //清屏函数,清完屏,整个屏幕是黑色的!和没点亮一样!!!
+ 187:Core/Src/oled.c **** void OLED_Clear(void)
+ 188:Core/Src/oled.c **** {
+ 754              		.loc 1 188 1 is_stmt 1 view -0
+ 755              		.cfi_startproc
+ 756              		@ args = 0, pretend = 0, frame = 0
+ 757              		@ frame_needed = 0, uses_anonymous_args = 0
+ 758 0000 38B5     		push	{r3, r4, r5, lr}
+ 759              	.LCFI11:
+ 760              		.cfi_def_cfa_offset 16
+ 761              		.cfi_offset 3, -16
+ 762              		.cfi_offset 4, -12
+ 763              		.cfi_offset 5, -8
+ 764              		.cfi_offset 14, -4
+ 189:Core/Src/oled.c ****     uint8_t i, n;
+ 765              		.loc 1 189 5 view .LVU151
+ 190:Core/Src/oled.c ****     for (i = 0; i < 8; i++)
+ 766              		.loc 1 190 5 view .LVU152
+ 767              	.LVL87:
+ 768              		.loc 1 190 12 is_stmt 0 view .LVU153
+ 769 0002 0025     		movs	r5, #0
+ 770              		.loc 1 190 5 view .LVU154
+ 771 0004 01E0     		b	.L59
+ 772              	.LVL88:
+ 773              	.L65:
+ 774              		.loc 1 190 24 is_stmt 1 discriminator 2 view .LVU155
+ 775              		.loc 1 190 25 is_stmt 0 discriminator 2 view .LVU156
+ 776 0006 0135     		adds	r5, r5, #1
+ 777              	.LVL89:
+ 778              		.loc 1 190 25 discriminator 2 view .LVU157
+ 779 0008 EDB2     		uxtb	r5, r5
+ 780              	.LVL90:
+ 781              	.L59:
+ 782              		.loc 1 190 17 is_stmt 1 discriminator 1 view .LVU158
+ 783              		.loc 1 190 5 is_stmt 0 discriminator 1 view .LVU159
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 18
+
+
+ 784 000a 072D     		cmp	r5, #7
+ 785 000c 17D8     		bhi	.L64
+ 191:Core/Src/oled.c ****     {
+ 192:Core/Src/oled.c ****         OLED_WR_Byte(0xb0 + i, OLED_CMD); //设置页地址（0~7）
+ 786              		.loc 1 192 9 is_stmt 1 view .LVU160
+ 787 000e 0021     		movs	r1, #0
+ 788 0010 05F1B000 		add	r0, r5, #176
+ 789 0014 FFF7FEFF 		bl	OLED_WR_Byte
+ 790              	.LVL91:
+ 193:Core/Src/oled.c ****         OLED_WR_Byte(0x00, OLED_CMD);     //设置显示位置—列低地址
+ 791              		.loc 1 193 9 view .LVU161
+ 792 0018 0021     		movs	r1, #0
+ 793 001a 0846     		mov	r0, r1
+ 794 001c FFF7FEFF 		bl	OLED_WR_Byte
+ 795              	.LVL92:
+ 194:Core/Src/oled.c ****         OLED_WR_Byte(0x10, OLED_CMD);     //设置显示位置—列高地址
+ 796              		.loc 1 194 9 view .LVU162
+ 797 0020 0021     		movs	r1, #0
+ 798 0022 1020     		movs	r0, #16
+ 799 0024 FFF7FEFF 		bl	OLED_WR_Byte
+ 800              	.LVL93:
+ 195:Core/Src/oled.c ****         for (n = 0; n < 128; n++)
+ 801              		.loc 1 195 9 view .LVU163
+ 802              		.loc 1 195 16 is_stmt 0 view .LVU164
+ 803 0028 0024     		movs	r4, #0
+ 804              	.LVL94:
+ 805              	.L60:
+ 806              		.loc 1 195 21 is_stmt 1 discriminator 1 view .LVU165
+ 807              		.loc 1 195 9 is_stmt 0 discriminator 1 view .LVU166
+ 808 002a 14F0800F 		tst	r4, #128
+ 809 002e EAD1     		bne	.L65
+ 196:Core/Src/oled.c ****             OLED_WR_Byte(0, OLED_DATA);
+ 810              		.loc 1 196 13 is_stmt 1 discriminator 3 view .LVU167
+ 811 0030 0121     		movs	r1, #1
+ 812 0032 0020     		movs	r0, #0
+ 813 0034 FFF7FEFF 		bl	OLED_WR_Byte
+ 814              	.LVL95:
+ 195:Core/Src/oled.c ****         for (n = 0; n < 128; n++)
+ 815              		.loc 1 195 30 discriminator 3 view .LVU168
+ 195:Core/Src/oled.c ****         for (n = 0; n < 128; n++)
+ 816              		.loc 1 195 31 is_stmt 0 discriminator 3 view .LVU169
+ 817 0038 0134     		adds	r4, r4, #1
+ 818              	.LVL96:
+ 195:Core/Src/oled.c ****         for (n = 0; n < 128; n++)
+ 819              		.loc 1 195 31 discriminator 3 view .LVU170
+ 820 003a E4B2     		uxtb	r4, r4
+ 821              	.LVL97:
+ 195:Core/Src/oled.c ****         for (n = 0; n < 128; n++)
+ 822              		.loc 1 195 31 discriminator 3 view .LVU171
+ 823 003c F5E7     		b	.L60
+ 824              	.LVL98:
+ 825              	.L64:
+ 197:Core/Src/oled.c ****     } //更新显示
+ 198:Core/Src/oled.c **** }
+ 826              		.loc 1 198 1 view .LVU172
+ 827 003e 38BD     		pop	{r3, r4, r5, pc}
+ 828              		.loc 1 198 1 view .LVU173
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 19
+
+
+ 829              		.cfi_endproc
+ 830              	.LFE78:
+ 832              		.section	.text.OLED_On,"ax",%progbits
+ 833              		.align	1
+ 834              		.global	OLED_On
+ 835              		.syntax unified
+ 836              		.thumb
+ 837              		.thumb_func
+ 838              		.fpu softvfp
+ 840              	OLED_On:
+ 841              	.LFB79:
+ 199:Core/Src/oled.c **** void OLED_On(void)
+ 200:Core/Src/oled.c **** {
+ 842              		.loc 1 200 1 is_stmt 1 view -0
+ 843              		.cfi_startproc
+ 844              		@ args = 0, pretend = 0, frame = 0
+ 845              		@ frame_needed = 0, uses_anonymous_args = 0
+ 846 0000 38B5     		push	{r3, r4, r5, lr}
+ 847              	.LCFI12:
+ 848              		.cfi_def_cfa_offset 16
+ 849              		.cfi_offset 3, -16
+ 850              		.cfi_offset 4, -12
+ 851              		.cfi_offset 5, -8
+ 852              		.cfi_offset 14, -4
+ 201:Core/Src/oled.c ****     uint8_t i, n;
+ 853              		.loc 1 201 5 view .LVU175
+ 202:Core/Src/oled.c ****     for (i = 0; i < 8; i++)
+ 854              		.loc 1 202 5 view .LVU176
+ 855              	.LVL99:
+ 856              		.loc 1 202 12 is_stmt 0 view .LVU177
+ 857 0002 0025     		movs	r5, #0
+ 858              		.loc 1 202 5 view .LVU178
+ 859 0004 01E0     		b	.L67
+ 860              	.LVL100:
+ 861              	.L73:
+ 862              		.loc 1 202 24 is_stmt 1 discriminator 2 view .LVU179
+ 863              		.loc 1 202 25 is_stmt 0 discriminator 2 view .LVU180
+ 864 0006 0135     		adds	r5, r5, #1
+ 865              	.LVL101:
+ 866              		.loc 1 202 25 discriminator 2 view .LVU181
+ 867 0008 EDB2     		uxtb	r5, r5
+ 868              	.LVL102:
+ 869              	.L67:
+ 870              		.loc 1 202 17 is_stmt 1 discriminator 1 view .LVU182
+ 871              		.loc 1 202 5 is_stmt 0 discriminator 1 view .LVU183
+ 872 000a 072D     		cmp	r5, #7
+ 873 000c 17D8     		bhi	.L72
+ 203:Core/Src/oled.c ****     {
+ 204:Core/Src/oled.c ****         OLED_WR_Byte(0xb0 + i, OLED_CMD); //设置页地址（0~7）
+ 874              		.loc 1 204 9 is_stmt 1 view .LVU184
+ 875 000e 0021     		movs	r1, #0
+ 876 0010 05F1B000 		add	r0, r5, #176
+ 877 0014 FFF7FEFF 		bl	OLED_WR_Byte
+ 878              	.LVL103:
+ 205:Core/Src/oled.c ****         OLED_WR_Byte(0x00, OLED_CMD);     //设置显示位置—列低地址
+ 879              		.loc 1 205 9 view .LVU185
+ 880 0018 0021     		movs	r1, #0
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 20
+
+
+ 881 001a 0846     		mov	r0, r1
+ 882 001c FFF7FEFF 		bl	OLED_WR_Byte
+ 883              	.LVL104:
+ 206:Core/Src/oled.c ****         OLED_WR_Byte(0x10, OLED_CMD);     //设置显示位置—列高地址
+ 884              		.loc 1 206 9 view .LVU186
+ 885 0020 0021     		movs	r1, #0
+ 886 0022 1020     		movs	r0, #16
+ 887 0024 FFF7FEFF 		bl	OLED_WR_Byte
+ 888              	.LVL105:
+ 207:Core/Src/oled.c ****         for (n = 0; n < 128; n++)
+ 889              		.loc 1 207 9 view .LVU187
+ 890              		.loc 1 207 16 is_stmt 0 view .LVU188
+ 891 0028 0024     		movs	r4, #0
+ 892              	.LVL106:
+ 893              	.L68:
+ 894              		.loc 1 207 21 is_stmt 1 discriminator 1 view .LVU189
+ 895              		.loc 1 207 9 is_stmt 0 discriminator 1 view .LVU190
+ 896 002a 14F0800F 		tst	r4, #128
+ 897 002e EAD1     		bne	.L73
+ 208:Core/Src/oled.c ****             OLED_WR_Byte(1, OLED_DATA);
+ 898              		.loc 1 208 13 is_stmt 1 discriminator 3 view .LVU191
+ 899 0030 0121     		movs	r1, #1
+ 900 0032 0846     		mov	r0, r1
+ 901 0034 FFF7FEFF 		bl	OLED_WR_Byte
+ 902              	.LVL107:
+ 207:Core/Src/oled.c ****         for (n = 0; n < 128; n++)
+ 903              		.loc 1 207 30 discriminator 3 view .LVU192
+ 207:Core/Src/oled.c ****         for (n = 0; n < 128; n++)
+ 904              		.loc 1 207 31 is_stmt 0 discriminator 3 view .LVU193
+ 905 0038 0134     		adds	r4, r4, #1
+ 906              	.LVL108:
+ 207:Core/Src/oled.c ****         for (n = 0; n < 128; n++)
+ 907              		.loc 1 207 31 discriminator 3 view .LVU194
+ 908 003a E4B2     		uxtb	r4, r4
+ 909              	.LVL109:
+ 207:Core/Src/oled.c ****         for (n = 0; n < 128; n++)
+ 910              		.loc 1 207 31 discriminator 3 view .LVU195
+ 911 003c F5E7     		b	.L68
+ 912              	.LVL110:
+ 913              	.L72:
+ 209:Core/Src/oled.c ****     } //更新显示
+ 210:Core/Src/oled.c **** }
+ 914              		.loc 1 210 1 view .LVU196
+ 915 003e 38BD     		pop	{r3, r4, r5, pc}
+ 916              		.loc 1 210 1 view .LVU197
+ 917              		.cfi_endproc
+ 918              	.LFE79:
+ 920              		.section	.text.OLED_ShowChar,"ax",%progbits
+ 921              		.align	1
+ 922              		.global	OLED_ShowChar
+ 923              		.syntax unified
+ 924              		.thumb
+ 925              		.thumb_func
+ 926              		.fpu softvfp
+ 928              	OLED_ShowChar:
+ 929              	.LVL111:
+ 930              	.LFB80:
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 21
+
+
+ 211:Core/Src/oled.c **** //在指定位置显示一个字符,包括部分字符
+ 212:Core/Src/oled.c **** //x:0~127
+ 213:Core/Src/oled.c **** //y:0~63
+ 214:Core/Src/oled.c **** //mode:0,反白显示;1,正常显示
+ 215:Core/Src/oled.c **** //size:选择字体 16/12
+ 216:Core/Src/oled.c **** void OLED_ShowChar(uint8_t x, uint8_t y, uint8_t chr, uint8_t Char_Size)
+ 217:Core/Src/oled.c **** {
+ 931              		.loc 1 217 1 is_stmt 1 view -0
+ 932              		.cfi_startproc
+ 933              		@ args = 0, pretend = 0, frame = 0
+ 934              		@ frame_needed = 0, uses_anonymous_args = 0
+ 935              		.loc 1 217 1 is_stmt 0 view .LVU199
+ 936 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 937              	.LCFI13:
+ 938              		.cfi_def_cfa_offset 24
+ 939              		.cfi_offset 3, -24
+ 940              		.cfi_offset 4, -20
+ 941              		.cfi_offset 5, -16
+ 942              		.cfi_offset 6, -12
+ 943              		.cfi_offset 7, -8
+ 944              		.cfi_offset 14, -4
+ 945 0002 0746     		mov	r7, r0
+ 946 0004 0E46     		mov	r6, r1
+ 218:Core/Src/oled.c ****     unsigned char c = 0, i = 0;
+ 947              		.loc 1 218 5 is_stmt 1 view .LVU200
+ 948              	.LVL112:
+ 219:Core/Src/oled.c ****     c = chr - ' '; //得到偏移后的值
+ 949              		.loc 1 219 5 view .LVU201
+ 950              		.loc 1 219 7 is_stmt 0 view .LVU202
+ 951 0006 203A     		subs	r2, r2, #32
+ 952              	.LVL113:
+ 953              		.loc 1 219 7 view .LVU203
+ 954 0008 D5B2     		uxtb	r5, r2
+ 955              	.LVL114:
+ 220:Core/Src/oled.c ****     if (x > Max_Column - 1)
+ 956              		.loc 1 220 5 is_stmt 1 view .LVU204
+ 957              		.loc 1 220 8 is_stmt 0 view .LVU205
+ 958 000a 10F0800F 		tst	r0, #128
+ 959 000e 14D1     		bne	.L85
+ 960              	.LVL115:
+ 961              	.L75:
+ 221:Core/Src/oled.c ****     {
+ 222:Core/Src/oled.c ****         x = 0;
+ 223:Core/Src/oled.c ****         y = y + 2;
+ 224:Core/Src/oled.c ****     }
+ 225:Core/Src/oled.c ****     if (Char_Size == 16)
+ 962              		.loc 1 225 5 is_stmt 1 view .LVU206
+ 963              		.loc 1 225 8 is_stmt 0 view .LVU207
+ 964 0010 102B     		cmp	r3, #16
+ 965 0012 16D0     		beq	.L86
+ 226:Core/Src/oled.c ****     {
+ 227:Core/Src/oled.c ****         OLED_Set_Pos(x, y);
+ 228:Core/Src/oled.c ****         for (i = 0; i < 8; i++)
+ 229:Core/Src/oled.c ****             OLED_WR_Byte(F8X16[c * 16 + i], OLED_DATA);
+ 230:Core/Src/oled.c ****         OLED_Set_Pos(x, y + 1);
+ 231:Core/Src/oled.c ****         for (i = 0; i < 8; i++)
+ 232:Core/Src/oled.c ****             OLED_WR_Byte(F8X16[c * 16 + i + 8], OLED_DATA);
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 22
+
+
+ 233:Core/Src/oled.c ****     }
+ 234:Core/Src/oled.c ****     else
+ 235:Core/Src/oled.c ****     {
+ 236:Core/Src/oled.c ****         OLED_Set_Pos(x, y);
+ 966              		.loc 1 236 9 is_stmt 1 view .LVU208
+ 967 0014 3146     		mov	r1, r6
+ 968 0016 3846     		mov	r0, r7
+ 969 0018 FFF7FEFF 		bl	OLED_Set_Pos
+ 970              	.LVL116:
+ 237:Core/Src/oled.c ****         for (i = 0; i < 6; i++)
+ 971              		.loc 1 237 9 view .LVU209
+ 972              		.loc 1 237 16 is_stmt 0 view .LVU210
+ 973 001c 0024     		movs	r4, #0
+ 974              	.LVL117:
+ 975              	.L82:
+ 976              		.loc 1 237 21 is_stmt 1 discriminator 1 view .LVU211
+ 977              		.loc 1 237 9 is_stmt 0 discriminator 1 view .LVU212
+ 978 001e 052C     		cmp	r4, #5
+ 979 0020 33D8     		bhi	.L74
+ 238:Core/Src/oled.c ****             OLED_WR_Byte(F6x8[c][i], OLED_DATA);
+ 980              		.loc 1 238 13 is_stmt 1 discriminator 3 view .LVU213
+ 981              		.loc 1 238 33 is_stmt 0 discriminator 3 view .LVU214
+ 982 0022 05EB4503 		add	r3, r5, r5, lsl #1
+ 983 0026 194A     		ldr	r2, .L87
+ 984 0028 02EB4303 		add	r3, r2, r3, lsl #1
+ 985              		.loc 1 238 13 discriminator 3 view .LVU215
+ 986 002c 0121     		movs	r1, #1
+ 987 002e 185D     		ldrb	r0, [r3, r4]	@ zero_extendqisi2
+ 988 0030 FFF7FEFF 		bl	OLED_WR_Byte
+ 989              	.LVL118:
+ 237:Core/Src/oled.c ****         for (i = 0; i < 6; i++)
+ 990              		.loc 1 237 28 is_stmt 1 discriminator 3 view .LVU216
+ 237:Core/Src/oled.c ****         for (i = 0; i < 6; i++)
+ 991              		.loc 1 237 29 is_stmt 0 discriminator 3 view .LVU217
+ 992 0034 0134     		adds	r4, r4, #1
+ 993              	.LVL119:
+ 237:Core/Src/oled.c ****         for (i = 0; i < 6; i++)
+ 994              		.loc 1 237 29 discriminator 3 view .LVU218
+ 995 0036 E4B2     		uxtb	r4, r4
+ 996              	.LVL120:
+ 237:Core/Src/oled.c ****         for (i = 0; i < 6; i++)
+ 997              		.loc 1 237 29 discriminator 3 view .LVU219
+ 998 0038 F1E7     		b	.L82
+ 999              	.LVL121:
+ 1000              	.L85:
+ 222:Core/Src/oled.c ****         y = y + 2;
+ 1001              		.loc 1 222 9 is_stmt 1 view .LVU220
+ 223:Core/Src/oled.c ****     }
+ 1002              		.loc 1 223 9 view .LVU221
+ 223:Core/Src/oled.c ****     }
+ 1003              		.loc 1 223 11 is_stmt 0 view .LVU222
+ 1004 003a 0236     		adds	r6, r6, #2
+ 1005 003c F6B2     		uxtb	r6, r6
+ 1006              	.LVL122:
+ 222:Core/Src/oled.c ****         y = y + 2;
+ 1007              		.loc 1 222 11 view .LVU223
+ 1008 003e 0027     		movs	r7, #0
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 23
+
+
+ 1009 0040 E6E7     		b	.L75
+ 1010              	.LVL123:
+ 1011              	.L86:
+ 227:Core/Src/oled.c ****         for (i = 0; i < 8; i++)
+ 1012              		.loc 1 227 9 is_stmt 1 view .LVU224
+ 1013 0042 3146     		mov	r1, r6
+ 1014 0044 3846     		mov	r0, r7
+ 1015 0046 FFF7FEFF 		bl	OLED_Set_Pos
+ 1016              	.LVL124:
+ 228:Core/Src/oled.c ****             OLED_WR_Byte(F8X16[c * 16 + i], OLED_DATA);
+ 1017              		.loc 1 228 9 view .LVU225
+ 228:Core/Src/oled.c ****             OLED_WR_Byte(F8X16[c * 16 + i], OLED_DATA);
+ 1018              		.loc 1 228 16 is_stmt 0 view .LVU226
+ 1019 004a 0024     		movs	r4, #0
+ 228:Core/Src/oled.c ****             OLED_WR_Byte(F8X16[c * 16 + i], OLED_DATA);
+ 1020              		.loc 1 228 9 view .LVU227
+ 1021 004c 08E0     		b	.L77
+ 1022              	.LVL125:
+ 1023              	.L78:
+ 229:Core/Src/oled.c ****         OLED_Set_Pos(x, y + 1);
+ 1024              		.loc 1 229 13 is_stmt 1 discriminator 3 view .LVU228
+ 229:Core/Src/oled.c ****         OLED_Set_Pos(x, y + 1);
+ 1025              		.loc 1 229 39 is_stmt 0 discriminator 3 view .LVU229
+ 1026 004e 04EB0513 		add	r3, r4, r5, lsl #4
+ 229:Core/Src/oled.c ****         OLED_Set_Pos(x, y + 1);
+ 1027              		.loc 1 229 13 discriminator 3 view .LVU230
+ 1028 0052 0121     		movs	r1, #1
+ 1029 0054 0E4A     		ldr	r2, .L87+4
+ 1030 0056 D05C     		ldrb	r0, [r2, r3]	@ zero_extendqisi2
+ 1031 0058 FFF7FEFF 		bl	OLED_WR_Byte
+ 1032              	.LVL126:
+ 228:Core/Src/oled.c ****             OLED_WR_Byte(F8X16[c * 16 + i], OLED_DATA);
+ 1033              		.loc 1 228 28 is_stmt 1 discriminator 3 view .LVU231
+ 228:Core/Src/oled.c ****             OLED_WR_Byte(F8X16[c * 16 + i], OLED_DATA);
+ 1034              		.loc 1 228 29 is_stmt 0 discriminator 3 view .LVU232
+ 1035 005c 0134     		adds	r4, r4, #1
+ 1036              	.LVL127:
+ 228:Core/Src/oled.c ****             OLED_WR_Byte(F8X16[c * 16 + i], OLED_DATA);
+ 1037              		.loc 1 228 29 discriminator 3 view .LVU233
+ 1038 005e E4B2     		uxtb	r4, r4
+ 1039              	.LVL128:
+ 1040              	.L77:
+ 228:Core/Src/oled.c ****             OLED_WR_Byte(F8X16[c * 16 + i], OLED_DATA);
+ 1041              		.loc 1 228 21 is_stmt 1 discriminator 1 view .LVU234
+ 228:Core/Src/oled.c ****             OLED_WR_Byte(F8X16[c * 16 + i], OLED_DATA);
+ 1042              		.loc 1 228 9 is_stmt 0 discriminator 1 view .LVU235
+ 1043 0060 072C     		cmp	r4, #7
+ 1044 0062 F4D9     		bls	.L78
+ 230:Core/Src/oled.c ****         for (i = 0; i < 8; i++)
+ 1045              		.loc 1 230 9 is_stmt 1 view .LVU236
+ 1046 0064 711C     		adds	r1, r6, #1
+ 1047 0066 C9B2     		uxtb	r1, r1
+ 1048 0068 3846     		mov	r0, r7
+ 1049 006a FFF7FEFF 		bl	OLED_Set_Pos
+ 1050              	.LVL129:
+ 231:Core/Src/oled.c ****             OLED_WR_Byte(F8X16[c * 16 + i + 8], OLED_DATA);
+ 1051              		.loc 1 231 9 view .LVU237
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 24
+
+
+ 231:Core/Src/oled.c ****             OLED_WR_Byte(F8X16[c * 16 + i + 8], OLED_DATA);
+ 1052              		.loc 1 231 16 is_stmt 0 view .LVU238
+ 1053 006e 0024     		movs	r4, #0
+ 231:Core/Src/oled.c ****             OLED_WR_Byte(F8X16[c * 16 + i + 8], OLED_DATA);
+ 1054              		.loc 1 231 9 view .LVU239
+ 1055 0070 09E0     		b	.L79
+ 1056              	.LVL130:
+ 1057              	.L80:
+ 232:Core/Src/oled.c ****     }
+ 1058              		.loc 1 232 13 is_stmt 1 discriminator 3 view .LVU240
+ 232:Core/Src/oled.c ****     }
+ 1059              		.loc 1 232 39 is_stmt 0 discriminator 3 view .LVU241
+ 1060 0072 04EB0513 		add	r3, r4, r5, lsl #4
+ 232:Core/Src/oled.c ****     }
+ 1061              		.loc 1 232 43 discriminator 3 view .LVU242
+ 1062 0076 0833     		adds	r3, r3, #8
+ 232:Core/Src/oled.c ****     }
+ 1063              		.loc 1 232 13 discriminator 3 view .LVU243
+ 1064 0078 0121     		movs	r1, #1
+ 1065 007a 054A     		ldr	r2, .L87+4
+ 1066 007c D05C     		ldrb	r0, [r2, r3]	@ zero_extendqisi2
+ 1067 007e FFF7FEFF 		bl	OLED_WR_Byte
+ 1068              	.LVL131:
+ 231:Core/Src/oled.c ****             OLED_WR_Byte(F8X16[c * 16 + i + 8], OLED_DATA);
+ 1069              		.loc 1 231 28 is_stmt 1 discriminator 3 view .LVU244
+ 231:Core/Src/oled.c ****             OLED_WR_Byte(F8X16[c * 16 + i + 8], OLED_DATA);
+ 1070              		.loc 1 231 29 is_stmt 0 discriminator 3 view .LVU245
+ 1071 0082 0134     		adds	r4, r4, #1
+ 1072              	.LVL132:
+ 231:Core/Src/oled.c ****             OLED_WR_Byte(F8X16[c * 16 + i + 8], OLED_DATA);
+ 1073              		.loc 1 231 29 discriminator 3 view .LVU246
+ 1074 0084 E4B2     		uxtb	r4, r4
+ 1075              	.LVL133:
+ 1076              	.L79:
+ 231:Core/Src/oled.c ****             OLED_WR_Byte(F8X16[c * 16 + i + 8], OLED_DATA);
+ 1077              		.loc 1 231 21 is_stmt 1 discriminator 1 view .LVU247
+ 231:Core/Src/oled.c ****             OLED_WR_Byte(F8X16[c * 16 + i + 8], OLED_DATA);
+ 1078              		.loc 1 231 9 is_stmt 0 discriminator 1 view .LVU248
+ 1079 0086 072C     		cmp	r4, #7
+ 1080 0088 F3D9     		bls	.L80
+ 1081              	.L74:
+ 239:Core/Src/oled.c ****     }
+ 240:Core/Src/oled.c **** }
+ 1082              		.loc 1 240 1 view .LVU249
+ 1083 008a F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 1084              	.LVL134:
+ 1085              	.L88:
+ 1086              		.loc 1 240 1 view .LVU250
+ 1087              		.align	2
+ 1088              	.L87:
+ 1089 008c 00000000 		.word	.LANCHOR1
+ 1090 0090 00000000 		.word	.LANCHOR0
+ 1091              		.cfi_endproc
+ 1092              	.LFE80:
+ 1094              		.section	.text.oled_pow,"ax",%progbits
+ 1095              		.align	1
+ 1096              		.global	oled_pow
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 25
+
+
+ 1097              		.syntax unified
+ 1098              		.thumb
+ 1099              		.thumb_func
+ 1100              		.fpu softvfp
+ 1102              	oled_pow:
+ 1103              	.LVL135:
+ 1104              	.LFB81:
+ 241:Core/Src/oled.c **** //m^n函数
+ 242:Core/Src/oled.c **** uint32_t oled_pow(uint8_t m, uint8_t n)
+ 243:Core/Src/oled.c **** {
+ 1105              		.loc 1 243 1 is_stmt 1 view -0
+ 1106              		.cfi_startproc
+ 1107              		@ args = 0, pretend = 0, frame = 0
+ 1108              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1109              		@ link register save eliminated.
+ 1110              		.loc 1 243 1 is_stmt 0 view .LVU252
+ 1111 0000 0246     		mov	r2, r0
+ 244:Core/Src/oled.c ****     uint32_t result = 1;
+ 1112              		.loc 1 244 5 is_stmt 1 view .LVU253
+ 1113              	.LVL136:
+ 245:Core/Src/oled.c ****     while (n--)
+ 1114              		.loc 1 245 5 view .LVU254
+ 244:Core/Src/oled.c ****     uint32_t result = 1;
+ 1115              		.loc 1 244 14 is_stmt 0 view .LVU255
+ 1116 0002 0120     		movs	r0, #1
+ 1117              	.LVL137:
+ 1118              	.L90:
+ 1119              		.loc 1 245 11 is_stmt 1 view .LVU256
+ 1120              		.loc 1 245 13 is_stmt 0 view .LVU257
+ 1121 0004 4B1E     		subs	r3, r1, #1
+ 1122 0006 DBB2     		uxtb	r3, r3
+ 1123              	.LVL138:
+ 1124              		.loc 1 245 11 view .LVU258
+ 1125 0008 19B1     		cbz	r1, .L92
+ 246:Core/Src/oled.c ****         result *= m;
+ 1126              		.loc 1 246 9 is_stmt 1 view .LVU259
+ 1127              		.loc 1 246 16 is_stmt 0 view .LVU260
+ 1128 000a 02FB00F0 		mul	r0, r2, r0
+ 1129              	.LVL139:
+ 245:Core/Src/oled.c ****     while (n--)
+ 1130              		.loc 1 245 13 view .LVU261
+ 1131 000e 1946     		mov	r1, r3
+ 1132 0010 F8E7     		b	.L90
+ 1133              	.L92:
+ 247:Core/Src/oled.c ****     return result;
+ 248:Core/Src/oled.c **** }
+ 1134              		.loc 1 248 1 view .LVU262
+ 1135 0012 7047     		bx	lr
+ 1136              		.cfi_endproc
+ 1137              	.LFE81:
+ 1139              		.section	.text.OLED_ShowNum,"ax",%progbits
+ 1140              		.align	1
+ 1141              		.global	OLED_ShowNum
+ 1142              		.syntax unified
+ 1143              		.thumb
+ 1144              		.thumb_func
+ 1145              		.fpu softvfp
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 26
+
+
+ 1147              	OLED_ShowNum:
+ 1148              	.LVL140:
+ 1149              	.LFB82:
+ 249:Core/Src/oled.c **** //显示2个数字
+ 250:Core/Src/oled.c **** //x,y :起点坐标
+ 251:Core/Src/oled.c **** //len :数字的位数
+ 252:Core/Src/oled.c **** //size:字体大小
+ 253:Core/Src/oled.c **** //mode:模式	0,填充模式;1,叠加模式
+ 254:Core/Src/oled.c **** //num:数值(0~4294967295);
+ 255:Core/Src/oled.c **** void OLED_ShowNum(uint8_t x, uint8_t y, uint8_t num, uint8_t len, uint8_t size2)
+ 256:Core/Src/oled.c **** {
+ 1150              		.loc 1 256 1 is_stmt 1 view -0
+ 1151              		.cfi_startproc
+ 1152              		@ args = 4, pretend = 0, frame = 0
+ 1153              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1154              		.loc 1 256 1 is_stmt 0 view .LVU264
+ 1155 0000 2DE9F84F 		push	{r3, r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 1156              	.LCFI14:
+ 1157              		.cfi_def_cfa_offset 40
+ 1158              		.cfi_offset 3, -40
+ 1159              		.cfi_offset 4, -36
+ 1160              		.cfi_offset 5, -32
+ 1161              		.cfi_offset 6, -28
+ 1162              		.cfi_offset 7, -24
+ 1163              		.cfi_offset 8, -20
+ 1164              		.cfi_offset 9, -16
+ 1165              		.cfi_offset 10, -12
+ 1166              		.cfi_offset 11, -8
+ 1167              		.cfi_offset 14, -4
+ 1168 0004 8346     		mov	fp, r0
+ 1169 0006 8A46     		mov	r10, r1
+ 1170 0008 9146     		mov	r9, r2
+ 1171 000a 1E46     		mov	r6, r3
+ 1172 000c 9DF82870 		ldrb	r7, [sp, #40]	@ zero_extendqisi2
+ 257:Core/Src/oled.c ****     uint8_t t, temp;
+ 1173              		.loc 1 257 5 is_stmt 1 view .LVU265
+ 258:Core/Src/oled.c ****     uint8_t enshow = 0;
+ 1174              		.loc 1 258 5 view .LVU266
+ 1175              	.LVL141:
+ 259:Core/Src/oled.c ****     for (t = 0; t < len; t++)
+ 1176              		.loc 1 259 5 view .LVU267
+ 258:Core/Src/oled.c ****     uint8_t enshow = 0;
+ 1177              		.loc 1 258 13 is_stmt 0 view .LVU268
+ 1178 0010 4FF00008 		mov	r8, #0
+ 1179              		.loc 1 259 12 view .LVU269
+ 1180 0014 4546     		mov	r5, r8
+ 1181              		.loc 1 259 5 view .LVU270
+ 1182 0016 19E0     		b	.L94
+ 1183              	.LVL142:
+ 1184              	.L101:
+ 260:Core/Src/oled.c ****     {
+ 261:Core/Src/oled.c ****         temp = (num / oled_pow(10, len - t - 1)) % 10;
+ 262:Core/Src/oled.c ****         if (enshow == 0 && t < (len - 1))
+ 263:Core/Src/oled.c ****         {
+ 264:Core/Src/oled.c ****             if (temp == 0)
+ 265:Core/Src/oled.c ****             {
+ 266:Core/Src/oled.c ****                 OLED_ShowChar(x + (size2 / 2) * t, y, '0', size2);
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 27
+
+
+ 1185              		.loc 1 266 17 is_stmt 1 view .LVU271
+ 1186              		.loc 1 266 47 is_stmt 0 view .LVU272
+ 1187 0018 7808     		lsrs	r0, r7, #1
+ 1188 001a 00FB05F0 		mul	r0, r0, r5
+ 1189 001e C0B2     		uxtb	r0, r0
+ 1190              		.loc 1 266 17 view .LVU273
+ 1191 0020 5844     		add	r0, r0, fp
+ 1192 0022 3B46     		mov	r3, r7
+ 1193 0024 3022     		movs	r2, #48
+ 1194 0026 5146     		mov	r1, r10
+ 1195 0028 C0B2     		uxtb	r0, r0
+ 1196 002a FFF7FEFF 		bl	OLED_ShowChar
+ 1197              	.LVL143:
+ 267:Core/Src/oled.c ****                 continue;
+ 1198              		.loc 1 267 17 is_stmt 1 view .LVU274
+ 1199 002e 0BE0     		b	.L96
+ 1200              	.LVL144:
+ 1201              	.L95:
+ 268:Core/Src/oled.c ****             }
+ 269:Core/Src/oled.c ****             else
+ 270:Core/Src/oled.c ****                 enshow = 1;
+ 271:Core/Src/oled.c ****         }
+ 272:Core/Src/oled.c ****         OLED_ShowChar(x + (size2 / 2) * t, y, temp + '0', size2);
+ 1202              		.loc 1 272 9 view .LVU275
+ 1203              		.loc 1 272 39 is_stmt 0 view .LVU276
+ 1204 0030 7808     		lsrs	r0, r7, #1
+ 1205 0032 00FB05F0 		mul	r0, r0, r5
+ 1206 0036 C0B2     		uxtb	r0, r0
+ 1207              		.loc 1 272 9 view .LVU277
+ 1208 0038 3034     		adds	r4, r4, #48
+ 1209              	.LVL145:
+ 1210              		.loc 1 272 9 view .LVU278
+ 1211 003a 5844     		add	r0, r0, fp
+ 1212 003c 3B46     		mov	r3, r7
+ 1213 003e E2B2     		uxtb	r2, r4
+ 1214 0040 5146     		mov	r1, r10
+ 1215 0042 C0B2     		uxtb	r0, r0
+ 1216 0044 FFF7FEFF 		bl	OLED_ShowChar
+ 1217              	.LVL146:
+ 1218              	.L96:
+ 259:Core/Src/oled.c ****     {
+ 1219              		.loc 1 259 26 is_stmt 1 discriminator 2 view .LVU279
+ 259:Core/Src/oled.c ****     {
+ 1220              		.loc 1 259 27 is_stmt 0 discriminator 2 view .LVU280
+ 1221 0048 0135     		adds	r5, r5, #1
+ 1222              	.LVL147:
+ 259:Core/Src/oled.c ****     {
+ 1223              		.loc 1 259 27 discriminator 2 view .LVU281
+ 1224 004a EDB2     		uxtb	r5, r5
+ 1225              	.LVL148:
+ 1226              	.L94:
+ 259:Core/Src/oled.c ****     {
+ 1227              		.loc 1 259 17 is_stmt 1 discriminator 1 view .LVU282
+ 259:Core/Src/oled.c ****     {
+ 1228              		.loc 1 259 5 is_stmt 0 discriminator 1 view .LVU283
+ 1229 004c B542     		cmp	r5, r6
+ 1230 004e 1CD2     		bcs	.L100
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 28
+
+
+ 261:Core/Src/oled.c ****         if (enshow == 0 && t < (len - 1))
+ 1231              		.loc 1 261 9 is_stmt 1 view .LVU284
+ 261:Core/Src/oled.c ****         if (enshow == 0 && t < (len - 1))
+ 1232              		.loc 1 261 40 is_stmt 0 view .LVU285
+ 1233 0050 711B     		subs	r1, r6, r5
+ 1234 0052 C9B2     		uxtb	r1, r1
+ 261:Core/Src/oled.c ****         if (enshow == 0 && t < (len - 1))
+ 1235              		.loc 1 261 23 view .LVU286
+ 1236 0054 0139     		subs	r1, r1, #1
+ 1237 0056 C9B2     		uxtb	r1, r1
+ 1238 0058 0A20     		movs	r0, #10
+ 1239 005a FFF7FEFF 		bl	oled_pow
+ 1240              	.LVL149:
+ 261:Core/Src/oled.c ****         if (enshow == 0 && t < (len - 1))
+ 1241              		.loc 1 261 21 view .LVU287
+ 1242 005e B9FBF0F0 		udiv	r0, r9, r0
+ 261:Core/Src/oled.c ****         if (enshow == 0 && t < (len - 1))
+ 1243              		.loc 1 261 50 view .LVU288
+ 1244 0062 0B4C     		ldr	r4, .L102
+ 1245 0064 A4FB0034 		umull	r3, r4, r4, r0
+ 1246 0068 E408     		lsrs	r4, r4, #3
+ 1247 006a 04EB8404 		add	r4, r4, r4, lsl #2
+ 1248 006e A0EB4404 		sub	r4, r0, r4, lsl #1
+ 261:Core/Src/oled.c ****         if (enshow == 0 && t < (len - 1))
+ 1249              		.loc 1 261 14 view .LVU289
+ 1250 0072 E4B2     		uxtb	r4, r4
+ 1251              	.LVL150:
+ 262:Core/Src/oled.c ****         {
+ 1252              		.loc 1 262 9 is_stmt 1 view .LVU290
+ 262:Core/Src/oled.c ****         {
+ 1253              		.loc 1 262 12 is_stmt 0 view .LVU291
+ 1254 0074 B8F1000F 		cmp	r8, #0
+ 1255 0078 DAD1     		bne	.L95
+ 262:Core/Src/oled.c ****         {
+ 1256              		.loc 1 262 37 discriminator 1 view .LVU292
+ 1257 007a 731E     		subs	r3, r6, #1
+ 262:Core/Src/oled.c ****         {
+ 1258              		.loc 1 262 25 discriminator 1 view .LVU293
+ 1259 007c 9D42     		cmp	r5, r3
+ 1260 007e D7DA     		bge	.L95
+ 264:Core/Src/oled.c ****             {
+ 1261              		.loc 1 264 13 is_stmt 1 view .LVU294
+ 264:Core/Src/oled.c ****             {
+ 1262              		.loc 1 264 16 is_stmt 0 view .LVU295
+ 1263 0080 002C     		cmp	r4, #0
+ 1264 0082 C9D0     		beq	.L101
+ 270:Core/Src/oled.c ****         }
+ 1265              		.loc 1 270 24 view .LVU296
+ 1266 0084 4FF00108 		mov	r8, #1
+ 1267              	.LVL151:
+ 270:Core/Src/oled.c ****         }
+ 1268              		.loc 1 270 24 view .LVU297
+ 1269 0088 D2E7     		b	.L95
+ 1270              	.LVL152:
+ 1271              	.L100:
+ 273:Core/Src/oled.c ****     }
+ 274:Core/Src/oled.c **** }
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 29
+
+
+ 1272              		.loc 1 274 1 view .LVU298
+ 1273 008a BDE8F88F 		pop	{r3, r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 1274              	.LVL153:
+ 1275              	.L103:
+ 1276              		.loc 1 274 1 view .LVU299
+ 1277 008e 00BF     		.align	2
+ 1278              	.L102:
+ 1279 0090 CDCCCCCC 		.word	-858993459
+ 1280              		.cfi_endproc
+ 1281              	.LFE82:
+ 1283              		.section	.text.OLED_ShowString,"ax",%progbits
+ 1284              		.align	1
+ 1285              		.global	OLED_ShowString
+ 1286              		.syntax unified
+ 1287              		.thumb
+ 1288              		.thumb_func
+ 1289              		.fpu softvfp
+ 1291              	OLED_ShowString:
+ 1292              	.LVL154:
+ 1293              	.LFB83:
+ 275:Core/Src/oled.c **** //显示一个字符号串
+ 276:Core/Src/oled.c **** void OLED_ShowString(uint8_t x, uint8_t y, uint8_t *chr, uint8_t Char_Size)
+ 277:Core/Src/oled.c **** {
+ 1294              		.loc 1 277 1 is_stmt 1 view -0
+ 1295              		.cfi_startproc
+ 1296              		@ args = 0, pretend = 0, frame = 0
+ 1297              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1298              		.loc 1 277 1 is_stmt 0 view .LVU301
+ 1299 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 1300              	.LCFI15:
+ 1301              		.cfi_def_cfa_offset 24
+ 1302              		.cfi_offset 4, -24
+ 1303              		.cfi_offset 5, -20
+ 1304              		.cfi_offset 6, -16
+ 1305              		.cfi_offset 7, -12
+ 1306              		.cfi_offset 8, -8
+ 1307              		.cfi_offset 14, -4
+ 1308 0004 0446     		mov	r4, r0
+ 1309 0006 0E46     		mov	r6, r1
+ 1310 0008 1746     		mov	r7, r2
+ 1311 000a 9846     		mov	r8, r3
+ 278:Core/Src/oled.c ****     unsigned char j = 0;
+ 1312              		.loc 1 278 5 is_stmt 1 view .LVU302
+ 1313              	.LVL155:
+ 279:Core/Src/oled.c ****     while (chr[j] != '\0')
+ 1314              		.loc 1 279 5 view .LVU303
+ 278:Core/Src/oled.c ****     unsigned char j = 0;
+ 1315              		.loc 1 278 19 is_stmt 0 view .LVU304
+ 1316 000c 0025     		movs	r5, #0
+ 1317              		.loc 1 279 11 view .LVU305
+ 1318 000e 01E0     		b	.L105
+ 1319              	.LVL156:
+ 1320              	.L106:
+ 280:Core/Src/oled.c ****     {
+ 281:Core/Src/oled.c ****         OLED_ShowChar(x, y, chr[j], Char_Size);
+ 282:Core/Src/oled.c ****         x += 8;
+ 283:Core/Src/oled.c ****         if (x > 120)
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 30
+
+
+ 284:Core/Src/oled.c ****         {
+ 285:Core/Src/oled.c ****             x = 0;
+ 286:Core/Src/oled.c ****             y += 2;
+ 287:Core/Src/oled.c ****         }
+ 288:Core/Src/oled.c ****         j++;
+ 1321              		.loc 1 288 9 is_stmt 1 view .LVU306
+ 1322              		.loc 1 288 10 is_stmt 0 view .LVU307
+ 1323 0010 0135     		adds	r5, r5, #1
+ 1324              	.LVL157:
+ 1325              		.loc 1 288 10 view .LVU308
+ 1326 0012 EDB2     		uxtb	r5, r5
+ 1327              	.LVL158:
+ 1328              	.L105:
+ 279:Core/Src/oled.c ****     while (chr[j] != '\0')
+ 1329              		.loc 1 279 11 is_stmt 1 view .LVU309
+ 279:Core/Src/oled.c ****     while (chr[j] != '\0')
+ 1330              		.loc 1 279 15 is_stmt 0 view .LVU310
+ 1331 0014 7A5D     		ldrb	r2, [r7, r5]	@ zero_extendqisi2
+ 279:Core/Src/oled.c ****     while (chr[j] != '\0')
+ 1332              		.loc 1 279 11 view .LVU311
+ 1333 0016 62B1     		cbz	r2, .L109
+ 281:Core/Src/oled.c ****         x += 8;
+ 1334              		.loc 1 281 9 is_stmt 1 view .LVU312
+ 1335 0018 4346     		mov	r3, r8
+ 1336 001a 3146     		mov	r1, r6
+ 1337 001c 2046     		mov	r0, r4
+ 1338 001e FFF7FEFF 		bl	OLED_ShowChar
+ 1339              	.LVL159:
+ 282:Core/Src/oled.c ****         if (x > 120)
+ 1340              		.loc 1 282 9 view .LVU313
+ 282:Core/Src/oled.c ****         if (x > 120)
+ 1341              		.loc 1 282 11 is_stmt 0 view .LVU314
+ 1342 0022 0834     		adds	r4, r4, #8
+ 1343              	.LVL160:
+ 282:Core/Src/oled.c ****         if (x > 120)
+ 1344              		.loc 1 282 11 view .LVU315
+ 1345 0024 E4B2     		uxtb	r4, r4
+ 1346              	.LVL161:
+ 283:Core/Src/oled.c ****         {
+ 1347              		.loc 1 283 9 is_stmt 1 view .LVU316
+ 283:Core/Src/oled.c ****         {
+ 1348              		.loc 1 283 12 is_stmt 0 view .LVU317
+ 1349 0026 782C     		cmp	r4, #120
+ 1350 0028 F2D9     		bls	.L106
+ 285:Core/Src/oled.c ****             y += 2;
+ 1351              		.loc 1 285 13 is_stmt 1 view .LVU318
+ 1352              	.LVL162:
+ 286:Core/Src/oled.c ****         }
+ 1353              		.loc 1 286 13 view .LVU319
+ 286:Core/Src/oled.c ****         }
+ 1354              		.loc 1 286 15 is_stmt 0 view .LVU320
+ 1355 002a 0236     		adds	r6, r6, #2
+ 1356              	.LVL163:
+ 286:Core/Src/oled.c ****         }
+ 1357              		.loc 1 286 15 view .LVU321
+ 1358 002c F6B2     		uxtb	r6, r6
+ 1359              	.LVL164:
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 31
+
+
+ 285:Core/Src/oled.c ****             y += 2;
+ 1360              		.loc 1 285 15 view .LVU322
+ 1361 002e 0024     		movs	r4, #0
+ 1362 0030 EEE7     		b	.L106
+ 1363              	.LVL165:
+ 1364              	.L109:
+ 289:Core/Src/oled.c ****     }
+ 290:Core/Src/oled.c **** }
+ 1365              		.loc 1 290 1 view .LVU323
+ 1366 0032 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1367              		.loc 1 290 1 view .LVU324
+ 1368              		.cfi_endproc
+ 1369              	.LFE83:
+ 1371              		.section	.text.OLED_ShowCHinese,"ax",%progbits
+ 1372              		.align	1
+ 1373              		.global	OLED_ShowCHinese
+ 1374              		.syntax unified
+ 1375              		.thumb
+ 1376              		.thumb_func
+ 1377              		.fpu softvfp
+ 1379              	OLED_ShowCHinese:
+ 1380              	.LVL166:
+ 1381              	.LFB84:
+ 291:Core/Src/oled.c **** //显示汉字
+ 292:Core/Src/oled.c **** void OLED_ShowCHinese(uint8_t x, uint8_t y, uint8_t no)
+ 293:Core/Src/oled.c **** {
+ 1382              		.loc 1 293 1 is_stmt 1 view -0
+ 1383              		.cfi_startproc
+ 1384              		@ args = 0, pretend = 0, frame = 0
+ 1385              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1386              		.loc 1 293 1 is_stmt 0 view .LVU326
+ 1387 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 1388              	.LCFI16:
+ 1389              		.cfi_def_cfa_offset 24
+ 1390              		.cfi_offset 3, -24
+ 1391              		.cfi_offset 4, -20
+ 1392              		.cfi_offset 5, -16
+ 1393              		.cfi_offset 6, -12
+ 1394              		.cfi_offset 7, -8
+ 1395              		.cfi_offset 14, -4
+ 1396 0002 0746     		mov	r7, r0
+ 1397 0004 0E46     		mov	r6, r1
+ 1398 0006 1546     		mov	r5, r2
+ 294:Core/Src/oled.c ****     uint8_t t, adder = 0;
+ 1399              		.loc 1 294 5 is_stmt 1 view .LVU327
+ 1400              	.LVL167:
+ 295:Core/Src/oled.c ****     OLED_Set_Pos(x, y);
+ 1401              		.loc 1 295 5 view .LVU328
+ 1402 0008 FFF7FEFF 		bl	OLED_Set_Pos
+ 1403              	.LVL168:
+ 296:Core/Src/oled.c ****     for (t = 0; t < 16; t++)
+ 1404              		.loc 1 296 5 view .LVU329
+ 1405              		.loc 1 296 12 is_stmt 0 view .LVU330
+ 1406 000c 0024     		movs	r4, #0
+ 1407              	.LVL169:
+ 1408              	.L111:
+ 1409              		.loc 1 296 17 is_stmt 1 discriminator 1 view .LVU331
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 32
+
+
+ 1410              		.loc 1 296 5 is_stmt 0 discriminator 1 view .LVU332
+ 1411 000e 0F2C     		cmp	r4, #15
+ 1412 0010 09D8     		bhi	.L116
+ 297:Core/Src/oled.c ****     {
+ 298:Core/Src/oled.c ****         OLED_WR_Byte(Hzk[2 * no][t], OLED_DATA);
+ 1413              		.loc 1 298 9 is_stmt 1 discriminator 3 view .LVU333
+ 1414              		.loc 1 298 33 is_stmt 0 discriminator 3 view .LVU334
+ 1415 0012 0F4B     		ldr	r3, .L118
+ 1416 0014 03EB8513 		add	r3, r3, r5, lsl #6
+ 1417              		.loc 1 298 9 discriminator 3 view .LVU335
+ 1418 0018 0121     		movs	r1, #1
+ 1419 001a 185D     		ldrb	r0, [r3, r4]	@ zero_extendqisi2
+ 1420 001c FFF7FEFF 		bl	OLED_WR_Byte
+ 1421              	.LVL170:
+ 299:Core/Src/oled.c ****         adder += 1;
+ 1422              		.loc 1 299 9 is_stmt 1 discriminator 3 view .LVU336
+ 296:Core/Src/oled.c ****     for (t = 0; t < 16; t++)
+ 1423              		.loc 1 296 25 discriminator 3 view .LVU337
+ 296:Core/Src/oled.c ****     for (t = 0; t < 16; t++)
+ 1424              		.loc 1 296 26 is_stmt 0 discriminator 3 view .LVU338
+ 1425 0020 0134     		adds	r4, r4, #1
+ 1426              	.LVL171:
+ 296:Core/Src/oled.c ****     for (t = 0; t < 16; t++)
+ 1427              		.loc 1 296 26 discriminator 3 view .LVU339
+ 1428 0022 E4B2     		uxtb	r4, r4
+ 1429              	.LVL172:
+ 296:Core/Src/oled.c ****     for (t = 0; t < 16; t++)
+ 1430              		.loc 1 296 26 discriminator 3 view .LVU340
+ 1431 0024 F3E7     		b	.L111
+ 1432              	.L116:
+ 300:Core/Src/oled.c ****     }
+ 301:Core/Src/oled.c ****     OLED_Set_Pos(x, y + 1);
+ 1433              		.loc 1 301 5 is_stmt 1 view .LVU341
+ 1434 0026 711C     		adds	r1, r6, #1
+ 1435 0028 C9B2     		uxtb	r1, r1
+ 1436 002a 3846     		mov	r0, r7
+ 1437 002c FFF7FEFF 		bl	OLED_Set_Pos
+ 1438              	.LVL173:
+ 302:Core/Src/oled.c ****     for (t = 0; t < 16; t++)
+ 1439              		.loc 1 302 5 view .LVU342
+ 1440              		.loc 1 302 12 is_stmt 0 view .LVU343
+ 1441 0030 0024     		movs	r4, #0
+ 1442              	.LVL174:
+ 1443              	.L113:
+ 1444              		.loc 1 302 17 is_stmt 1 discriminator 1 view .LVU344
+ 1445              		.loc 1 302 5 is_stmt 0 discriminator 1 view .LVU345
+ 1446 0032 0F2C     		cmp	r4, #15
+ 1447 0034 0BD8     		bhi	.L117
+ 303:Core/Src/oled.c ****     {
+ 304:Core/Src/oled.c ****         OLED_WR_Byte(Hzk[2 * no + 1][t], OLED_DATA);
+ 1448              		.loc 1 304 9 is_stmt 1 discriminator 3 view .LVU346
+ 1449              		.loc 1 304 28 is_stmt 0 discriminator 3 view .LVU347
+ 1450 0036 6B00     		lsls	r3, r5, #1
+ 1451              		.loc 1 304 33 discriminator 3 view .LVU348
+ 1452 0038 591C     		adds	r1, r3, #1
+ 1453              		.loc 1 304 37 discriminator 3 view .LVU349
+ 1454 003a 054B     		ldr	r3, .L118
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 33
+
+
+ 1455 003c 03EB4113 		add	r3, r3, r1, lsl #5
+ 1456              		.loc 1 304 9 discriminator 3 view .LVU350
+ 1457 0040 0121     		movs	r1, #1
+ 1458 0042 185D     		ldrb	r0, [r3, r4]	@ zero_extendqisi2
+ 1459 0044 FFF7FEFF 		bl	OLED_WR_Byte
+ 1460              	.LVL175:
+ 305:Core/Src/oled.c ****         adder += 1;
+ 1461              		.loc 1 305 9 is_stmt 1 discriminator 3 view .LVU351
+ 302:Core/Src/oled.c ****     for (t = 0; t < 16; t++)
+ 1462              		.loc 1 302 25 discriminator 3 view .LVU352
+ 302:Core/Src/oled.c ****     for (t = 0; t < 16; t++)
+ 1463              		.loc 1 302 26 is_stmt 0 discriminator 3 view .LVU353
+ 1464 0048 0134     		adds	r4, r4, #1
+ 1465              	.LVL176:
+ 302:Core/Src/oled.c ****     for (t = 0; t < 16; t++)
+ 1466              		.loc 1 302 26 discriminator 3 view .LVU354
+ 1467 004a E4B2     		uxtb	r4, r4
+ 1468              	.LVL177:
+ 302:Core/Src/oled.c ****     for (t = 0; t < 16; t++)
+ 1469              		.loc 1 302 26 discriminator 3 view .LVU355
+ 1470 004c F1E7     		b	.L113
+ 1471              	.L117:
+ 306:Core/Src/oled.c ****     }
+ 307:Core/Src/oled.c **** }
+ 1472              		.loc 1 307 1 view .LVU356
+ 1473 004e F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 1474              	.LVL178:
+ 1475              	.L119:
+ 1476              		.loc 1 307 1 view .LVU357
+ 1477              		.align	2
+ 1478              	.L118:
+ 1479 0050 00000000 		.word	.LANCHOR2
+ 1480              		.cfi_endproc
+ 1481              	.LFE84:
+ 1483              		.section	.text.OLED_DrawBMP,"ax",%progbits
+ 1484              		.align	1
+ 1485              		.global	OLED_DrawBMP
+ 1486              		.syntax unified
+ 1487              		.thumb
+ 1488              		.thumb_func
+ 1489              		.fpu softvfp
+ 1491              	OLED_DrawBMP:
+ 1492              	.LVL179:
+ 1493              	.LFB85:
+ 308:Core/Src/oled.c **** /***********功能描述：显示显示BMP图片128×64起始点坐标(x,y),x的范围0～127，y�
+ 309:Core/Src/oled.c **** void OLED_DrawBMP(unsigned char x0, unsigned char y0, unsigned char x1, unsigned char y1, unsigned 
+ 310:Core/Src/oled.c **** {
+ 1494              		.loc 1 310 1 is_stmt 1 view -0
+ 1495              		.cfi_startproc
+ 1496              		@ args = 4, pretend = 0, frame = 0
+ 1497              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1498              		.loc 1 310 1 is_stmt 0 view .LVU359
+ 1499 0000 2DE9F84F 		push	{r3, r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 1500              	.LCFI17:
+ 1501              		.cfi_def_cfa_offset 40
+ 1502              		.cfi_offset 3, -40
+ 1503              		.cfi_offset 4, -36
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 34
+
+
+ 1504              		.cfi_offset 5, -32
+ 1505              		.cfi_offset 6, -28
+ 1506              		.cfi_offset 7, -24
+ 1507              		.cfi_offset 8, -20
+ 1508              		.cfi_offset 9, -16
+ 1509              		.cfi_offset 10, -12
+ 1510              		.cfi_offset 11, -8
+ 1511              		.cfi_offset 14, -4
+ 1512 0004 8146     		mov	r9, r0
+ 1513 0006 8846     		mov	r8, r1
+ 1514 0008 1646     		mov	r6, r2
+ 1515 000a 9A46     		mov	r10, r3
+ 1516 000c 0A9F     		ldr	r7, [sp, #40]
+ 311:Core/Src/oled.c ****     unsigned int j = 0;
+ 1517              		.loc 1 311 5 is_stmt 1 view .LVU360
+ 1518              	.LVL180:
+ 312:Core/Src/oled.c ****     unsigned char x, y;
+ 1519              		.loc 1 312 5 view .LVU361
+ 313:Core/Src/oled.c **** 
+ 314:Core/Src/oled.c ****     if (y1 % 8 == 0)
+ 1520              		.loc 1 314 5 view .LVU362
+ 315:Core/Src/oled.c ****         y = y1 / 8;
+ 316:Core/Src/oled.c ****     else
+ 317:Core/Src/oled.c ****         y = y1 / 8 + 1;
+ 318:Core/Src/oled.c ****     for (y = y0; y < y1; y++)
+ 319:Core/Src/oled.c ****     {
+ 320:Core/Src/oled.c ****         OLED_Set_Pos(x0, y);
+ 321:Core/Src/oled.c ****         for (x = x0; x < x1; x++)
+ 322:Core/Src/oled.c ****         {
+ 323:Core/Src/oled.c ****             OLED_WR_Byte(BMP[j++], OLED_DATA);
+ 1521              		.loc 1 323 31 is_stmt 0 view .LVU363
+ 1522 000e 4FF0000B 		mov	fp, #0
+ 1523 0012 0FE0     		b	.L121
+ 1524              	.LVL181:
+ 1525              	.L123:
+ 1526              		.loc 1 323 13 is_stmt 1 discriminator 3 view .LVU364
+ 1527              		.loc 1 323 31 is_stmt 0 discriminator 3 view .LVU365
+ 1528 0014 0BF10105 		add	r5, fp, #1
+ 1529              	.LVL182:
+ 1530              		.loc 1 323 13 discriminator 3 view .LVU366
+ 1531 0018 0121     		movs	r1, #1
+ 1532 001a 17F80B00 		ldrb	r0, [r7, fp]	@ zero_extendqisi2
+ 1533 001e FFF7FEFF 		bl	OLED_WR_Byte
+ 1534              	.LVL183:
+ 321:Core/Src/oled.c ****         {
+ 1535              		.loc 1 321 30 is_stmt 1 discriminator 3 view .LVU367
+ 321:Core/Src/oled.c ****         {
+ 1536              		.loc 1 321 31 is_stmt 0 discriminator 3 view .LVU368
+ 1537 0022 0134     		adds	r4, r4, #1
+ 1538              	.LVL184:
+ 321:Core/Src/oled.c ****         {
+ 1539              		.loc 1 321 31 discriminator 3 view .LVU369
+ 1540 0024 E4B2     		uxtb	r4, r4
+ 1541              	.LVL185:
+ 1542              		.loc 1 323 31 discriminator 3 view .LVU370
+ 1543 0026 AB46     		mov	fp, r5
+ 1544              	.LVL186:
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 35
+
+
+ 1545              	.L122:
+ 321:Core/Src/oled.c ****         {
+ 1546              		.loc 1 321 22 is_stmt 1 discriminator 1 view .LVU371
+ 321:Core/Src/oled.c ****         {
+ 1547              		.loc 1 321 9 is_stmt 0 discriminator 1 view .LVU372
+ 1548 0028 B442     		cmp	r4, r6
+ 1549 002a F3D3     		bcc	.L123
+ 318:Core/Src/oled.c ****     {
+ 1550              		.loc 1 318 26 is_stmt 1 discriminator 2 view .LVU373
+ 318:Core/Src/oled.c ****     {
+ 1551              		.loc 1 318 27 is_stmt 0 discriminator 2 view .LVU374
+ 1552 002c 08F10108 		add	r8, r8, #1
+ 1553              	.LVL187:
+ 318:Core/Src/oled.c ****     {
+ 1554              		.loc 1 318 27 discriminator 2 view .LVU375
+ 1555 0030 5FFA88F8 		uxtb	r8, r8
+ 1556              	.LVL188:
+ 1557              	.L121:
+ 318:Core/Src/oled.c ****     {
+ 1558              		.loc 1 318 18 is_stmt 1 discriminator 1 view .LVU376
+ 318:Core/Src/oled.c ****     {
+ 1559              		.loc 1 318 5 is_stmt 0 discriminator 1 view .LVU377
+ 1560 0034 D045     		cmp	r8, r10
+ 1561 0036 05D2     		bcs	.L126
+ 320:Core/Src/oled.c ****         for (x = x0; x < x1; x++)
+ 1562              		.loc 1 320 9 is_stmt 1 view .LVU378
+ 1563 0038 4146     		mov	r1, r8
+ 1564 003a 4846     		mov	r0, r9
+ 1565 003c FFF7FEFF 		bl	OLED_Set_Pos
+ 1566              	.LVL189:
+ 321:Core/Src/oled.c ****         {
+ 1567              		.loc 1 321 9 view .LVU379
+ 321:Core/Src/oled.c ****         {
+ 1568              		.loc 1 321 16 is_stmt 0 view .LVU380
+ 1569 0040 4C46     		mov	r4, r9
+ 321:Core/Src/oled.c ****         {
+ 1570              		.loc 1 321 9 view .LVU381
+ 1571 0042 F1E7     		b	.L122
+ 1572              	.LVL190:
+ 1573              	.L126:
+ 324:Core/Src/oled.c ****         }
+ 325:Core/Src/oled.c ****     }
+ 326:Core/Src/oled.c **** }
+ 1574              		.loc 1 326 1 view .LVU382
+ 1575 0044 BDE8F88F 		pop	{r3, r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 1576              		.loc 1 326 1 view .LVU383
+ 1577              		.cfi_endproc
+ 1578              	.LFE85:
+ 1580              		.section	.text.OLED_Init,"ax",%progbits
+ 1581              		.align	1
+ 1582              		.global	OLED_Init
+ 1583              		.syntax unified
+ 1584              		.thumb
+ 1585              		.thumb_func
+ 1586              		.fpu softvfp
+ 1588              	OLED_Init:
+ 1589              	.LFB86:
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 36
+
+
+ 327:Core/Src/oled.c **** 
+ 328:Core/Src/oled.c **** //初始化SSD1306
+ 329:Core/Src/oled.c **** void OLED_Init(void)
+ 330:Core/Src/oled.c **** {
+ 1590              		.loc 1 330 1 is_stmt 1 view -0
+ 1591              		.cfi_startproc
+ 1592              		@ args = 0, pretend = 0, frame = 0
+ 1593              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1594 0000 08B5     		push	{r3, lr}
+ 1595              	.LCFI18:
+ 1596              		.cfi_def_cfa_offset 8
+ 1597              		.cfi_offset 3, -8
+ 1598              		.cfi_offset 14, -4
+ 331:Core/Src/oled.c ****     HAL_Delay(10);                //防止芯片复位后OLED还没复位，导致无法显示
+ 1599              		.loc 1 331 5 view .LVU385
+ 1600 0002 0A20     		movs	r0, #10
+ 1601 0004 FFF7FEFF 		bl	HAL_Delay
+ 1602              	.LVL191:
+ 332:Core/Src/oled.c ****     OLED_WR_Byte(0xAE, OLED_CMD); //--display off
+ 1603              		.loc 1 332 5 view .LVU386
+ 1604 0008 0021     		movs	r1, #0
+ 1605 000a AE20     		movs	r0, #174
+ 1606 000c FFF7FEFF 		bl	OLED_WR_Byte
+ 1607              	.LVL192:
+ 333:Core/Src/oled.c ****     OLED_WR_Byte(0x00, OLED_CMD); //---set low column address
+ 1608              		.loc 1 333 5 view .LVU387
+ 1609 0010 0021     		movs	r1, #0
+ 1610 0012 0846     		mov	r0, r1
+ 1611 0014 FFF7FEFF 		bl	OLED_WR_Byte
+ 1612              	.LVL193:
+ 334:Core/Src/oled.c ****     OLED_WR_Byte(0x10, OLED_CMD); //---set high column address
+ 1613              		.loc 1 334 5 view .LVU388
+ 1614 0018 0021     		movs	r1, #0
+ 1615 001a 1020     		movs	r0, #16
+ 1616 001c FFF7FEFF 		bl	OLED_WR_Byte
+ 1617              	.LVL194:
+ 335:Core/Src/oled.c ****     OLED_WR_Byte(0x40, OLED_CMD); //--set start line address
+ 1618              		.loc 1 335 5 view .LVU389
+ 1619 0020 0021     		movs	r1, #0
+ 1620 0022 4020     		movs	r0, #64
+ 1621 0024 FFF7FEFF 		bl	OLED_WR_Byte
+ 1622              	.LVL195:
+ 336:Core/Src/oled.c ****     OLED_WR_Byte(0xB0, OLED_CMD); //--set page address
+ 1623              		.loc 1 336 5 view .LVU390
+ 1624 0028 0021     		movs	r1, #0
+ 1625 002a B020     		movs	r0, #176
+ 1626 002c FFF7FEFF 		bl	OLED_WR_Byte
+ 1627              	.LVL196:
+ 337:Core/Src/oled.c ****     OLED_WR_Byte(0x81, OLED_CMD); // contract control
+ 1628              		.loc 1 337 5 view .LVU391
+ 1629 0030 0021     		movs	r1, #0
+ 1630 0032 8120     		movs	r0, #129
+ 1631 0034 FFF7FEFF 		bl	OLED_WR_Byte
+ 1632              	.LVL197:
+ 338:Core/Src/oled.c ****     OLED_WR_Byte(0xFF, OLED_CMD); //--128
+ 1633              		.loc 1 338 5 view .LVU392
+ 1634 0038 0021     		movs	r1, #0
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 37
+
+
+ 1635 003a FF20     		movs	r0, #255
+ 1636 003c FFF7FEFF 		bl	OLED_WR_Byte
+ 1637              	.LVL198:
+ 339:Core/Src/oled.c ****     OLED_WR_Byte(0xA1, OLED_CMD); //set segment remap
+ 1638              		.loc 1 339 5 view .LVU393
+ 1639 0040 0021     		movs	r1, #0
+ 1640 0042 A120     		movs	r0, #161
+ 1641 0044 FFF7FEFF 		bl	OLED_WR_Byte
+ 1642              	.LVL199:
+ 340:Core/Src/oled.c ****     OLED_WR_Byte(0xA6, OLED_CMD); //--normal / reverse
+ 1643              		.loc 1 340 5 view .LVU394
+ 1644 0048 0021     		movs	r1, #0
+ 1645 004a A620     		movs	r0, #166
+ 1646 004c FFF7FEFF 		bl	OLED_WR_Byte
+ 1647              	.LVL200:
+ 341:Core/Src/oled.c ****     OLED_WR_Byte(0xA8, OLED_CMD); //--set multiplex ratio(1 to 64)
+ 1648              		.loc 1 341 5 view .LVU395
+ 1649 0050 0021     		movs	r1, #0
+ 1650 0052 A820     		movs	r0, #168
+ 1651 0054 FFF7FEFF 		bl	OLED_WR_Byte
+ 1652              	.LVL201:
+ 342:Core/Src/oled.c ****     OLED_WR_Byte(0x3F, OLED_CMD); //--1/32 duty
+ 1653              		.loc 1 342 5 view .LVU396
+ 1654 0058 0021     		movs	r1, #0
+ 1655 005a 3F20     		movs	r0, #63
+ 1656 005c FFF7FEFF 		bl	OLED_WR_Byte
+ 1657              	.LVL202:
+ 343:Core/Src/oled.c ****     OLED_WR_Byte(0xC8, OLED_CMD); //Com scan direction
+ 1658              		.loc 1 343 5 view .LVU397
+ 1659 0060 0021     		movs	r1, #0
+ 1660 0062 C820     		movs	r0, #200
+ 1661 0064 FFF7FEFF 		bl	OLED_WR_Byte
+ 1662              	.LVL203:
+ 344:Core/Src/oled.c ****     OLED_WR_Byte(0xD3, OLED_CMD); //-set display offset
+ 1663              		.loc 1 344 5 view .LVU398
+ 1664 0068 0021     		movs	r1, #0
+ 1665 006a D320     		movs	r0, #211
+ 1666 006c FFF7FEFF 		bl	OLED_WR_Byte
+ 1667              	.LVL204:
+ 345:Core/Src/oled.c ****     OLED_WR_Byte(0x00, OLED_CMD); //
+ 1668              		.loc 1 345 5 view .LVU399
+ 1669 0070 0021     		movs	r1, #0
+ 1670 0072 0846     		mov	r0, r1
+ 1671 0074 FFF7FEFF 		bl	OLED_WR_Byte
+ 1672              	.LVL205:
+ 346:Core/Src/oled.c **** 
+ 347:Core/Src/oled.c ****     OLED_WR_Byte(0xD5, OLED_CMD); //set osc division
+ 1673              		.loc 1 347 5 view .LVU400
+ 1674 0078 0021     		movs	r1, #0
+ 1675 007a D520     		movs	r0, #213
+ 1676 007c FFF7FEFF 		bl	OLED_WR_Byte
+ 1677              	.LVL206:
+ 348:Core/Src/oled.c ****     OLED_WR_Byte(0x80, OLED_CMD); //
+ 1678              		.loc 1 348 5 view .LVU401
+ 1679 0080 0021     		movs	r1, #0
+ 1680 0082 8020     		movs	r0, #128
+ 1681 0084 FFF7FEFF 		bl	OLED_WR_Byte
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 38
+
+
+ 1682              	.LVL207:
+ 349:Core/Src/oled.c **** 
+ 350:Core/Src/oled.c ****     OLED_WR_Byte(0xD8, OLED_CMD); //set area color mode off
+ 1683              		.loc 1 350 5 view .LVU402
+ 1684 0088 0021     		movs	r1, #0
+ 1685 008a D820     		movs	r0, #216
+ 1686 008c FFF7FEFF 		bl	OLED_WR_Byte
+ 1687              	.LVL208:
+ 351:Core/Src/oled.c ****     OLED_WR_Byte(0x05, OLED_CMD); //
+ 1688              		.loc 1 351 5 view .LVU403
+ 1689 0090 0021     		movs	r1, #0
+ 1690 0092 0520     		movs	r0, #5
+ 1691 0094 FFF7FEFF 		bl	OLED_WR_Byte
+ 1692              	.LVL209:
+ 352:Core/Src/oled.c **** 
+ 353:Core/Src/oled.c ****     OLED_WR_Byte(0xD9, OLED_CMD); //Set Pre-Charge Period
+ 1693              		.loc 1 353 5 view .LVU404
+ 1694 0098 0021     		movs	r1, #0
+ 1695 009a D920     		movs	r0, #217
+ 1696 009c FFF7FEFF 		bl	OLED_WR_Byte
+ 1697              	.LVL210:
+ 354:Core/Src/oled.c ****     OLED_WR_Byte(0xF1, OLED_CMD); //
+ 1698              		.loc 1 354 5 view .LVU405
+ 1699 00a0 0021     		movs	r1, #0
+ 1700 00a2 F120     		movs	r0, #241
+ 1701 00a4 FFF7FEFF 		bl	OLED_WR_Byte
+ 1702              	.LVL211:
+ 355:Core/Src/oled.c **** 
+ 356:Core/Src/oled.c ****     OLED_WR_Byte(0xDA, OLED_CMD); //set com pin configuartion
+ 1703              		.loc 1 356 5 view .LVU406
+ 1704 00a8 0021     		movs	r1, #0
+ 1705 00aa DA20     		movs	r0, #218
+ 1706 00ac FFF7FEFF 		bl	OLED_WR_Byte
+ 1707              	.LVL212:
+ 357:Core/Src/oled.c ****     OLED_WR_Byte(0x12, OLED_CMD); //
+ 1708              		.loc 1 357 5 view .LVU407
+ 1709 00b0 0021     		movs	r1, #0
+ 1710 00b2 1220     		movs	r0, #18
+ 1711 00b4 FFF7FEFF 		bl	OLED_WR_Byte
+ 1712              	.LVL213:
+ 358:Core/Src/oled.c **** 
+ 359:Core/Src/oled.c ****     OLED_WR_Byte(0xDB, OLED_CMD); //set Vcomh
+ 1713              		.loc 1 359 5 view .LVU408
+ 1714 00b8 0021     		movs	r1, #0
+ 1715 00ba DB20     		movs	r0, #219
+ 1716 00bc FFF7FEFF 		bl	OLED_WR_Byte
+ 1717              	.LVL214:
+ 360:Core/Src/oled.c ****     OLED_WR_Byte(0x30, OLED_CMD); //
+ 1718              		.loc 1 360 5 view .LVU409
+ 1719 00c0 0021     		movs	r1, #0
+ 1720 00c2 3020     		movs	r0, #48
+ 1721 00c4 FFF7FEFF 		bl	OLED_WR_Byte
+ 1722              	.LVL215:
+ 361:Core/Src/oled.c **** 
+ 362:Core/Src/oled.c ****     OLED_WR_Byte(0x8D, OLED_CMD); //set charge pump enable
+ 1723              		.loc 1 362 5 view .LVU410
+ 1724 00c8 0021     		movs	r1, #0
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 39
+
+
+ 1725 00ca 8D20     		movs	r0, #141
+ 1726 00cc FFF7FEFF 		bl	OLED_WR_Byte
+ 1727              	.LVL216:
+ 363:Core/Src/oled.c ****     OLED_WR_Byte(0x14, OLED_CMD); //
+ 1728              		.loc 1 363 5 view .LVU411
+ 1729 00d0 0021     		movs	r1, #0
+ 1730 00d2 1420     		movs	r0, #20
+ 1731 00d4 FFF7FEFF 		bl	OLED_WR_Byte
+ 1732              	.LVL217:
+ 364:Core/Src/oled.c **** 
+ 365:Core/Src/oled.c ****     OLED_WR_Byte(0xAF, OLED_CMD); //--turn on oled panel
+ 1733              		.loc 1 365 5 view .LVU412
+ 1734 00d8 0021     		movs	r1, #0
+ 1735 00da AF20     		movs	r0, #175
+ 1736 00dc FFF7FEFF 		bl	OLED_WR_Byte
+ 1737              	.LVL218:
+ 366:Core/Src/oled.c **** }
+ 1738              		.loc 1 366 1 is_stmt 0 view .LVU413
+ 1739 00e0 08BD     		pop	{r3, pc}
+ 1740              		.cfi_endproc
+ 1741              	.LFE86:
+ 1743              		.global	Hzk
+ 1744              		.global	F8X16
+ 1745              		.global	F6x8
+ 1746              		.section	.data.Hzk,"aw"
+ 1747              		.align	2
+ 1748              		.set	.LANCHOR2,. + 0
+ 1751              	Hzk:
+ 1752 0000 0000F010 		.ascii	"\000\000\360\020\020\020\020\377\020\020\020\020\360"
+ 1752      101010FF 
+ 1752      10101010 
+ 1752      F0
+ 1753 000d 00000000 		.ascii	"\000\000\000\000"
+ 1754 0011 00000000 		.space	15
+ 1754      00000000 
+ 1754      00000000 
+ 1754      000000
+ 1755 0020 00000F04 		.ascii	"\000\000\017\004\004\004\004\377\004\004\004\004\017"
+ 1755      040404FF 
+ 1755      04040404 
+ 1755      0F
+ 1756 002d 00000000 		.ascii	"\000\000\000\000"
+ 1757 0031 00000000 		.space	15
+ 1757      00000000 
+ 1757      00000000 
+ 1757      000000
+ 1758 0040 4040405F 		.ascii	"@@@_UUUuUUU_@@@\000\000"
+ 1758      55555575 
+ 1758      5555555F 
+ 1758      40404000 
+ 1758      00
+ 1759 0051 00000000 		.space	15
+ 1759      00000000 
+ 1759      00000000 
+ 1759      000000
+ 1760 0060 0040200F 		.ascii	"\000@ \017\011I\211y\011\011\011\017 @\000\000\000"
+ 1760      09498979 
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 40
+
+
+ 1760      0909090F 
+ 1760      20400000 
+ 1760      00
+ 1761 0071 00000000 		.space	15
+ 1761      00000000 
+ 1761      00000000 
+ 1761      000000
+ 1762 0080 00FE0242 		.ascii	"\000\376\002BJ\312JJ\312JJB\002\376\000\000\000"
+ 1762      4ACA4A4A 
+ 1762      CA4A4A42 
+ 1762      02FE0000 
+ 1762      00
+ 1763 0091 00000000 		.space	15
+ 1763      00000000 
+ 1763      00000000 
+ 1763      000000
+ 1764 00a0 00FF4050 		.ascii	"\000\377@PLC@@OPP\\@\377\000\000\000"
+ 1764      4C434040 
+ 1764      4F50505C 
+ 1764      40FF0000 
+ 1764      00
+ 1765 00b1 00000000 		.space	15
+ 1765      00000000 
+ 1765      00000000 
+ 1765      000000
+ 1766 00c0 0000F888 		.ascii	"\000\000\370\210\210\210\210\377\210\210\210\210\370"
+ 1766      888888FF 
+ 1766      88888888 
+ 1766      F8
+ 1767 00cd 00000000 		.ascii	"\000\000\000\000"
+ 1768 00d1 00000000 		.space	15
+ 1768      00000000 
+ 1768      00000000 
+ 1768      000000
+ 1769 00e0 00001F08 		.ascii	"\000\000\037\010\010\010\010\177\210\210\210\210\237"
+ 1769      0808087F 
+ 1769      88888888 
+ 1769      9F
+ 1770 00ed 80F00000 		.ascii	"\200\360\000\000"
+ 1771 00f1 00000000 		.space	15
+ 1771      00000000 
+ 1771      00000000 
+ 1771      000000
+ 1772 0100 80828282 		.ascii	"\200\202\202\202\202\202\202\342\242\222\212\206\202"
+ 1772      828282E2 
+ 1772      A2928A86 
+ 1772      82
+ 1773 010d 80800000 		.ascii	"\200\200\000\000"
+ 1774 0111 00000000 		.space	15
+ 1774      00000000 
+ 1774      00000000 
+ 1774      000000
+ 1775 0120 00000000 		.ascii	"\000\000\000\000\000@\200\177\000\000\000\000\000\000"
+ 1775      0040807F 
+ 1775      00000000 
+ 1775      0000
+ 1776 012e 000000   		.ascii	"\000\000\000"
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 41
+
+
+ 1777 0131 00000000 		.space	15
+ 1777      00000000 
+ 1777      00000000 
+ 1777      000000
+ 1778 0140 2424A4FE 		.ascii	"$$\244\376\243\"\000\"\314\000\000\377\000\000\000\000"
+ 1778      A3220022 
+ 1778      CC0000FF 
+ 1778      00000000 
+ 1779 0150 00       		.ascii	"\000"
+ 1780 0151 00000000 		.space	15
+ 1780      00000000 
+ 1780      00000000 
+ 1780      000000
+ 1781 0160 080601FF 		.ascii	"\010\006\001\377\000\001\004\004\004\004\004\377\002"
+ 1781      00010404 
+ 1781      040404FF 
+ 1781      02
+ 1782 016d 02020000 		.ascii	"\002\002\000\000"
+ 1783 0171 00000000 		.space	15
+ 1783      00000000 
+ 1783      00000000 
+ 1783      000000
+ 1784 0180 101010FF 		.ascii	"\020\020\020\377\020\220\010\210\210\210\377\210\210"
+ 1784      10900888 
+ 1784      8888FF88 
+ 1784      88
+ 1785 018d 88080000 		.ascii	"\210\010\000\000"
+ 1786 0191 00000000 		.space	15
+ 1786      00000000 
+ 1786      00000000 
+ 1786      000000
+ 1787 01a0 0444827F 		.ascii	"\004D\202\177\001\200\200@C,\020(F\201\200\000\000"
+ 1787      01808040 
+ 1787      432C1028 
+ 1787      46818000 
+ 1787      00
+ 1788 01b1 00000000 		.space	15
+ 1788      00000000 
+ 1788      00000000 
+ 1788      000000
+ 1789 01c0 40404848 		.ascii	"@@HHH\310xOHHHHH@@\000\000"
+ 1789      48C8784F 
+ 1789      48484848 
+ 1789      48404000 
+ 1789      00
+ 1790 01d1 00000000 		.space	15
+ 1790      00000000 
+ 1790      00000000 
+ 1790      000000
+ 1791 01e0 00000000 		.ascii	"\000\000\000\000\003\022\022\"\"R\212\006\000\000\000"
+ 1791      03121222 
+ 1791      22528A06 
+ 1791      000000
+ 1792 01ef 0000     		.ascii	"\000\000"
+ 1793 01f1 00000000 		.space	15
+ 1793      00000000 
+ 1793      00000000 
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 42
+
+
+ 1793      000000
+ 1794 0200 00106080 		.ascii	"\000\020`\200\000\377\000\000\000\377\000\000\3000\000"
+ 1794      00FF0000 
+ 1794      00FF0000 
+ 1794      C03000
+ 1795 020f 0000     		.ascii	"\000\000"
+ 1796 0211 00000000 		.space	15
+ 1796      00000000 
+ 1796      00000000 
+ 1796      000000
+ 1797 0220 40404043 		.ascii	"@@@C@\177@@@\177BA@@@\000\000"
+ 1797      407F4040 
+ 1797      407F4241 
+ 1797      40404000 
+ 1797      00
+ 1798 0231 00000000 		.space	15
+ 1798      00000000 
+ 1798      00000000 
+ 1798      000000
+ 1799 0240 101010FF 		.ascii	"\020\020\020\377\020\220\010\210\210\210\377\210\210"
+ 1799      10900888 
+ 1799      8888FF88 
+ 1799      88
+ 1800 024d 88080000 		.ascii	"\210\010\000\000"
+ 1801 0251 00000000 		.space	15
+ 1801      00000000 
+ 1801      00000000 
+ 1801      000000
+ 1802 0260 0444827F 		.ascii	"\004D\202\177\001\200\200@C,\020(F\201\200\000\000"
+ 1802      01808040 
+ 1802      432C1028 
+ 1802      46818000 
+ 1802      00
+ 1803 0271 00000000 		.space	15
+ 1803      00000000 
+ 1803      00000000 
+ 1803      000000
+ 1804 0280 00101010 		.ascii	"\000\020\020\020\020\3200\3770\320\022\034\020\020\000"
+ 1804      10D030FF 
+ 1804      30D0121C 
+ 1804      101000
+ 1805 028f 0000     		.ascii	"\000\000"
+ 1806 0291 00000000 		.space	15
+ 1806      00000000 
+ 1806      00000000 
+ 1806      000000
+ 1807 02a0 10080402 		.ascii	"\020\010\004\002\001\000\000\377\000\000\001\002\004"
+ 1807      010000FF 
+ 1807      00000102 
+ 1807      04
+ 1808 02ad 08100000 		.ascii	"\010\020\000\000"
+ 1809 02b1 00000000 		.space	15
+ 1809      00000000 
+ 1809      00000000 
+ 1809      000000
+ 1810 02c0 0000FE22 		.ascii	"\000\000\376\"\"\"\376\000\376\202\202\222\242\236\000"
+ 1810      2222FE00 
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 43
+
+
+ 1810      FE828292 
+ 1810      A29E00
+ 1811 02cf 0000     		.ascii	"\000\000"
+ 1812 02d1 00000000 		.space	15
+ 1812      00000000 
+ 1812      00000000 
+ 1812      000000
+ 1813 02e0 80601F02 		.ascii	"\200`\037\002B\202\177\000\377@/\020,C\200\000\000"
+ 1813      42827F00 
+ 1813      FF402F10 
+ 1813      2C438000 
+ 1813      00
+ 1814 02f1 00000000 		.space	15
+ 1814      00000000 
+ 1814      00000000 
+ 1814      000000
+ 1815 0300 00009088 		.ascii	"\000\000\220\210LW\244$TT\214\204\000\000\000\000\000"
+ 1815      4C57A424 
+ 1815      54548C84 
+ 1815      00000000 
+ 1815      00
+ 1816 0311 00000000 		.space	15
+ 1816      00000000 
+ 1816      00000000 
+ 1816      000000
+ 1817 0320 01018042 		.ascii	"\001\001\200B\"\032\007\002B\202B>\001\001\001\000\000"
+ 1817      221A0702 
+ 1817      4282423E 
+ 1817      01010100 
+ 1817      00
+ 1818 0331 00000000 		.space	15
+ 1818      00000000 
+ 1818      00000000 
+ 1818      000000
+ 1819 0340 0004E424 		.ascii	"\000\004\344$,\264%&$\264,$\344\004\000\000\000"
+ 1819      2CB42526 
+ 1819      24B42C24 
+ 1819      E4040000 
+ 1819      00
+ 1820 0351 00000000 		.space	15
+ 1820      00000000 
+ 1820      00000000 
+ 1820      000000
+ 1821 0360 0000FF02 		.ascii	"\000\000\377\002\001\036\022\022\022\036A\202\177\000"
+ 1821      011E1212 
+ 1821      121E4182 
+ 1821      7F00
+ 1822 036e 000000   		.ascii	"\000\000\000"
+ 1823 0371 00000000 		.space	15
+ 1823      00000000 
+ 1823      00000000 
+ 1823      000000
+ 1824              		.section	.rodata.F6x8,"a"
+ 1825              		.align	2
+ 1826              		.set	.LANCHOR1,. + 0
+ 1829              	F6x8:
+ 1830 0000 00000000 		.ascii	"\000\000\000\000\000\000"
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 44
+
+
+ 1830      0000
+ 1831 0006 0000002F 		.ascii	"\000\000\000/\000\000"
+ 1831      0000
+ 1832 000c 00000700 		.ascii	"\000\000\007\000\007\000"
+ 1832      0700
+ 1833 0012 00147F14 		.ascii	"\000\024\177\024\177\024"
+ 1833      7F14
+ 1834 0018 00242A7F 		.ascii	"\000$*\177*\022"
+ 1834      2A12
+ 1835 001e 00626408 		.ascii	"\000bd\010\023#"
+ 1835      1323
+ 1836 0024 00364955 		.ascii	"\0006IU\"P"
+ 1836      2250
+ 1837 002a 00000503 		.ascii	"\000\000\005\003\000\000"
+ 1837      0000
+ 1838 0030 00001C22 		.ascii	"\000\000\034\"A\000"
+ 1838      4100
+ 1839 0036 00004122 		.ascii	"\000\000A\"\034\000"
+ 1839      1C00
+ 1840 003c 0014083E 		.ascii	"\000\024\010>\010\024"
+ 1840      0814
+ 1841 0042 0008083E 		.ascii	"\000\010\010>\010\010"
+ 1841      0808
+ 1842 0048 000000A0 		.ascii	"\000\000\000\240`\000"
+ 1842      6000
+ 1843 004e 00080808 		.ascii	"\000\010\010\010\010\010"
+ 1843      0808
+ 1844 0054 00006060 		.ascii	"\000\000``\000\000"
+ 1844      0000
+ 1845 005a 00201008 		.ascii	"\000 \020\010\004\002"
+ 1845      0402
+ 1846 0060 003E5149 		.ascii	"\000>QIE>"
+ 1846      453E
+ 1847 0066 0000427F 		.ascii	"\000\000B\177@\000"
+ 1847      4000
+ 1848 006c 00426151 		.ascii	"\000BaQIF"
+ 1848      4946
+ 1849 0072 00214145 		.ascii	"\000!AEK1"
+ 1849      4B31
+ 1850 0078 00181412 		.ascii	"\000\030\024\022\177\020"
+ 1850      7F10
+ 1851 007e 00274545 		.ascii	"\000'EEE9"
+ 1851      4539
+ 1852 0084 003C4A49 		.ascii	"\000<JII0"
+ 1852      4930
+ 1853 008a 00017109 		.ascii	"\000\001q\011\005\003"
+ 1853      0503
+ 1854 0090 00364949 		.ascii	"\0006III6"
+ 1854      4936
+ 1855 0096 00064949 		.ascii	"\000\006II)\036"
+ 1855      291E
+ 1856 009c 00003636 		.ascii	"\000\00066\000\000"
+ 1856      0000
+ 1857 00a2 00005636 		.ascii	"\000\000V6\000\000"
+ 1857      0000
+ 1858 00a8 00081422 		.ascii	"\000\010\024\"A\000"
+ 1858      4100
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 45
+
+
+ 1859 00ae 00141414 		.ascii	"\000\024\024\024\024\024"
+ 1859      1414
+ 1860 00b4 00004122 		.ascii	"\000\000A\"\024\010"
+ 1860      1408
+ 1861 00ba 00020151 		.ascii	"\000\002\001Q\011\006"
+ 1861      0906
+ 1862 00c0 00324959 		.ascii	"\0002IYQ>"
+ 1862      513E
+ 1863 00c6 007C1211 		.ascii	"\000|\022\021\022|"
+ 1863      127C
+ 1864 00cc 007F4949 		.ascii	"\000\177III6"
+ 1864      4936
+ 1865 00d2 003E4141 		.ascii	"\000>AAA\""
+ 1865      4122
+ 1866 00d8 007F4141 		.ascii	"\000\177AA\"\034"
+ 1866      221C
+ 1867 00de 007F4949 		.ascii	"\000\177IIIA"
+ 1867      4941
+ 1868 00e4 007F0909 		.ascii	"\000\177\011\011\011\001"
+ 1868      0901
+ 1869 00ea 003E4149 		.ascii	"\000>AIIz"
+ 1869      497A
+ 1870 00f0 007F0808 		.ascii	"\000\177\010\010\010\177"
+ 1870      087F
+ 1871 00f6 0000417F 		.ascii	"\000\000A\177A\000"
+ 1871      4100
+ 1872 00fc 00204041 		.ascii	"\000 @A?\001"
+ 1872      3F01
+ 1873 0102 007F0814 		.ascii	"\000\177\010\024\"A"
+ 1873      2241
+ 1874 0108 007F4040 		.ascii	"\000\177@@@@"
+ 1874      4040
+ 1875 010e 007F020C 		.ascii	"\000\177\002\014\002\177"
+ 1875      027F
+ 1876 0114 007F0408 		.ascii	"\000\177\004\010\020\177"
+ 1876      107F
+ 1877 011a 003E4141 		.ascii	"\000>AAA>"
+ 1877      413E
+ 1878 0120 007F0909 		.ascii	"\000\177\011\011\011\006"
+ 1878      0906
+ 1879 0126 003E4151 		.ascii	"\000>AQ!^"
+ 1879      215E
+ 1880 012c 007F0919 		.ascii	"\000\177\011\031)F"
+ 1880      2946
+ 1881 0132 00464949 		.ascii	"\000FIII1"
+ 1881      4931
+ 1882 0138 0001017F 		.ascii	"\000\001\001\177\001\001"
+ 1882      0101
+ 1883 013e 003F4040 		.ascii	"\000?@@@?"
+ 1883      403F
+ 1884 0144 001F2040 		.ascii	"\000\037 @ \037"
+ 1884      201F
+ 1885 014a 003F4038 		.ascii	"\000?@8@?"
+ 1885      403F
+ 1886 0150 00631408 		.ascii	"\000c\024\010\024c"
+ 1886      1463
+ 1887 0156 00070870 		.ascii	"\000\007\010p\010\007"
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 46
+
+
+ 1887      0807
+ 1888 015c 00615149 		.ascii	"\000aQIEC"
+ 1888      4543
+ 1889 0162 00007F41 		.ascii	"\000\000\177AA\000"
+ 1889      4100
+ 1890 0168 00552A55 		.ascii	"\000U*U*U"
+ 1890      2A55
+ 1891 016e 00004141 		.ascii	"\000\000AA\177\000"
+ 1891      7F00
+ 1892 0174 00040201 		.ascii	"\000\004\002\001\002\004"
+ 1892      0204
+ 1893 017a 00404040 		.ascii	"\000@@@@@"
+ 1893      4040
+ 1894 0180 00000102 		.ascii	"\000\000\001\002\004\000"
+ 1894      0400
+ 1895 0186 00205454 		.ascii	"\000 TTTx"
+ 1895      5478
+ 1896 018c 007F4844 		.ascii	"\000\177HDD8"
+ 1896      4438
+ 1897 0192 00384444 		.ascii	"\0008DDD "
+ 1897      4420
+ 1898 0198 00384444 		.ascii	"\0008DDH\177"
+ 1898      487F
+ 1899 019e 00385454 		.ascii	"\0008TTT\030"
+ 1899      5418
+ 1900 01a4 00087E09 		.ascii	"\000\010~\011\001\002"
+ 1900      0102
+ 1901 01aa 0018A4A4 		.ascii	"\000\030\244\244\244|"
+ 1901      A47C
+ 1902 01b0 007F0804 		.ascii	"\000\177\010\004\004x"
+ 1902      0478
+ 1903 01b6 0000447D 		.ascii	"\000\000D}@\000"
+ 1903      4000
+ 1904 01bc 00408084 		.ascii	"\000@\200\204}\000"
+ 1904      7D00
+ 1905 01c2 007F1028 		.ascii	"\000\177\020(D\000"
+ 1905      4400
+ 1906 01c8 0000417F 		.ascii	"\000\000A\177@\000"
+ 1906      4000
+ 1907 01ce 007C0418 		.ascii	"\000|\004\030\004x"
+ 1907      0478
+ 1908 01d4 007C0804 		.ascii	"\000|\010\004\004x"
+ 1908      0478
+ 1909 01da 00384444 		.ascii	"\0008DDD8"
+ 1909      4438
+ 1910 01e0 00FC2424 		.ascii	"\000\374$$$\030"
+ 1910      2418
+ 1911 01e6 00182424 		.ascii	"\000\030$$\030\374"
+ 1911      18FC
+ 1912 01ec 007C0804 		.ascii	"\000|\010\004\004\010"
+ 1912      0408
+ 1913 01f2 00485454 		.ascii	"\000HTTT "
+ 1913      5420
+ 1914 01f8 00043F44 		.ascii	"\000\004?D@ "
+ 1914      4020
+ 1915 01fe 003C4040 		.ascii	"\000<@@ |"
+ 1915      207C
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 47
+
+
+ 1916 0204 001C2040 		.ascii	"\000\034 @ \034"
+ 1916      201C
+ 1917 020a 003C4030 		.ascii	"\000<@0@<"
+ 1917      403C
+ 1918 0210 00442810 		.ascii	"\000D(\020(D"
+ 1918      2844
+ 1919 0216 001CA0A0 		.ascii	"\000\034\240\240\240|"
+ 1919      A07C
+ 1920 021c 00446454 		.ascii	"\000DdTLD"
+ 1920      4C44
+ 1921 0222 14141414 		.ascii	"\024\024\024\024\024\024"
+ 1921      1414
+ 1922              		.section	.rodata.F8X16,"a"
+ 1923              		.align	2
+ 1924              		.set	.LANCHOR0,. + 0
+ 1927              	F8X16:
+ 1928 0000 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\000\000\000"
+ 1928      00000000 
+ 1928      00000000 
+ 1928      00
+ 1929 000d 00000000 		.ascii	"\000\000\000\000\000\000\370\000\000\000\000\000\000"
+ 1929      0000F800 
+ 1929      00000000 
+ 1929      00
+ 1930 001a 00333000 		.ascii	"\00030\000\000\000\000\020\014\006\020\014\006\000\000"
+ 1930      00000010 
+ 1930      0C06100C 
+ 1930      060000
+ 1931 0029 00000000 		.ascii	"\000\000\000\000\000\000\000@\300x@\300x@\000\004?\004"
+ 1931      00000040 
+ 1931      C07840C0 
+ 1931      78400004 
+ 1931      3F04
+ 1932 003b 043F0404 		.ascii	"\004?\004\004\000\000p\210\374\0100\000\000\000\030"
+ 1932      00007088 
+ 1932      FC083000 
+ 1932      000018
+ 1933 004a 20FF211E 		.ascii	" \377!\036\000\000\360\010\360\000\340\030\000\000\000"
+ 1933      0000F008 
+ 1933      F000E018 
+ 1933      000000
+ 1934 0059 211C031E 		.ascii	"!\034\003\036!\036\000\000\360\010\210p\000\000\000"
+ 1934      211E0000 
+ 1934      F0088870 
+ 1934      000000
+ 1935 0068 1E212324 		.ascii	"\036!#$\031'!\020\020\026\016\000\000\000\000\000\000"
+ 1935      19272110 
+ 1935      10160E00 
+ 1935      00000000 
+ 1935      00
+ 1936 0079 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\340\030\004"
+ 1936      00000000 
+ 1936      0000E018 
+ 1936      04
+ 1937 0086 02000000 		.ascii	"\002\000\000\000\000\007\030 @\000\000\002\004\030\340"
+ 1937      00071820 
+ 1937      40000002 
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 48
+
+
+ 1937      0418E0
+ 1938 0095 00000000 		.ascii	"\000\000\000\000@ \030\007\000\000\000@@\200\360\200"
+ 1938      40201807 
+ 1938      00000040 
+ 1938      4080F080 
+ 1939 00a5 40400002 		.ascii	"@@\000\002\002\001\017\001\002\002\000\000\000\000\360"
+ 1939      02010F01 
+ 1939      02020000 
+ 1939      0000F0
+ 1940 00b4 00000000 		.ascii	"\000\000\000\000\001\001\001\037\001\001\001\000\000"
+ 1940      0101011F 
+ 1940      01010100 
+ 1940      00
+ 1941 00c1 00000000 		.ascii	"\000\000\000\000\000\000\000\200\260p\000\000\000\000"
+ 1941      00000080 
+ 1941      B0700000 
+ 1941      0000
+ 1942 00cf 00000000 		.ascii	"\000\000\000\000\000\000\000\000\000\000\001\001\001"
+ 1942      00000000 
+ 1942      00000101 
+ 1942      01
+ 1943 00dc 01010101 		.ascii	"\001\001\001\001\000\000\000\000\000\000\000\000\000"
+ 1943      00000000 
+ 1943      00000000 
+ 1943      00
+ 1944 00e9 30300000 		.ascii	"00\000\000\000\000\000\000\000\000\000\200`\030\004"
+ 1944      00000000 
+ 1944      00000080 
+ 1944      601804
+ 1945 00f8 00601806 		.ascii	"\000`\030\006\001\000\000\000\000\340\020\010\010\020"
+ 1945      01000000 
+ 1945      00E01008 
+ 1945      0810
+ 1946 0106 E000000F 		.ascii	"\340\000\000\017\020  \020\017\000\000\020\020\370\000"
+ 1946      10202010 
+ 1946      0F000010 
+ 1946      10F800
+ 1947 0115 00000000 		.ascii	"\000\000\000\000  ?  \000\000\000p\010\010\010\210p"
+ 1947      20203F20 
+ 1947      20000000 
+ 1947      70080808 
+ 1947      8870
+ 1948 0127 00003028 		.ascii	"\000\0000($\"!0\000\0000\010\210\210H0\000\000\030 "
+ 1948      24222130 
+ 1948      00003008 
+ 1948      88884830 
+ 1948      00001820 
+ 1949 013b 2020110E 		.ascii	"  \021\016\000\000\000\300 \020\370\000\000\000\007"
+ 1949      000000C0 
+ 1949      2010F800 
+ 1949      000007
+ 1950 014a 0424243F 		.ascii	"\004$$?$\000\000\370\010\210\210\010\010\000\000\031"
+ 1950      240000F8 
+ 1950      08888808 
+ 1950      08000019 
+ 1951 015a 21202011 		.ascii	"!  \021\016\000\000\340\020\210\210\030\000\000\000"
+ 1951      0E0000E0 
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 49
+
+
+ 1951      10888818 
+ 1951      000000
+ 1952 0169 0F112020 		.ascii	"\017\021  \021\016\000\0008\010\010\3108\010\000\000"
+ 1952      110E0000 
+ 1952      380808C8 
+ 1952      38080000 
+ 1953 0179 00003F00 		.ascii	"\000\000?\000\000\000\000\000p\210\010\010\210p\000"
+ 1953      00000000 
+ 1953      70880808 
+ 1953      887000
+ 1954 0188 001C2221 		.ascii	"\000\034\"!!\"\034\000\000\340\020\010\010\020\340\000"
+ 1954      21221C00 
+ 1954      00E01008 
+ 1954      0810E000 
+ 1955 0198 00003122 		.ascii	"\000\0001\"\"\021\017\000\000\000\000\300\300\000\000"
+ 1955      22110F00 
+ 1955      000000C0 
+ 1955      C00000
+ 1956 01a7 00000000 		.ascii	"\000\000\000\00000\000\000\000\000\000\000\200\000\000"
+ 1956      30300000 
+ 1956      00000000 
+ 1956      800000
+ 1957 01b6 00000000 		.ascii	"\000\000\000\000\200`\000\000\000\000\000\000\200@ "
+ 1957      80600000 
+ 1957      00000000 
+ 1957      804020
+ 1958 01c5 10080000 		.ascii	"\020\010\000\000\001\002\004\010\020 \000@@@@@@@\000"
+ 1958      01020408 
+ 1958      10200040 
+ 1958      40404040 
+ 1958      404000
+ 1959 01d8 04040404 		.ascii	"\004\004\004\004\004\004\004\000\000\010\020 @\200\000"
+ 1959      04040400 
+ 1959      00081020 
+ 1959      408000
+ 1960 01e7 00002010 		.ascii	"\000\000 \020\010\004\002\001\000\000pH\010\010\010"
+ 1960      08040201 
+ 1960      00007048 
+ 1960      080808
+ 1961 01f6 F0000000 		.ascii	"\360\000\000\000\00006\001\000\000\3000\310(\350\020"
+ 1961      00303601 
+ 1961      0000C030 
+ 1961      C828E810 
+ 1962 0206 E0000718 		.ascii	"\340\000\007\030'$#\024\013\000\000\000\3008\340\000"
+ 1962      27242314 
+ 1962      0B000000 
+ 1962      C038E000 
+ 1963 0216 0000203C 		.ascii	"\000\000 <#\002\002'8 \010\370\210\210\210p\000\000"
+ 1963      23020227 
+ 1963      382008F8 
+ 1963      88888870 
+ 1963      0000
+ 1964 0228 203F2020 		.ascii	" ?   \021\016\000\3000\010\010\010\0108\000\007\030"
+ 1964      20110E00 
+ 1964      C0300808 
+ 1964      08083800 
+ 1964      0718
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 50
+
+
+ 1965 023a 20202010 		.ascii	"   \020\010\000\010\370\010\010\010\020\340\000 ?  "
+ 1965      080008F8 
+ 1965      08080810 
+ 1965      E000203F 
+ 1965      2020
+ 1966 024c 20100F00 		.ascii	" \020\017\000\010\370\210\210\350\010\020\000 ?  # "
+ 1966      08F88888 
+ 1966      E8081000 
+ 1966      203F2020 
+ 1966      2320
+ 1967 025e 180008F8 		.ascii	"\030\000\010\370\210\210\350\010\020\000 ? \000\003"
+ 1967      8888E808 
+ 1967      1000203F 
+ 1967      200003
+ 1968 026d 000000C0 		.ascii	"\000\000\000\3000\010\010\0108\000\000\007\030  \"\036"
+ 1968      30080808 
+ 1968      38000007 
+ 1968      18202022 
+ 1968      1E
+ 1969 027e 020008F8 		.ascii	"\002\000\010\370\010\000\000\010\370\010 ?!\001\001"
+ 1969      08000008 
+ 1969      F808203F 
+ 1969      210101
+ 1970 028d 213F2000 		.ascii	"!? \000\010\010\370\010\010\000\000\000  ?  \000\000"
+ 1970      0808F808 
+ 1970      08000000 
+ 1970      20203F20 
+ 1970      200000
+ 1971 02a0 00000808 		.ascii	"\000\000\010\010\370\010\010\000\300\200\200\200\177"
+ 1971      F8080800 
+ 1971      C0808080 
+ 1971      7F
+ 1972 02ad 00000008 		.ascii	"\000\000\000\010\370\210\300(\030\010\000 ? \001&8 "
+ 1972      F888C028 
+ 1972      18080020 
+ 1972      3F200126 
+ 1972      3820
+ 1973 02bf 0008F808 		.ascii	"\000\010\370\010\000\000\000\000\000 ?    0\000\010"
+ 1973      00000000 
+ 1973      00203F20 
+ 1973      20202030 
+ 1973      0008
+ 1974 02d1 F8F800F8 		.ascii	"\370\370\000\370\370\010\000 ?\000?\000? \000\010\370"
+ 1974      F8080020 
+ 1974      3F003F00 
+ 1974      3F200008 
+ 1974      F8
+ 1975 02e2 30C00008 		.ascii	"0\300\000\010\370\010 ? \000\007\030?\000\340\020\010"
+ 1975      F808203F 
+ 1975      20000718 
+ 1975      3F00E010 
+ 1975      08
+ 1976 02f3 080810E0 		.ascii	"\010\010\020\340\000\017\020   \020\017\000\010\370"
+ 1976      000F1020 
+ 1976      2020100F 
+ 1976      0008F8
+ 1977 0302 08080808 		.ascii	"\010\010\010\010\360\000 ?!\001\001\001\000\000\340"
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 51
+
+
+ 1977      F000203F 
+ 1977      21010101 
+ 1977      0000E0
+ 1978 0311 10080808 		.ascii	"\020\010\010\010\020\340\000\017\030$$8PO\000\010\370"
+ 1978      10E0000F 
+ 1978      18242438 
+ 1978      504F0008 
+ 1978      F8
+ 1979 0322 88888888 		.ascii	"\210\210\210\210p\000 ? \000\003\0140 \000p\210\010"
+ 1979      7000203F 
+ 1979      2000030C 
+ 1979      30200070 
+ 1979      8808
+ 1980 0334 08083800 		.ascii	"\010\0108\000\0008 !!\"\034\000\030\010\010\370\010"
+ 1980      00382021 
+ 1980      21221C00 
+ 1980      180808F8 
+ 1980      08
+ 1981 0345 08180000 		.ascii	"\010\030\000\000\000 ? \000\000\000\010\370\010\000"
+ 1981      00203F20 
+ 1981      00000008 
+ 1981      F80800
+ 1982 0354 0008F808 		.ascii	"\000\010\370\010\000\037    \037\000\010x\210\000\000"
+ 1982      001F2020 
+ 1982      20201F00 
+ 1982      08788800 
+ 1982      00
+ 1983 0365 C8380800 		.ascii	"\3108\010\000\000\0078\016\001\000\000\370\010\000\370"
+ 1983      0007380E 
+ 1983      010000F8 
+ 1983      0800F8
+ 1984 0374 0008F800 		.ascii	"\000\010\370\000\003<\007\000\007<\003\000\010\030h"
+ 1984      033C0700 
+ 1984      073C0300 
+ 1984      081868
+ 1985 0383 80806818 		.ascii	"\200\200h\030\010 0,\003\003,0 \0108\310\000\3108\010"
+ 1985      0820302C 
+ 1985      03032C30 
+ 1985      200838C8 
+ 1985      00C83808 
+ 1986 0397 00000020 		.ascii	"\000\000\000 ? \000\000\000\020\010\010\010\3108\010"
+ 1986      3F200000 
+ 1986      00100808 
+ 1986      08C83808 
+ 1987 03a7 00203826 		.ascii	"\000 8&!  \030\000\000\000\000\376\002\002\002\000\000"
+ 1987      21202018 
+ 1987      00000000 
+ 1987      FE020202 
+ 1987      0000
+ 1988 03b9 00007F40 		.ascii	"\000\000\177@@@\000\000\0140\300\000\000\000\000\000"
+ 1988      40400000 
+ 1988      0C30C000 
+ 1988      00000000 
+ 1989 03c9 00000106 		.ascii	"\000\000\001\0068\300\000\000\002\002\002\376\000\000"
+ 1989      38C00000 
+ 1989      020202FE 
+ 1989      0000
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 52
+
+
+ 1990 03d7 00004040 		.ascii	"\000\000@@@\177\000\000\000\000\000\004\002\002\002"
+ 1990      407F0000 
+ 1990      00000004 
+ 1990      020202
+ 1991 03e6 04000000 		.ascii	"\004\000\000\000\000\000\000\000\000\000\000\000\000"
+ 1991      00000000 
+ 1991      00000000 
+ 1991      00
+ 1992 03f3 00000000 		.ascii	"\000\000\000\000\000\200\200\200\200\200\200\200\200"
+ 1992      00808080 
+ 1992      80808080 
+ 1992      80
+ 1993 0400 00020204 		.ascii	"\000\002\002\004\000\000\000\000\000\000\000\000\000"
+ 1993      00000000 
+ 1993      00000000 
+ 1993      00
+ 1994 040d 00000000 		.ascii	"\000\000\000\000\000\200\200\200\200\000\000\000\031"
+ 1994      00808080 
+ 1994      80000000 
+ 1994      19
+ 1995 041a 24222222 		.ascii	"$\"\"\"? \010\370\000\200\200\000\000\000\000?\021 "
+ 1995      3F2008F8 
+ 1995      00808000 
+ 1995      0000003F 
+ 1995      1120
+ 1996 042c 20110E00 		.ascii	" \021\016\000\000\000\000\200\200\200\000\000\000\016"
+ 1996      00000080 
+ 1996      80800000 
+ 1996      000E
+ 1997 043a 11202020 		.ascii	"\021   \021\000\000\000\000\200\200\210\370\000\000"
+ 1997      11000000 
+ 1997      00808088 
+ 1997      F80000
+ 1998 0449 0E112020 		.ascii	"\016\021  \020? \000\000\200\200\200\200\000\000\000"
+ 1998      103F2000 
+ 1998      00808080 
+ 1998      80000000 
+ 1999 0459 1F222222 		.ascii	"\037\"\"\"\"\023\000\000\200\200\360\210\210\210\030"
+ 1999      22130000 
+ 1999      8080F088 
+ 1999      888818
+ 2000 0468 0020203F 		.ascii	"\000  ?  \000\000\000\000\200\200\200\200\200\000\000"
+ 2000      20200000 
+ 2000      00008080 
+ 2000      80808000 
+ 2000      00
+ 2001 0479 6B949494 		.ascii	"k\224\224\224\223`\000\010\370\000\200\200\200\000\000"
+ 2001      93600008 
+ 2001      F8008080 
+ 2001      800000
+ 2002 0488 203F2100 		.ascii	" ?!\000\000 ? \000\200\230\230\000\000\000\000\000 "
+ 2002      00203F20 
+ 2002      00809898 
+ 2002      00000000 
+ 2002      0020
+ 2003 049a 203F2020 		.ascii	" ?  \000\000\000\000\000\200\230\230\000\000\000\300"
+ 2003      00000000 
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 53
+
+
+ 2003      00809898 
+ 2003      000000C0 
+ 2004 04aa 8080807F 		.ascii	"\200\200\200\177\000\000\010\370\000\000\200\200\200"
+ 2004      000008F8 
+ 2004      00008080 
+ 2004      80
+ 2005 04b7 00203F24 		.ascii	"\000 ?$\002-0 \000\000\010\010\370\000\000\000\000\000"
+ 2005      022D3020 
+ 2005      00000808 
+ 2005      F8000000 
+ 2005      0000
+ 2006 04c9 20203F20 		.ascii	"  ?  \000\000\200\200\200\200\200\200\200\000 ? \000"
+ 2006      20000080 
+ 2006      80808080 
+ 2006      80800020 
+ 2006      3F2000
+ 2007 04dc 3F20003F 		.ascii	"? \000?\200\200\000\200\200\200\000\000 ?!\000\000 "
+ 2007      80800080 
+ 2007      80800000 
+ 2007      203F2100 
+ 2007      0020
+ 2008 04ee 3F200000 		.ascii	"? \000\000\200\200\200\200\000\000\000\037    \037\000"
+ 2008      80808080 
+ 2008      0000001F 
+ 2008      20202020 
+ 2008      1F00
+ 2009 0500 80800080 		.ascii	"\200\200\000\200\200\000\000\000\200\377\241  \021\016"
+ 2009      80000000 
+ 2009      80FFA120 
+ 2009      20110E
+ 2010 050f 00000000 		.ascii	"\000\000\000\000\200\200\200\200\000\000\016\021  \240"
+ 2010      80808080 
+ 2010      00000E11 
+ 2010      2020A0
+ 2011 051e FF808080 		.ascii	"\377\200\200\200\200\000\200\200\200\000  ?! \000\001"
+ 2011      80008080 
+ 2011      80002020 
+ 2011      3F212000 
+ 2011      01
+ 2012 052f 00000080 		.ascii	"\000\000\000\200\200\200\200\200\000\0003$$$$\031\000"
+ 2012      80808080 
+ 2012      00003324 
+ 2012      24242419 
+ 2012      00
+ 2013 0540 008080E0 		.ascii	"\000\200\200\340\200\200\000\000\000\000\000\037  \000"
+ 2013      80800000 
+ 2013      0000001F 
+ 2013      202000
+ 2014 054f 00808000 		.ascii	"\000\200\200\000\000\000\200\200\000\000\037   \020"
+ 2014      00008080 
+ 2014      00001F20 
+ 2014      202010
+ 2015 055e 3F208080 		.ascii	"? \200\200\200\000\000\200\200\200\000\001\0160\010"
+ 2015      80000080 
+ 2015      80800001 
+ 2015      0E3008
+ 2016 056d 06010080 		.ascii	"\006\001\000\200\200\000\200\000\200\200\200\0170\014"
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 54
+
+
+ 2016      80008000 
+ 2016      8080800F 
+ 2016      300C
+ 2017 057b 030C300F 		.ascii	"\003\0140\017\000\000\200\200\000\200\200\200\000\000"
+ 2017      00008080 
+ 2017      00808080 
+ 2017      0000
+ 2018 0589 20312E0E 		.ascii	" 1.\0161 \000\200\200\200\000\000\200\200\200\200\201"
+ 2018      31200080 
+ 2018      80800000 
+ 2018      80808080 
+ 2018      81
+ 2019 059a 8E701806 		.ascii	"\216p\030\006\001\000\000\200\200\200\200\200\200\000"
+ 2019      01000080 
+ 2019      80808080 
+ 2019      8000
+ 2020 05a8 0021302C 		.ascii	"\000!0,\"!0\000\000\000\000\000\200|\002\002\000\000"
+ 2020      22213000 
+ 2020      00000000 
+ 2020      807C0202 
+ 2020      0000
+ 2021 05ba 0000003F 		.ascii	"\000\000\000?@@\000\000\000\000\377\000\000\000\000"
+ 2021      40400000 
+ 2021      0000FF00 
+ 2021      000000
+ 2022 05c9 000000FF 		.ascii	"\000\000\000\377\000\000\000\000\002\002|\200\000\000"
+ 2022      00000000 
+ 2022      02027C80 
+ 2022      0000
+ 2023 05d7 00004040 		.ascii	"\000\000@@?\000\000\000\000\000\006\001\001\002\002"
+ 2023      3F000000 
+ 2023      00000601 
+ 2023      010202
+ 2024 05e6 04040000 		.ascii	"\004\004\000\000\000\000\000\000\000\000"
+ 2024      00000000 
+ 2024      0000
+ 2025              		.text
+ 2026              	.Letext0:
+ 2027              		.file 2 "c:\\users\\cheng\\.iotlink\\tools\\gcc-arm-none-eabi\\arm-none-eabi\\include\\machine\\_d
+ 2028              		.file 3 "c:\\users\\cheng\\.iotlink\\tools\\gcc-arm-none-eabi\\arm-none-eabi\\include\\sys\\_stdin
+ 2029              		.file 4 "Drivers/CMSIS/Include/core_cm3.h"
+ 2030              		.file 5 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 2031              		.file 6 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 2032              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h"
+ 2033              		.file 8 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 2034              		.file 9 "Core/Inc/oledfont.h"
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 55
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 oled.c
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:16     .text.IIC_Start:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:24     .text.IIC_Start:00000000 IIC_Start
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:66     .text.IIC_Start:00000030 $d
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:71     .text.IIC_Stop:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:78     .text.IIC_Stop:00000000 IIC_Stop
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:113    .text.IIC_Stop:00000024 $d
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:118    .text.IIC_Wait_Ack:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:125    .text.IIC_Wait_Ack:00000000 IIC_Wait_Ack
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:154    .text.IIC_Wait_Ack:0000001c $d
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:159    .text.Write_IIC_Byte:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:166    .text.Write_IIC_Byte:00000000 Write_IIC_Byte
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:263    .text.Write_IIC_Byte:00000054 $d
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:268    .text.Write_IIC_Command:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:275    .text.Write_IIC_Command:00000000 Write_IIC_Command
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:322    .text.Write_IIC_Data:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:329    .text.Write_IIC_Data:00000000 Write_IIC_Data
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:376    .text.OLED_WR_Byte:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:383    .text.OLED_WR_Byte:00000000 OLED_WR_Byte
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:422    .text.fill_picture:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:429    .text.fill_picture:00000000 fill_picture
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:513    .text.Delay_50ms:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:520    .text.Delay_50ms:00000000 Delay_50ms
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:564    .text.Delay_1ms:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:571    .text.Delay_1ms:00000000 Delay_1ms
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:618    .text.OLED_Set_Pos:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:625    .text.OLED_Set_Pos:00000000 OLED_Set_Pos
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:667    .text.OLED_Display_On:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:674    .text.OLED_Display_On:00000000 OLED_Display_On
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:706    .text.OLED_Display_Off:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:713    .text.OLED_Display_Off:00000000 OLED_Display_Off
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:745    .text.OLED_Clear:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:752    .text.OLED_Clear:00000000 OLED_Clear
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:833    .text.OLED_On:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:840    .text.OLED_On:00000000 OLED_On
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:921    .text.OLED_ShowChar:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:928    .text.OLED_ShowChar:00000000 OLED_ShowChar
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:1089   .text.OLED_ShowChar:0000008c $d
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:1095   .text.oled_pow:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:1102   .text.oled_pow:00000000 oled_pow
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:1140   .text.OLED_ShowNum:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:1147   .text.OLED_ShowNum:00000000 OLED_ShowNum
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:1279   .text.OLED_ShowNum:00000090 $d
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:1284   .text.OLED_ShowString:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:1291   .text.OLED_ShowString:00000000 OLED_ShowString
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:1372   .text.OLED_ShowCHinese:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:1379   .text.OLED_ShowCHinese:00000000 OLED_ShowCHinese
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:1479   .text.OLED_ShowCHinese:00000050 $d
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:1484   .text.OLED_DrawBMP:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:1491   .text.OLED_DrawBMP:00000000 OLED_DrawBMP
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:1581   .text.OLED_Init:00000000 $t
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:1588   .text.OLED_Init:00000000 OLED_Init
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:1751   .data.Hzk:00000000 Hzk
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:1927   .rodata.F8X16:00000000 F8X16
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:1829   .rodata.F6x8:00000000 F6x8
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:1747   .data.Hzk:00000000 $d
+ARM GAS  C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s 			page 56
+
+
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:1825   .rodata.F6x8:00000000 $d
+C:\Users\Cheng\AppData\Local\Temp\ccIroRb9.s:1923   .rodata.F8X16:00000000 $d
+
+UNDEFINED SYMBOLS
+HAL_GPIO_WritePin
+HAL_Delay

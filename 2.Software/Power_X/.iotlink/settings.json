@@ -1,0 +1,20 @@
+{
+    "compiler": {
+        "path": "${system_default}",
+        "prefix": "arm-none-eabi",
+        "makefile": "Makefile",
+        "makeparam": "-j12"
+    },
+    "debugger": {
+        "adapter": "JLink",
+        "openocdPath": "${system_default}",
+        "openocdOption": "",
+        "interface": "SWD",
+        "deviceName": "STM32F103C8",
+        "loadAddress": "0x08000000",
+        "verify": true,
+        "binfile": "build\\Power_X.elf"
+    },
+    "general": {},
+    "version": "1.0.0"
+}

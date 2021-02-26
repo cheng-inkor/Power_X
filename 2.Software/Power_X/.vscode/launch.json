@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch",
+            "type": "iotlink-debug",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "initBreak": "main"
+        },
+        {
+            "name": "Attach",
+            "type": "iotlink-debug",
+            "request": "attach",
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}

@@ -1,0 +1,29 @@
+{
+    "env": {
+        "sdkPath": "iot_link"
+    },
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "C:/Users/Cheng/.iotlink/tools/gcc-arm-none-eabi/arm-none-eabi/include",
+                "C:/Users/Cheng/.iotlink/tools/gcc-arm-none-eabi/lib/gcc/arm-none-eabi/9.2.1/include",
+                "${workspaceFolder}/**",
+                "${sdkPath}/**"
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true
+            },
+            "defines": [
+                "_DEBUG",
+                "USE_HAL_DRIVER",
+                "STM32F103xB"
+            ],
+            "intelliSenseMode": "clang-x64",
+            "cStandard": "c11",
+            "cppStandard": "c++14",
+            "compilerPath": "C:/Users/Cheng/.iotlink/tools/gcc-arm-none-eabi/bin/arm-none-eabi-gcc.exe"
+        }
+    ],
+    "version": 4
+}
